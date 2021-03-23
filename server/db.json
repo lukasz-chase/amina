@@ -1,0 +1,114 @@
+{
+  "subamins": [
+    {
+      "id": 1,
+      "name": "sports",
+      "members": 5,
+      "logo": "https://media.npr.org/assets/img/2020/06/10/gettyimages-200199027-001-b5fb3d8d8469ab744d9e97706fa67bc5c0e4fa40.jpg",
+      "posts": [
+        {
+          "id": 1,
+          "title": "sports are cool",
+          "description": "because i like them",
+          "images": [
+            {
+              "img": "https://webunwto.s3.eu-west-1.amazonaws.com/2020-01/sport-congresse.jpg"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "gaming",
+      "members": 15,
+      "logo": "https://inwestycje.pl/wp-content/uploads/2020/03/gaming.jpg",
+      "posts": [
+        {
+          "id": 1,
+          "title": "games are cool",
+          "description": "because i like them",
+          "images": [
+            {
+              "img": "https://alisale.pl/wp-content/uploads/2020/11/200124_Vignette_Web_Detail1.jpg"
+            },
+            {
+              "img": "https://alisale.pl/wp-content/uploads/2020/11/200124_Vignette_Web_Detail1.jpg"
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "title": "games arent cool",
+          "description": "because i dont like them",
+          "images": [
+            {
+              "img": "https://webunwto.s3.eu-west-1.amazonaws.com/2020-01/sport-congresse.jpg"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "animals",
+      "members": 50,
+      "logo": "https://desenio.pl/bilder/artiklar/zoom/11378_2.jpg?imgwidth=435&qt=",
+      "posts": [
+        {
+          "id": 1,
+          "title": "animals are cute",
+          "description": "because i like them",
+          "images": [
+            {
+              "img": "https://webunwto.s3.eu-west-1.amazonaws.com/2020-01/sport-congresse.jpg"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "cars",
+      "members": 5,
+      "logo": "https://static.posters.cz/image/750/plakaty/auta-3-cars-3-mcqueen-race-i47515.jpg",
+      "posts": [
+        {
+          "id": 1,
+          "title": "cars are fast",
+          "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum malesuada, quam vitae imperdiet porttitor, ligula nunc malesuada metus, at consequat nibh nibh sit amet dolor.",
+          "images": [
+            {
+              "img": "https://webunwto.s3.eu-west-1.amazonaws.com/2020-01/sport-congresse.jpg"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "cats",
+      "members": 5000,
+      "logo": "https://cdnuploads.aa.com.tr/uploads/Contents/2020/05/14/thumbs_b_c_88bedbc66bb57f0e884555e8250ae5f9.jpg?v=140708",
+      "posts": [
+        {
+          "id": 1,
+          "title": "cats are the best",
+          "description": "i really love cats",
+          "images": [
+            {
+              "img": "https://webunwto.s3.eu-west-1.amazonaws.com/2020-01/sport-congresse.jpg"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "login": "luki",
+      "password": "luki"
+    }
+  ]
+}
