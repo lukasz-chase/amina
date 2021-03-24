@@ -13,7 +13,7 @@ export const HomeComponent = styled.div<homeProps>`
 
 export const Posts = styled.div<homeProps>`
   min-height: 100vh;
-  width: 45%;
+  width: 40%;
   @media screen and (max-width: 1000px) {
     width: 100%;
   }

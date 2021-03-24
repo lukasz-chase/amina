@@ -4,102 +4,149 @@
       "id": 1,
       "name": "sports",
       "members": 5,
-      "logo": "https://media.npr.org/assets/img/2020/06/10/gettyimages-200199027-001-b5fb3d8d8469ab744d9e97706fa67bc5c0e4fa40.jpg",
-      "posts": [
-        {
-          "id": 1,
-          "title": "sports are cool",
-          "description": "because i like them",
-          "images": [
-            {
-              "img": "https://webunwto.s3.eu-west-1.amazonaws.com/2020-01/sport-congresse.jpg"
-            }
-          ]
-        }
-      ]
+      "logo": "https://media.npr.org/assets/img/2020/06/10/gettyimages-200199027-001-b5fb3d8d8469ab744d9e97706fa67bc5c0e4fa40.jpg"
     },
     {
       "id": 2,
       "name": "gaming",
       "members": 15,
-      "logo": "https://inwestycje.pl/wp-content/uploads/2020/03/gaming.jpg",
-      "posts": [
-        {
-          "id": 1,
-          "title": "games are cool",
-          "description": "because i like them",
-          "images": [
-            {
-              "img": "https://alisale.pl/wp-content/uploads/2020/11/200124_Vignette_Web_Detail1.jpg"
-            },
-            {
-              "img": "https://alisale.pl/wp-content/uploads/2020/11/200124_Vignette_Web_Detail1.jpg"
-            }
-          ]
-        },
-        {
-          "id": 2,
-          "title": "games arent cool",
-          "description": "because i dont like them",
-          "images": [
-            {
-              "img": "https://webunwto.s3.eu-west-1.amazonaws.com/2020-01/sport-congresse.jpg"
-            }
-          ]
-        }
-      ]
+      "logo": "https://inwestycje.pl/wp-content/uploads/2020/03/gaming.jpg"
     },
     {
       "id": 3,
       "name": "animals",
       "members": 50,
-      "logo": "https://desenio.pl/bilder/artiklar/zoom/11378_2.jpg?imgwidth=435&qt=",
-      "posts": [
-        {
-          "id": 1,
-          "title": "animals are cute",
-          "description": "because i like them",
-          "images": [
-            {
-              "img": "https://webunwto.s3.eu-west-1.amazonaws.com/2020-01/sport-congresse.jpg"
-            }
-          ]
-        }
-      ]
+      "logo": "https://desenio.pl/bilder/artiklar/zoom/11378_2.jpg?imgwidth=435&qt="
     },
     {
       "id": 4,
       "name": "cars",
       "members": 5,
-      "logo": "https://static.posters.cz/image/750/plakaty/auta-3-cars-3-mcqueen-race-i47515.jpg",
-      "posts": [
-        {
-          "id": 1,
-          "title": "cars are fast",
-          "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum malesuada, quam vitae imperdiet porttitor, ligula nunc malesuada metus, at consequat nibh nibh sit amet dolor.",
-          "images": [
-            {
-              "img": "https://webunwto.s3.eu-west-1.amazonaws.com/2020-01/sport-congresse.jpg"
-            }
-          ]
-        }
-      ]
+      "logo": "https://static.posters.cz/image/750/plakaty/auta-3-cars-3-mcqueen-race-i47515.jpg"
     },
     {
       "id": 5,
       "name": "cats",
       "members": 5000,
-      "logo": "https://cdnuploads.aa.com.tr/uploads/Contents/2020/05/14/thumbs_b_c_88bedbc66bb57f0e884555e8250ae5f9.jpg?v=140708",
-      "posts": [
+      "logo": "https://cdnuploads.aa.com.tr/uploads/Contents/2020/05/14/thumbs_b_c_88bedbc66bb57f0e884555e8250ae5f9.jpg?v=140708"
+    }
+  ],
+  "posts": [
+    {
+      "id": 1,
+      "subamindId": 4,
+      "subaminName": "cars",
+      "date": "2021-03-24 10:20:00",
+      "title": "cars are fast",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum malesuada, quam vitae imperdiet porttitor, ligula nunc malesuada metus, at consequat nibh nibh sit amet dolor.",
+      "author": "luki",
+      "upvotes": 50,
+      "image": "https://static.posters.cz/image/750/plakaty/auta-3-cars-3-mcqueen-race-i47515.jpg",
+        
+  
+      "comments": [
         {
           "id": 1,
-          "title": "cats are the best",
-          "description": "i really love cats",
-          "images": [
-            {
-              "img": "https://webunwto.s3.eu-west-1.amazonaws.com/2020-01/sport-congresse.jpg"
-            }
-          ]
+          "author": "ja",
+          "upvotes": 50,
+          "date": "24.03.2021"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "subamindId": 1,
+      "subaminName": "sports",
+      "date": "2021-02-24 15:20:00",
+      "title": "sports are cool",
+      "description": "because i like them",
+      "author": "asd",
+      "upvotes": 1150,
+      "image": "https://webunwto.s3.eu-west-1.amazonaws.com/2020-01/sport-congresse.jpg",
+
+      "comments": [
+        {
+          "id":  1,
+          "author":  "ja",
+          "upvotes": 50,
+          "date": "24.03.2021"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "subamindId": 2,
+      "subaminName": "gaming",
+      "date": "2021-03-23 15:20:00",
+      "title": "games are cool",
+      "description": "because i like them",
+      "author": "xcv",
+      "upvotes": 150,
+      "image": "https://alisale.pl/wp-content/uploads/2020/11/200124_Vignette_Web_Detail1.jpg",
+      "comments": [
+        {
+          "author":  "ja",
+          "upvotes": 50,
+          "date": "24.03.2021"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "subamindId": 2,
+      "subaminName": "gaming",
+      "date": "2021-03-24 16:20:00",
+      "title": "games arent cool",
+      "description": "because i dont like them",
+      "author": "dfhfh",
+      "upvotes": 520,
+      "image": "https://i.guim.co.uk/img/media/7c2ab1a3e60e445caf0a4d3de302591e830e8f7f/0_0_3800_2280/master/3800.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=49331bc571155fab736c3ce179f31770",
+      
+          
+      "comments": [
+        {
+          "id":  1,
+          "author":  "ja",
+          "upvotes": 50,
+          "date": "24.03.2021"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "subamindId": 3,
+      "subaminName": "animals",
+      "date": "2021-03-24 15:20:00",
+      "title": "animals are cute",
+      "description": "because i like them",
+      "author": "ghj",
+      "upvotes": 550,
+      "image": "https://images.photowall.com/products/65791/world-of-animals-map.jpg?h=699&q=85",
+      "comments": [
+        {
+          "id":  1,
+          "author":  "ja",
+          "upvotes": 50,
+          "date": "24.03.2021"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "subamindId": 5,
+      "title": "cats are the best",
+      "date": "24.03.2021 11:03",
+      "subaminName": "cats",
+      "description": "i really love cats",
+      "author": "luki",
+      "upvotes": 350,
+      "image": "https://cdnuploads.aa.com.tr/uploads/Contents/2020/05/14/thumbs_b_c_88bedbc66bb57f0e884555e8250ae5f9.jpg?v=140708",
+      "comments": [
+        {
+          "id":  1,
+          "author":  "ja",
+          "upvotes": 50,
+          "date": "24.03.2021"
         }
       ]
     }
