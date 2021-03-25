@@ -36,14 +36,13 @@
       "id": 1,
       "subamindId": 4,
       "subaminName": "cars",
-      "date": "2021-03-24 10:20:00",
+      "date": "2021-01-24 10:20:00",
       "title": "cars are fast",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum malesuada, quam vitae imperdiet porttitor, ligula nunc malesuada metus, at consequat nibh nibh sit amet dolor.",
       "author": "luki",
       "upvotes": 50,
       "image": "https://static.posters.cz/image/750/plakaty/auta-3-cars-3-mcqueen-race-i47515.jpg",
-        
-  
+
       "comments": [
         {
           "id": 1,
@@ -78,14 +77,14 @@
       "subamindId": 2,
       "subaminName": "gaming",
       "date": "2021-03-23 15:20:00",
-      "title": "games are cool",
+      "title": "games are coolaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
       "description": "because i like them",
       "author": "xcv",
       "upvotes": 150,
       "image": "https://alisale.pl/wp-content/uploads/2020/11/200124_Vignette_Web_Detail1.jpg",
       "comments": [
         {
-          "author":  "ja",
+          "author": "ja",
           "upvotes": 50,
           "date": "24.03.2021"
         }
@@ -120,12 +119,12 @@
       "title": "animals are cute",
       "description": "because i like them",
       "author": "ghj",
-      "upvotes": 550,
+      "upvotes": 5550,
       "image": "https://images.photowall.com/products/65791/world-of-animals-map.jpg?h=699&q=85",
       "comments": [
         {
-          "id":  1,
-          "author":  "ja",
+          "id": 1,
+          "author": "ja",
           "upvotes": 50,
           "date": "24.03.2021"
         }

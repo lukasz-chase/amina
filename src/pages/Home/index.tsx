@@ -12,19 +12,19 @@ const Home:React.FC = () => {
   const store = useStore();
   useEffect(() => {
     store.fetchSubamins(); 
-    store.fetchPosts();
+    store.fetchTopPosts();
     // store.fetchSubaminByIds([1, 2, 3]);
     /* eslint-disable react-hooks/exhaustive-deps */
   }, []);
   return (
-    <HomeComponent darkMode={store.darkMode}>
-      <Posts darkMode={store.darkMode}>
-        <Header />
+    <HomeComponent darkMode={store.darkMode} classicView={store.classicView}>
+      <Posts darkMode={store.darkMode} classicView={store.classicView}>
+        <Header /> 
         {store.posts.map((post) => (
-          <Post post={post}/>
+          <Post post={post} key={post.id}/>
         ))}
       </Posts>
-      <Info darkMode={store.darkMode}>
+      <Info darkMode={store.darkMode} classicView={store.classicView}>
         <div className="trending">
           <h2>Most popular subaminas</h2>
           {store.subamins

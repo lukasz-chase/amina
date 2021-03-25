@@ -37,8 +37,8 @@ const Post: React.FC<PostProps> = ({ post }) => {
   const store = useStore();
   //handlers
   return (
-    <PostComponent darkMode={store.darkMode}>
-      <div className="upvotes">
+    <PostComponent darkMode={store.darkMode} classicView={store.classicView} compactView={store.compactView}>
+      <div className="upvotes"> 
         <BiUpvote className="upvote-button" />
         <span>
           {" "}
@@ -57,10 +57,21 @@ const Post: React.FC<PostProps> = ({ post }) => {
               <span className="author">{format(post.date)}</span>
             </span>
             <div className="join">
-              <button className="join-button">+ join</button>
+              <button className="join-button">+ <span>join</span></button>
             </div>
           </div>
           <div className="post-title">{post.title}</div>
+          <div className="post-tools">
+              <button className="comment">
+                <FaRegCommentAlt className="icon" /> Comments
+              </button>
+              <button className="share">
+                <IoIosShareAlt className="icon" /> Share
+              </button>
+              <button className="save">
+                <BiBookmarkPlus className="icon" /> Save
+              </button>
+            </div>
         </div>
         <div className="post-image">
           <img src={post.image} alt={post.title} />

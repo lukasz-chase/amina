@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 type homeProps = {
   darkMode: boolean;
+  classicView: boolean;
 };
 
 export const HomeComponent = styled.div<homeProps>`
@@ -13,7 +14,7 @@ export const HomeComponent = styled.div<homeProps>`
 
 export const Posts = styled.div<homeProps>`
   min-height: 100vh;
-  width: 40%;
+  width: ${({ classicView }) => (classicView ? "70%" : "40%")};
   @media screen and (max-width: 1000px) {
     width: 100%;
   }

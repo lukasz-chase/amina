@@ -33,11 +33,14 @@ type Store = {
   darkMode: boolean;
   changeDarkMode: () => void;
   classicView: boolean;
-  setClassicView: () => void;
+  setClassicView: (a: boolean) => void;
+  compactView: boolean;
+  setCompactView: (a: boolean) => void;
   subamins: Subamin[];
   fetchSubamins: () => void;
   posts: PostProperties[];
-  fetchPosts: () => void;
+  fetchTopPosts: () => void;
+  fetchNewPosts: () => void;
   // fetchSubaminByIds: ([]) => void;
   // users: [];
 };
@@ -48,19 +51,27 @@ export const useStore = create<Store>((set) => ({
     set((state) => ({ ...state, darkMode: !state.darkMode }));
   },
   classicView: false,
-  setClassicView(){
-    set((state)=> ({...state, classicView: !state.classicView}))
+  setClassicView(a) {
+    set((state) => ({ ...state, classicView: a, compactView: false }));
+  },
+  compactView: false,
+  setCompactView(a) {
+    set((state) => ({ ...state, compactView: a, classicView: true })); 
   },
   subamins: [],
   fetchSubamins: async () => {
     const response = await fetch(subaminsUrl);
     set({ subamins: await response.json() });
   },
-  posts:   [],
-  fetchPosts: async () => {
-    const response = await fetch(postsUrl);
-    set({   posts: await response.json()   })
-  }
+  posts: [],
+  fetchTopPosts: async () => {
+    const response = await fetch(postsUrl('upvotes','desc'));
+    set({ posts: await response.json() }); 
+  },
+  fetchNewPosts: async () => {
+    const response = await fetch(postsUrl('id','desc'));
+    set({ posts: await response.json() }); 
+  },
   // users: [],
   // fetchSubaminByIds: async (ids: number[]) => {
   //   const url = `${subaminsUrl}${ids.map((id) => `&id=${id}`).join("")}`;
