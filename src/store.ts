@@ -1,25 +1,26 @@
 import create from "zustand";
 // import axios from "axios";
-import { subaminsUrl, postsUrl } from "./api";
-
+import { subaminsUrl, postsUrl, postDetails } from "./api";
 
 interface CommentProperties {
   id: number;
   author: string;
   upvotes: number;
   date: string;
+  text: string;
 }
 interface PostProperties {
   id: number;
-  subamindId: number,
-  subaminName: string,
+  subamindId: number;
+  subaminName: string;
+  subaminLogo: string;
   title: string;
   description: string;
   author: string;
   upvotes: number;
-  date: string,
-  comments: CommentProperties[];
-  image: string;
+  date: string;
+  comments?: CommentProperties[];
+  image?: string;
 }
 
 interface Subamin {
@@ -41,6 +42,8 @@ type Store = {
   posts: PostProperties[];
   fetchTopPosts: () => void;
   fetchNewPosts: () => void;
+  postDetails: PostProperties;
+  fetchPostDetails: (id: number) => Promise<void>;
   // fetchSubaminByIds: ([]) => void;
   // users: [];
 };
@@ -56,7 +59,7 @@ export const useStore = create<Store>((set) => ({
   },
   compactView: false,
   setCompactView(a) {
-    set((state) => ({ ...state, compactView: a, classicView: true })); 
+    set((state) => ({ ...state, compactView: a, classicView: true }));
   },
   subamins: [],
   fetchSubamins: async () => {
@@ -65,12 +68,28 @@ export const useStore = create<Store>((set) => ({
   },
   posts: [],
   fetchTopPosts: async () => {
-    const response = await fetch(postsUrl('upvotes','desc'));
-    set({ posts: await response.json() }); 
+    const response = await fetch(postsUrl("upvotes", "desc"));
+    set({ posts: await response.json() });
   },
   fetchNewPosts: async () => {
-    const response = await fetch(postsUrl('id','desc'));
-    set({ posts: await response.json() }); 
+    const response = await fetch(postsUrl("date", "desc"));
+    set({ posts: await response.json() });
+  },
+  postDetails: {
+    id: 1,
+    subamindId: 1,
+    subaminName: "loading...",
+    subaminLogo: "loading...",
+    title: "loading...",
+    description: "loading...",
+    author: "loading...",
+    upvotes: 1,
+    date: "loading...",
+  },
+  fetchPostDetails: async (id) => {
+    const response = await fetch(postDetails(id));
+
+    set({ postDetails: await response.json() });
   },
   // users: [],
   // fetchSubaminByIds: async (ids: number[]) => {

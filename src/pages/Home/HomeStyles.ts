@@ -1,27 +1,27 @@
 import styled from "styled-components";
 
 type homeProps = {
-  darkMode: boolean;
-  classicView: boolean;
+  darkmode: boolean;
+  classicview: boolean;
 };
 
 export const HomeComponent = styled.div<homeProps>`
   width: 100%;
   display: flex;
   justify-content: center;
-  background: ${({ darkMode }) => (darkMode ? "#030303" : "#DAE0E6")};
+  background: ${({ darkmode }) => (darkmode ? "#030303" : "#DAE0E6")};
 `;
 
 export const Posts = styled.div<homeProps>`
   min-height: 100vh;
-  width: ${({ classicView }) => (classicView ? "70%" : "40%")};
+  width: ${({ classicview }) => (classicview ? "70%" : "40%")};
   @media screen and (max-width: 1000px) {
     width: 100%;
   }
 `;
 
 export const Info = styled.div<homeProps>`
-  background: ${({ darkMode }) => (darkMode ? "#1A1A1B" : "white")};
+  background: ${({ darkmode }) => (darkmode ? "#1A1A1B" : "white")};
   width: 20%;
   margin-top: 2rem;
   margin-left: 2rem;
@@ -29,7 +29,7 @@ export const Info = styled.div<homeProps>`
   border-radius: 5px;
   .trending {
     h2 {
-      color: ${({ darkMode }) => (darkMode ? "white" : "black")};
+      color: ${({ darkmode }) => (darkmode ? "white" : "black")};
       font-size: 1rem;
       text-align: center;
       padding: 1rem;
@@ -39,9 +39,9 @@ export const Info = styled.div<homeProps>`
       margin-top: 0.5rem;
       display: flex;
       align-items: center;
-      color: ${({ darkMode }) => (darkMode ? "white" : "black")};
-      border-bottom: ${({ darkMode }) =>
-        darkMode ? "1px solid #818384" : "1px solid #1A1A1B"};
+      color: ${({ darkmode }) => (darkmode ? "white" : "black")};
+      border-bottom: ${({ darkmode }) =>
+        darkmode ? "1px solid #818384" : "1px solid #1A1A1B"};
       .logo {
         height: 5vh;
         width: 5vh;

@@ -1,33 +1,38 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 //styles
 import { HomeComponent, Posts, Info } from "./HomeStyles";
 //store
-import useStore  from "../../store";
+import useStore from "../../store";
 //components
 import Header from "../../components/Header";
 import Post from "../../components/Post";
 
-
-const Home:React.FC = () => {
-  const store = useStore();
+const Home: React.FC = () => {
+  //state
+  const darkmode: boolean = useStore((state) => state.darkMode);
+  const fetchSubamins = useStore((state) => state.fetchSubamins);
+  const fetchTopPosts = useStore((state) => state.fetchTopPosts);
+  const classicview: boolean = useStore((state) => state.classicView);
+  const posts = useStore((state) => state.posts);
+  const subamins = useStore((state) => state.subamins);
+  //useEffect
   useEffect(() => {
-    store.fetchSubamins(); 
-    store.fetchTopPosts();
+    fetchSubamins();
+    fetchTopPosts();
     // store.fetchSubaminByIds([1, 2, 3]);
-    /* eslint-disable react-hooks/exhaustive-deps */
-  }, []);
+  }, [fetchSubamins, fetchTopPosts]);
   return (
-    <HomeComponent darkMode={store.darkMode} classicView={store.classicView}>
-      <Posts darkMode={store.darkMode} classicView={store.classicView}>
-        <Header /> 
-        {store.posts.map((post) => (
-          <Post post={post} key={post.id}/>
+    <HomeComponent darkmode={darkmode} classicview={classicview}>
+      <Posts darkmode={darkmode} classicview={classicview}>
+        <Header />
+        {posts.map((post) => (
+          <Post post={post} key={post.id} />
         ))}
       </Posts>
-      <Info darkMode={store.darkMode} classicView={store.classicView}>
+      <Info darkmode={darkmode} classicview={classicview}>
         <div className="trending">
           <h2>Most popular subaminas</h2>
-          {store.subamins
+          {subamins
             .sort((a, b) => a.members - b.members)
             .slice(0, 5)
             .map((subamin, index) => (

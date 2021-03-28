@@ -13,14 +13,14 @@ import { RiArrowDownSFill } from "react-icons/ri";
 //components
 import OptionsDropdown from "./OptionsDropdown.js";
 //store
-import useStore from '../../store'
+import useStore from "../../store";
 
 const Navbar: React.FC = () => {
   const [open, setOpen] = useState<boolean>(false);
   const store = useStore();
   return (
     <Nav darkMode={store.darkMode}>
-      <Logo darkMode={store.darkMode}>
+      <Logo darkMode={store.darkMode} to="/">
         <img src={logo} alt="logo" className="logo-icon" />
         <h1>
           am<span>i</span>na

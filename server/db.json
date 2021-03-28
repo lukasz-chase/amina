@@ -36,6 +36,7 @@
       "id": 1,
       "subamindId": 4,
       "subaminName": "cars",
+      "subaminLogo": "https://static.posters.cz/image/750/plakaty/auta-3-cars-3-mcqueen-race-i47515.jpg",
       "date": "2021-01-24 10:20:00",
       "title": "cars are fast",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum malesuada, quam vitae imperdiet porttitor, ligula nunc malesuada metus, at consequat nibh nibh sit amet dolor.",
@@ -48,7 +49,8 @@
           "id": 1,
           "author": "ja",
           "upvotes": 50,
-          "date": "24.03.2021"
+          "date": "24.03.2021 11:03",
+          "text": "asdasdasd"
         }
       ]
     },
@@ -56,6 +58,7 @@
       "id": 2,
       "subamindId": 1,
       "subaminName": "sports",
+      "subaminLogo": "https://media.npr.org/assets/img/2020/06/10/gettyimages-200199027-001-b5fb3d8d8469ab744d9e97706fa67bc5c0e4fa40.jpg",
       "date": "2021-02-24 15:20:00",
       "title": "sports are cool",
       "description": "because i like them",
@@ -65,10 +68,11 @@
 
       "comments": [
         {
-          "id":  1,
-          "author":  "ja",
+          "id": 1,
+          "author": "ja",
           "upvotes": 50,
-          "date": "24.03.2021"
+          "date": "24.03.2021 11:03",
+          "text": "asdasdasd"
         }
       ]
     },
@@ -76,6 +80,7 @@
       "id": 3,
       "subamindId": 2,
       "subaminName": "gaming",
+      "subaminLogo": "https://inwestycje.pl/wp-content/uploads/2020/03/gaming.jpg",
       "date": "2021-03-23 15:20:00",
       "title": "games are coolaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
       "description": "because i like them",
@@ -86,7 +91,8 @@
         {
           "author": "ja",
           "upvotes": 50,
-          "date": "24.03.2021"
+          "date": "24.03.2021 11:03",
+          "text": "asdasdasd"
         }
       ]
     },
@@ -94,20 +100,19 @@
       "id": 4,
       "subamindId": 2,
       "subaminName": "gaming",
-      "date": "2021-03-24 16:20:00",
+      "subaminLogo": "https://inwestycje.pl/wp-content/uploads/2020/03/gaming.jpg",
+      "date": "2020-12-20 16:20:00",
       "title": "games arent cool",
       "description": "because i dont like them",
       "author": "dfhfh",
       "upvotes": 520,
-      "image": "https://i.guim.co.uk/img/media/7c2ab1a3e60e445caf0a4d3de302591e830e8f7f/0_0_3800_2280/master/3800.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=49331bc571155fab736c3ce179f31770",
-      
-          
       "comments": [
         {
-          "id":  1,
-          "author":  "ja",
+          "id": 1,
+          "author": "ja",
           "upvotes": 50,
-          "date": "24.03.2021"
+          "date": "24.03.2021 11:03",
+          "text": "asdasdasd"
         }
       ]
     },
@@ -115,6 +120,7 @@
       "id": 5,
       "subamindId": 3,
       "subaminName": "animals",
+      "subaminLogo": "https://desenio.pl/bilder/artiklar/zoom/11378_2.jpg?imgwidth=435&qt=",
       "date": "2021-03-24 15:20:00",
       "title": "animals are cute",
       "description": "because i like them",
@@ -126,7 +132,8 @@
           "id": 1,
           "author": "ja",
           "upvotes": 50,
-          "date": "24.03.2021"
+          "date": "24.03.2021 11:03",
+          "text": "asdasdasd"
         }
       ]
     },
@@ -136,18 +143,11 @@
       "title": "cats are the best",
       "date": "24.03.2021 11:03",
       "subaminName": "cats",
+      "subaminLogo": "https://cdnuploads.aa.com.tr/uploads/Contents/2020/05/14/thumbs_b_c_88bedbc66bb57f0e884555e8250ae5f9.jpg?v=140708",
       "description": "i really love cats",
       "author": "luki",
       "upvotes": 350,
-      "image": "https://cdnuploads.aa.com.tr/uploads/Contents/2020/05/14/thumbs_b_c_88bedbc66bb57f0e884555e8250ae5f9.jpg?v=140708",
-      "comments": [
-        {
-          "id":  1,
-          "author":  "ja",
-          "upvotes": 50,
-          "date": "24.03.2021"
-        }
-      ]
+      "image": "https://cdnuploads.aa.com.tr/uploads/Contents/2020/05/14/thumbs_b_c_88bedbc66bb57f0e884555e8250ae5f9.jpg?v=140708"
     }
   ],
   "users": [

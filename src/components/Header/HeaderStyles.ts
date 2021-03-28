@@ -1,11 +1,11 @@
 import styled from "styled-components";
 
 type headerProps = {
-  darkMode: boolean;
+  darkmode: boolean;
 };
 
 export const HeaderComponent = styled.div<headerProps>`
-  background: ${({ darkMode }) => (darkMode ? "#1A1A1B" : "white")};
+  background: ${({ darkmode: darkMode }) => (darkMode ? "#1A1A1B" : "white")};
   display: flex;
   justify-content: space-between;
   margin: 2rem 0;
@@ -24,7 +24,7 @@ export const Button = styled.button<headerProps>`
   padding: 0.5rem;
   border: none;
   outline: none;
-  color: ${({ darkMode }) => (darkMode ? "#888A8B" : "#7E8183")};
+  color: ${({ darkmode: darkMode }) => (darkMode ? "#888A8B" : "#7E8183")};
   border-radius: 1rem;
   width: 7rem;
   background: transparent;
@@ -34,7 +34,8 @@ export const Button = styled.button<headerProps>`
   font-size: 1rem;
   cursor: pointer;
   &:hover {
-    background: ${({ darkMode }) => (darkMode ? "#29292a" : "#EDEDED")};
+    background: ${({ darkmode: darkMode }) =>
+      darkMode ? "#29292a" : "#EDEDED"};
   }
   @media screen and (max-width: 1200px) {
     width: 4rem;
