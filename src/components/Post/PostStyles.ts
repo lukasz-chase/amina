@@ -18,46 +18,6 @@ export const PostComponent = styled(Link)<PostProps>`
   &:hover {
     border: 1px solid #9c9c9c;
   }
-  .upvotes {
-    display: flex;
-    justify-content: ${({ $classicview: classicview }) =>
-      classicview ? "center" : "flex-start"};
-    align-items: center;
-    padding: 0.5rem;
-    flex-direction: ${({ $compactview: compactview }) =>
-      compactview ? "row" : "column"};
-    background: ${({ $darkmode: darkmode }) =>
-      darkmode ? "#242425" : "#F8F9FA"};
-    color: ${({ $darkmode: darkmode }) => (darkmode ? "#d2d5d7" : "gray")};
-    @media screen and (max-width: 1000px) {
-      display: ${({ $classicview: classicview }) =>
-        classicview ? "flex" : "none"};
-      flex-direction: ${({ $compactview: compactview }) =>
-        compactview ? "row" : "column"};
-    }
-    span {
-      font-weight: bold;
-      color: ${({ $darkmode: darkmode }) => (darkmode ? "#d2d5d7" : "black")};
-    }
-    .upvote-button,
-    .downvote-button {
-      cursor: pointer;
-      &:hover {
-        background: ${({ $darkmode: darkmode }) =>
-          darkmode ? "#2A2A2B" : "#e1e2e3"};
-      }
-    }
-    .upvote-button {
-      &:hover {
-        color: #cc3700;
-      }
-    }
-    .downvote-button {
-      &:hover {
-        color: #5a75cc;
-      }
-    }
-  }
   .view {
     background: ${({ $darkmode: darkmode }) =>
       darkmode ? "#1A1A1B" : "#F3F3F3"};

@@ -9,6 +9,7 @@ import { IoIosShareAlt } from "react-icons/io";
 import { format } from "timeago.js";
 //store
 import useStore from "../../store";
+import UpvoteStyles from "../Upvotes";
 
 interface CommentProperties {
   id: number;
@@ -46,17 +47,13 @@ const Post: React.FC<PostProps> = ({ post }) => {
       $classicview={classicView}
       $compactview={compactView}
       to={`post/${post.id}`}
+      onClick={() => window.scrollTo(0, 0)}
     >
-      <div className="upvotes">
-        <BiUpvote className="upvote-button" />
-        <span>
-          {" "}
-          {post.upvotes > 1000
-            ? (post.upvotes / 1000).toFixed(1) + "K"
-            : post.upvotes}
-        </span>
-        <BiDownvote className="downvote-button" />
-      </div>
+      <UpvoteStyles
+        upvotes={post.upvotes}
+        flexDirection="column"
+        darkModeBg="#242425"
+      />
       <div className="view">
         <div className="post-header">
           <div className="header-info">

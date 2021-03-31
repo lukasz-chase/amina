@@ -17,6 +17,7 @@ export const Logo = styled(Link)<NavProps>`
   display: flex;
   align-items: center;
   color: ${({ darkMode }) => (darkMode ? "white" : "black")};
+  text-decoration: none;
   h1 {
     margin-left: 5px;
     @media screen and (max-width: 1000px) {

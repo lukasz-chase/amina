@@ -1,10 +1,14 @@
 import React, { useEffect } from "react";
 //styling
-import { DetailsComponent, CommentsComponent } from "./PostDetailsStyles";
+import {
+  DetailsComponent,
+  CommentsComponent,
+  Header,
+} from "./PostDetailsStyles";
 //store
 import useStore from "../../store";
 //location
-import { useLocation } from "react-router-dom";
+import { useLocation, useHistory } from "react-router-dom";
 import { Location } from "history";
 //icons
 import { AiOutlineArrowLeft } from "react-icons/ai";
@@ -15,9 +19,9 @@ import {
   BsFileText,
 } from "react-icons/bs";
 import { MdNewReleases } from "react-icons/md";
-import { BiUpvote, BiDownvote } from "react-icons/bi";
 //format time
 import { format } from "timeago.js";
+import UpvoteStyles from "../../components/Upvotes";
 
 const PostDetails: React.FC = () => {
   //state
@@ -26,76 +30,97 @@ const PostDetails: React.FC = () => {
   const darkMode = useStore((state) => state.darkMode);
   const location = useLocation<Location>();
   const postId = location.pathname.split("/")[2];
+  const history = useHistory();
   //useEffect
   useEffect(() => {
     fetchPostDetails(Number(postId));
   }, [postId, fetchPostDetails]);
   console.log(postDetails);
   return (
-    <DetailsComponent>
-      <div className="header">
-        <AiOutlineArrowLeft />
-        <span>{postDetails.subaminName}</span>
-        <BsBookmark />
-      </div>
-      <div className="post-info">
-        <div className="logo">
-          <img src={postDetails.subaminLogo} alt={postDetails.subaminName} />
+    <>
+      <Header darkmode={darkMode}>
+        <div className="wrapper">
+          <AiOutlineArrowLeft
+            onClick={() => history.goBack()}
+            className="icon"
+          />
+          <span>{postDetails.subaminName}</span>
+          <BsBookmark className="icon" />
         </div>
-        <div className="details">
-          <span>a/{postDetails.subaminName}</span>
-          <span>
-            Posted by u/{postDetails.author} - {format(postDetails.date)}
-          </span>
-        </div>
-      </div>
-      <div className="post-details">
-        <span>{postDetails.title}</span>
-        {postDetails.image && (
-          <img src={postDetails.image} alt={postDetails.title} />
-        )}
-        <span>{postDetails.description}</span>
-      </div>
-      {postDetails.comments && (
-        <CommentsComponent>
-          {postDetails.comments!.map((comment) => (
-            <div className="comment">
-              <div className="sort-comments">
-                <span>
-                  <BsGraphUp /> Top
+      </Header>
+      <DetailsComponent darkmode={darkMode}>
+        <div className="post-wrapper">
+          <div className="upvotes">
+            <UpvoteStyles
+              upvotes={postDetails.upvotes}
+              flexDirection="column"
+              darkModeBg="#1A1A1B"
+            />
+          </div>
+          <div className="post">
+            <div className="post-info">
+              <div className="logo">
+                <img
+                  src={postDetails.subaminLogo}
+                  alt={postDetails.subaminName}
+                />
+              </div>
+              <div className="details">
+                <span className="subamin-name">
+                  a/{postDetails.subaminName}
                 </span>
                 <span>
-                  <MdNewReleases /> New
+                  Posted by <span className="user">u/{postDetails.author}</span>{" "}
+                  - {format(postDetails.date)}
                 </span>
               </div>
+            </div>
+            <div className="post-details">
+              <span>{postDetails.title}</span>
+              {postDetails.image && (
+                <img src={postDetails.image} alt={postDetails.title} />
+              )}
+              <span>{postDetails.description}</span>
+            </div>
+          </div>
+        </div>
+      </DetailsComponent>
+      {postDetails.comments && (
+        <CommentsComponent darkmode={darkMode}>
+          <div className="sort-comments">
+            Sort comments by:
+            <span>
+              <BsGraphUp /> Top
+            </span>
+            <span>
+              <MdNewReleases /> New
+            </span>
+          </div>
+          {postDetails.comments!.map((comment) => (
+            <div className="comment">
               <div className="header">
-                <span>u/{comment.author}</span> -{" "}
-                <span>{format(comment.date)}</span>
+                <span className="name">{comment.author}</span>{" "}
+                <span className="time">{format(comment.date)}</span>
               </div>
               <div className="comment-text">{comment.text}</div>
               <div className="tool-box">
-                <span>
+                <UpvoteStyles
+                  upvotes={comment.upvotes}
+                  flexDirection="row"
+                  darkModeBg="#1A1A1B"
+                />
+                <span className="button">
                   <BsArrowsCollapse /> Collapse thread
                 </span>
-                <span>
+                <span className="button">
                   <BsFileText /> Copy text
                 </span>
-                <span>
-                  <BsFileText /> Copy text
-                </span>
-                <BiUpvote />
-                <span>
-                  {comment.upvotes > 1000
-                    ? (comment.upvotes / 1000).toFixed(1) + "K"
-                    : comment.upvotes}
-                </span>
-                <BiDownvote />
               </div>
             </div>
           ))}
         </CommentsComponent>
       )}
-    </DetailsComponent>
+    </>
   );
 };
 
