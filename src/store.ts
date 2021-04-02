@@ -44,11 +44,12 @@ type Store = {
   fetchNewPosts: () => void;
   postDetails: PostProperties;
   fetchPostDetails: (id: number) => Promise<void>;
+  collapseThread: (id: number) => void;
   // fetchSubaminByIds: ([]) => void;
   // users: [];
 };
 
-export const useStore = create<Store>((set) => ({
+export const useStore = create<Store>((set, get) => ({
   darkMode: false,
   changeDarkMode() {
     set((state) => ({ ...state, darkMode: !state.darkMode }));
@@ -91,6 +92,26 @@ export const useStore = create<Store>((set) => ({
 
     set({ postDetails: await response.json() });
   },
+  collapseThread(id) {
+    set((state) => ({
+      postDetails: {
+        id: state.postDetails.id,
+        subamindId: state.postDetails.subamindId,
+        subaminLogo: state.postDetails.subaminLogo,
+        subaminName: state.postDetails.subaminName,
+        title: state.postDetails.title,
+        description: state.postDetails.description,
+        author: state.postDetails.author,
+        upvotes: state.postDetails.upvotes,
+        date: state.postDetails.date,
+        image: state.postDetails.image,
+        comments: state.postDetails.comments?.filter(
+          (comment) => comment.id !== id
+        ),
+      },
+    }));
+  },
+
   // users: [],
   // fetchSubaminByIds: async (ids: number[]) => {
   //   const url = `${subaminsUrl}${ids.map((id) => `&id=${id}`).join("")}`;

@@ -19,14 +19,14 @@ const Navbar: React.FC = () => {
   const [open, setOpen] = useState<boolean>(false);
   const store = useStore();
   return (
-    <Nav darkMode={store.darkMode}>
-      <Logo darkMode={store.darkMode} to="/">
+    <Nav darkmode={store.darkMode}>
+      <Logo darkmode={store.darkMode} to="/">
         <img src={logo} alt="logo" className="logo-icon" />
         <h1>
           am<span>i</span>na
         </h1>
       </Logo>
-      <TextInput darkMode={store.darkMode}>
+      <TextInput darkmode={store.darkMode}>
         <Input
           className="textField"
           placeholder="Search"
@@ -38,10 +38,10 @@ const Navbar: React.FC = () => {
           }
         />
       </TextInput>
-      <Buttons darkMode={store.darkMode}>
+      <Buttons darkmode={store.darkMode}>
         <button className="login">Log In</button>
         <button className="sign-up">Sign Up</button>
-        <Account onClick={() => setOpen(!open)} darkMode={store.darkMode}>
+        <Account onClick={() => setOpen(!open)} darkmode={store.darkMode}>
           <MdAccountCircle className="account-icon" />
           <RiArrowDownSFill className="account-icon" />
         </Account>

@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState, useRef } from "react";
 //styling
 import {
   DetailsComponent,
   CommentsComponent,
   Header,
+  Wrapper,
 } from "./PostDetailsStyles";
 //store
 import useStore from "../../store";
@@ -28,16 +29,27 @@ const PostDetails: React.FC = () => {
   const postDetails = useStore((state) => state.postDetails);
   const fetchPostDetails = useStore((state) => state.fetchPostDetails);
   const darkMode = useStore((state) => state.darkMode);
+  const collapseThread = useStore((state) => state.collapseThread);
+  const [sortNewComments, setSortNewComments] = useState<boolean>(false);
   const location = useLocation<Location>();
   const postId = location.pathname.split("/")[2];
   const history = useHistory();
+  const textToCopy = useRef<HTMLDivElement>(null);
   //useEffect
   useEffect(() => {
     fetchPostDetails(Number(postId));
   }, [postId, fetchPostDetails]);
-  console.log(postDetails);
+  //handlers
+  const copyToClipboard = (str: string) => {
+    const el = document.createElement("textarea");
+    el.value = str;
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand("copy");
+    document.body.removeChild(el);
+  };
   return (
-    <>
+    <Wrapper darkmode={darkMode}>
       <Header darkmode={darkMode}>
         <div className="wrapper">
           <AiOutlineArrowLeft
@@ -89,38 +101,50 @@ const PostDetails: React.FC = () => {
         <CommentsComponent darkmode={darkMode}>
           <div className="sort-comments">
             Sort comments by:
-            <span>
+            <span onClick={() => setSortNewComments(false)}>
               <BsGraphUp /> Top
             </span>
-            <span>
+            <span onClick={() => setSortNewComments(true)}>
               <MdNewReleases /> New
             </span>
           </div>
-          {postDetails.comments!.map((comment) => (
-            <div className="comment">
-              <div className="header">
-                <span className="name">{comment.author}</span>{" "}
-                <span className="time">{format(comment.date)}</span>
+          {postDetails
+            .comments!.sort((a: any, b: any) =>
+              sortNewComments ? a.id - b.id : b.upvotes - a.upvotes
+            )
+            .map((comment) => (
+              <div className="comment" key={comment.id}>
+                <div className="header">
+                  <span className="name">{comment.author}</span>{" "}
+                  <span className="time">{format(comment.date)}</span>
+                </div>
+                <div className="comment-text" ref={textToCopy}>
+                  {comment.text}
+                </div>
+                <div className="tool-box">
+                  <UpvoteStyles
+                    upvotes={comment.upvotes}
+                    flexDirection="row"
+                    darkModeBg="#1A1A1B"
+                  />
+                  <span
+                    className="button"
+                    onClick={() => collapseThread(comment.id)}
+                  >
+                    <BsArrowsCollapse /> Collapse thread
+                  </span>
+                  <span
+                    className="button"
+                    onClick={() => copyToClipboard(comment.text)}
+                  >
+                    <BsFileText /> Copy text
+                  </span>
+                </div>
               </div>
-              <div className="comment-text">{comment.text}</div>
-              <div className="tool-box">
-                <UpvoteStyles
-                  upvotes={comment.upvotes}
-                  flexDirection="row"
-                  darkModeBg="#1A1A1B"
-                />
-                <span className="button">
-                  <BsArrowsCollapse /> Collapse thread
-                </span>
-                <span className="button">
-                  <BsFileText /> Copy text
-                </span>
-              </div>
-            </div>
-          ))}
+            ))}
         </CommentsComponent>
       )}
-    </>
+    </Wrapper>
   );
 };
 

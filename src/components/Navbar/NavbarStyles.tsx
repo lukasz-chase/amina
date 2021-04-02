@@ -2,11 +2,11 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 type NavProps = {
-  darkMode: boolean;
+  darkmode: boolean;
 };
 
 export const Nav = styled.nav<NavProps>`
-  background: ${({ darkMode }) => (darkMode ? "#1a1a1b" : "white")};
+  background: ${({ darkmode: darkMode }) => (darkMode ? "#1a1a1b" : "white")};
   height: 50px;
   display: flex;
   justify-content: space-between;
@@ -16,7 +16,7 @@ export const Nav = styled.nav<NavProps>`
 export const Logo = styled(Link)<NavProps>`
   display: flex;
   align-items: center;
-  color: ${({ darkMode }) => (darkMode ? "white" : "black")};
+  color: ${({ darkmode }) => (darkmode ? "white" : "black")};
   text-decoration: none;
   h1 {
     margin-left: 5px;
@@ -35,10 +35,11 @@ export const Logo = styled(Link)<NavProps>`
 `;
 export const TextInput = styled.div<NavProps>`
   .textField {
-    color: ${({ darkMode }) => (darkMode ? "white" : "gray")};
+    color: ${({ darkmode: darkMode }) => (darkMode ? "white" : "gray")};
     border: 1px solid gray;
     width: 40vw;
-    background-color: ${({ darkMode }) => (darkMode ? "#272729" : "lightgray")};
+    background-color: ${({ darkmode: darkMode }) =>
+      darkMode ? "#272729" : "lightgray"};
     border-radius: 5px;
     font-family: "Noto Sans", sans-serif;
     @media screen and (max-width: 1000px) {
@@ -76,18 +77,20 @@ export const Buttons = styled.div<NavProps>`
     }
   }
   .login {
-    background: ${({ darkMode }) => (darkMode ? "black" : "white")};
-    color: ${({ darkMode }) => (darkMode ? "white" : "#1484D6")};
-    border: ${({ darkMode }) =>
+    background: ${({ darkmode: darkMode }) => (darkMode ? "black" : "white")};
+    color: ${({ darkmode: darkMode }) => (darkMode ? "white" : "#1484D6")};
+    border: ${({ darkmode: darkMode }) =>
       darkMode ? "1px solid white" : "1px solid #1484D6 "};
     &:hover {
-      background-color: ${({ darkMode }) => (darkMode ? "#272729" : "white")};
+      background-color: ${({ darkmode: darkMode }) =>
+        darkMode ? "#272729" : "white"};
     }
   }
   .sign-up {
-    background: ${({ darkMode }) => (darkMode ? "#c8cbcd" : "#1484D6")};
-    color: ${({ darkMode }) => (darkMode ? "#101011" : "white")};
-    border: ${({ darkMode }) =>
+    background: ${({ darkmode: darkMode }) =>
+      darkMode ? "#c8cbcd" : "#1484D6"};
+    color: ${({ darkmode: darkMode }) => (darkMode ? "#101011" : "white")};
+    border: ${({ darkmode: darkMode }) =>
       darkMode ? "1px solid #0e0e0f" : "1px solid #1484D6"};
   }
 `;
@@ -99,7 +102,7 @@ export const Account = styled.div<NavProps>`
   align-items: center;
   height: 35px;
   margin-right: 1rem;
-  border: ${({ darkMode }) =>
+  border: ${({ darkmode: darkMode }) =>
     darkMode ? "1px solid #1a1a1b" : "1px solid white"};
   cursor: pointer;
   &:hover {

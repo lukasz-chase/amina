@@ -3,12 +3,16 @@ import styled from "styled-components";
 interface PostProps {
   darkmode: boolean;
 }
-
+export const Wrapper = styled.div<PostProps>`
+  background-color: ${({ darkmode }) => (darkmode ? "black" : "#dae0e6")};
+  min-height: 93vh;
+`;
 export const Header = styled.div<PostProps>`
   display: flex;
   justify-content: center;
   width: 100%;
   font-size: 3rem;
+  padding-top: 2rem;
   background-color: ${({ darkmode }) => (darkmode ? "black" : "#dae0e6")};
   color: ${({ darkmode }) => (darkmode ? "#CDD0D2" : "black")};
   .wrapper {
