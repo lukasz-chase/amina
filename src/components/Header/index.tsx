@@ -2,17 +2,20 @@ import React from "react";
 //styling
 import { HeaderComponent, Button, ViewOption } from "./HeaderStyles";
 //store
-import useStore from "../../store";
+import viewState from "../../state/viewState";
+import postState from "../../state/postState";
 //icons
 import { AiOutlineLineChart } from "react-icons/ai";
 import { MdNewReleases } from "react-icons/md";
 
 const Header = () => {
-  const darkMode: boolean = useStore((state) => state.darkMode);
-  const fetchTopPosts = useStore((state) => state.fetchTopPosts);
-  const fetchNewPosts = useStore((state) => state.fetchNewPosts);
-  const setClassicView = useStore((state) => state.setClassicView);
-  const setCompactView = useStore((state) => state.setCompactView);
+  //state
+  const darkMode: boolean = viewState((state) => state.darkMode);
+  const setClassicView = viewState((state) => state.setClassicView);
+  const setCompactView = viewState((state) => state.setCompactView);
+  const fetchTopPosts = postState((state) => state.fetchTopPosts);
+  const fetchNewPosts = postState((state) => state.fetchNewPosts);
+
   return (
     <HeaderComponent darkmode={darkMode}>
       <div className="buttons">

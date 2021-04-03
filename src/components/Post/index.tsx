@@ -8,29 +8,11 @@ import { IoIosShareAlt } from "react-icons/io";
 //format time
 import { format } from "timeago.js";
 //store
-import useStore from "../../store";
+import viewState from "../../state/viewState";
+//components
 import UpvoteStyles from "../Upvotes";
-
-interface CommentProperties {
-  id: number;
-  author: string;
-  upvotes: number;
-  date: string;
-}
-
-interface PostProperties {
-  id: number;
-  subamindId: number;
-  subaminName: string;
-  subaminLogo: string;
-  title: string;
-  description: string;
-  author: string;
-  upvotes: number;
-  date: string;
-  image?: string;
-  comments?: CommentProperties[];
-}
+//interfaces
+import { PostProperties } from "../../interfaces";
 
 interface PostProps {
   post: PostProperties;
@@ -38,9 +20,9 @@ interface PostProps {
 
 const Post: React.FC<PostProps> = ({ post }) => {
   //state
-  const darkMode: boolean = useStore((state) => state.darkMode);
-  const classicView: boolean = useStore((state) => state.classicView);
-  const compactView: boolean = useStore((state) => state.compactView);
+  const darkMode: boolean = viewState((state) => state.darkMode);
+  const classicView: boolean = viewState((state) => state.classicView);
+  const compactView: boolean = viewState((state) => state.compactView);
   return (
     <PostComponent
       $darkmode={darkMode}

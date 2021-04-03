@@ -7,7 +7,8 @@ import {
   Wrapper,
 } from "./PostDetailsStyles";
 //store
-import useStore from "../../store";
+import postState from "../../state/postState";
+import viewState from "../../state/viewState";
 //location
 import { useLocation, useHistory } from "react-router-dom";
 import { Location } from "history";
@@ -26,10 +27,10 @@ import UpvoteStyles from "../../components/Upvotes";
 
 const PostDetails: React.FC = () => {
   //state
-  const postDetails = useStore((state) => state.postDetails);
-  const fetchPostDetails = useStore((state) => state.fetchPostDetails);
-  const darkMode = useStore((state) => state.darkMode);
-  const collapseThread = useStore((state) => state.collapseThread);
+  const postDetails = postState((state) => state.postDetails);
+  const fetchPostDetails = postState((state) => state.fetchPostDetails);
+  const collapseThread = postState((state) => state.collapseThread);
+  const darkMode = viewState((state) => state.darkMode);
   const [sortNewComments, setSortNewComments] = useState<boolean>(false);
   const location = useLocation<Location>();
   const postId = location.pathname.split("/")[2];

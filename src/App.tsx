@@ -7,6 +7,7 @@ import { Route } from "react-router-dom";
 //pages
 import Home from "./pages/Home";
 import PostDetails from "./pages/PostDetails";
+import SearchPage from "./pages/SearchPage";
 
 function App() {
   return (
@@ -18,6 +19,9 @@ function App() {
       </Route>
       <Route path="/post/:id" exact>
         <PostDetails />
+      </Route>
+      <Route path="/search/:id" exact>
+        <SearchPage />
       </Route>
     </div>
   );

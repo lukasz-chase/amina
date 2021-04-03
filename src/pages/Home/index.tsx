@@ -2,19 +2,21 @@ import React, { useEffect } from "react";
 //styles
 import { HomeComponent, Posts, Info } from "./HomeStyles";
 //store
-import useStore from "../../store";
+import viewState from "../../state/viewState";
+import postState from "../../state/postState";
+import subaminsState from "../../state/subaminState";
 //components
 import Header from "../../components/Header";
 import Post from "../../components/Post";
 
 const Home: React.FC = () => {
   //state
-  const darkmode: boolean = useStore((state) => state.darkMode);
-  const fetchSubamins = useStore((state) => state.fetchSubamins);
-  const fetchTopPosts = useStore((state) => state.fetchTopPosts);
-  const classicview: boolean = useStore((state) => state.classicView);
-  const posts = useStore((state) => state.posts);
-  const subamins = useStore((state) => state.subamins);
+  const darkmode: boolean = viewState((state) => state.darkMode);
+  const fetchSubamins = subaminsState((state) => state.fetchSubamins);
+  const fetchTopPosts = postState((state) => state.fetchTopPosts);
+  const posts = postState((state) => state.posts);
+  const classicview: boolean = viewState((state) => state.classicView);
+  const subamins = subaminsState((state) => state.subamins);
   //useEffect
   useEffect(() => {
     fetchSubamins();
