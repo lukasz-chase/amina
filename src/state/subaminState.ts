@@ -1,12 +1,6 @@
 import create from "zustand";
 import { subaminsUrl } from "../api";
-
-interface Subamin {
-  id: number;
-  name: string;
-  members: number;
-  logo: string;
-}
+import { Subamin } from "../interfaces";
 
 type Store = {
   subamins: Subamin[];

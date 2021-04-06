@@ -26,7 +26,8 @@ const Navbar: React.FC = () => {
   //handlers
   const searchHandler = (text: string) => {
     if (question !== "") {
-      history.push(`/search/${text}`);
+      history.push(`/search/subaminas/${text}`);
+      setQuestion("");
     }
   };
   return (
@@ -47,7 +48,10 @@ const Navbar: React.FC = () => {
           disableUnderline
           startAdornment={
             <InputAdornment position="start">
-              <BiSearchAlt className="search-icon" />
+              <BiSearchAlt
+                className="search-icon"
+                onClick={() => searchHandler(question)}
+              />
             </InputAdornment>
           }
         />

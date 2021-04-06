@@ -1,17 +1,20 @@
 import create from "zustand";
 //api
 import { postSearch, subaminsSearch } from "../api";
+//interfaces
+import { PostProperties } from "../interfaces";
+import { Subamin } from "../interfaces";
 
 type Props = {
-  subaminasSearch: Object;
-  postSearch: Object;
+  subaminasSearch: Subamin[];
+  postSearch: PostProperties[];
   fetchSubaminasSearch: (question: string) => void;
   fetchPostsSearch: (question: string) => void;
 };
 
 const searchState = create<Props>((set) => ({
-  subaminasSearch: {},
-  postSearch: {},
+  subaminasSearch: [],
+  postSearch: [],
   fetchSubaminasSearch: async (q) => {
     const response = await fetch(subaminsSearch(q));
     set({ subaminasSearch: await response.json() });

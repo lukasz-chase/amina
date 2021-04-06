@@ -20,7 +20,7 @@ function App() {
       <Route path="/post/:id" exact>
         <PostDetails />
       </Route>
-      <Route path="/search/:id" exact>
+      <Route path={["/search/posts/:id", "/search/subaminas/:id"]} exact>
         <SearchPage />
       </Route>
     </div>

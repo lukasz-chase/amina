@@ -18,3 +18,10 @@ export interface PostProperties {
   comments?: CommentProperties[];
   image?: string;
 }
+export interface Subamin {
+  id: number;
+  name: string;
+  members: number;
+  logo: string;
+  desc: string;
+}

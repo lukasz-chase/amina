@@ -13,6 +13,7 @@ import viewState from "../../state/viewState";
 import UpvoteStyles from "../Upvotes";
 //interfaces
 import { PostProperties } from "../../interfaces";
+import JoinButton from "../JoinButton";
 
 interface PostProps {
   post: PostProperties;
@@ -28,7 +29,7 @@ const Post: React.FC<PostProps> = ({ post }) => {
       $darkmode={darkMode}
       $classicview={classicView}
       $compactview={compactView}
-      to={`post/${post.id}`}
+      to={`/post/${post.id}`}
       onClick={() => window.scrollTo(0, 0)}
     >
       <UpvoteStyles
@@ -47,11 +48,7 @@ const Post: React.FC<PostProps> = ({ post }) => {
               <span className="author">Posted by u/{post.author}</span>
               <span className="author">{format(post.date)}</span>
             </span>
-            <div className="join">
-              <button className="join-button">
-                + <span>join</span>
-              </button>
-            </div>
+            <JoinButton />
           </div>
           <div className="post-title">{post.title}</div>
           <div className="post-tools">

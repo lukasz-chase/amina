@@ -1,6 +1,7 @@
 import create from "zustand";
-
+//api
 import { postsUrl, postDetails } from "../api";
+//interfaces
 import { PostProperties } from "../interfaces";
 
 type Store = {
