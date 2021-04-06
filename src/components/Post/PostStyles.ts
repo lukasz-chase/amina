@@ -40,10 +40,11 @@ export const PostComponent = styled(Link)<PostProps>`
         justify-content: ${({ $classicview: classicView }) =>
           classicView ? "flex-start" : "space-between"};
         order: ${({ $classicview: classicView }) => (classicView ? "2" : "1")};
-        span {
+        .author,
+        .date {
           margin: 0 5px;
           color: ${({ $darkmode: darkMode }) =>
-            darkMode ? "#818384" : "#1484D6"};
+            darkMode ? "#818384" : "#8F9394"};
           font-size: 10px;
         }
         .logo {

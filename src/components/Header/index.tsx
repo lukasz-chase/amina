@@ -3,27 +3,33 @@ import React from "react";
 import { HeaderComponent, Button, ViewOption } from "./HeaderStyles";
 //store
 import viewState from "../../state/viewState";
-import postState from "../../state/postState";
 //icons
 import { AiOutlineLineChart } from "react-icons/ai";
 import { MdNewReleases } from "react-icons/md";
 
-const Header = () => {
+type HeaderProps = {
+  topFunction: (question?: string) => void;
+  newFunction: (question?: string) => void;
+  question?: string;
+};
+
+const Header: React.FC<HeaderProps> = ({
+  topFunction,
+  newFunction,
+  question,
+}) => {
   //state
   const darkMode: boolean = viewState((state) => state.darkMode);
   const setClassicView = viewState((state) => state.setClassicView);
   const setCompactView = viewState((state) => state.setCompactView);
-  const fetchTopPosts = postState((state) => state.fetchTopPosts);
-  const fetchNewPosts = postState((state) => state.fetchNewPosts);
-
   return (
     <HeaderComponent darkmode={darkMode}>
       <div className="buttons">
-        <Button darkmode={darkMode} onClick={() => fetchTopPosts()}>
+        <Button darkmode={darkMode} onClick={() => topFunction(question)}>
           <AiOutlineLineChart className="button-icon" />
           Top
         </Button>
-        <Button darkmode={darkMode} onClick={() => fetchNewPosts()}>
+        <Button darkmode={darkMode} onClick={() => newFunction(question)}>
           <MdNewReleases className="button-icon" />
           New
         </Button>

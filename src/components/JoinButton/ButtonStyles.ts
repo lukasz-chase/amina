@@ -10,7 +10,7 @@ export const Button = styled.div<ButtonProps>`
   .join-button {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-evenly;
     outline: none;
     border: none;
     border-radius: ${({ $classicview: classicView }) =>

@@ -16,13 +16,19 @@ const SearchPage = () => {
   const path = location.pathname.split("/")[2];
   const subamins = searchState((state) => state.subaminasSearch);
   const posts = searchState((state) => state.postSearch);
-  const fetchPosts = searchState((state) => state.fetchPostsSearch);
-  const fetchSubamins = searchState((state) => state.fetchSubaminasSearch);
+  const fetchTopPosts = searchState((state) => state.fetchTopPostsSearch);
+  const fetchNewPosts = searchState((state) => state.fetchNewPostsSearch);
+  const fetchTopSubamins = searchState(
+    (state) => state.fetchTopSubaminasSearch
+  );
+  const fetchNewSubamins = searchState(
+    (state) => state.fetchNewSubaminasSearch
+  );
   useEffect(() => {
-    fetchPosts(question);
-    fetchSubamins(question);
-  }, [fetchPosts, fetchSubamins, question]);
-  console.log(subamins);
+    fetchTopPosts(question);
+    fetchTopSubamins(question);
+  }, [fetchTopPosts, fetchTopSubamins, question]);
+  console.log(posts);
   return (
     <SearchPageComponent>
       <div className="header">
@@ -50,9 +56,13 @@ const SearchPage = () => {
       <Wrapper>
         {path === "subaminas" ? (
           <div className="subamins">
-            <Header />
+            <Header
+              topFunction={fetchTopSubamins}
+              newFunction={fetchNewSubamins}
+              question={question}
+            />
             {subamins.map((subamin) => (
-              <div className="community">
+              <div className="community" key={subamin.id}>
                 <div className="left">
                   <img src={subamin.logo} alt={subamin.name} />
                   <div className="name-members">
@@ -67,8 +77,13 @@ const SearchPage = () => {
           </div>
         ) : (
           <div className="posts">
+            <Header
+              topFunction={fetchTopPosts}
+              newFunction={fetchNewPosts}
+              question={question}
+            />
             {posts.map((post) => (
-              <Post post={post} />
+              <Post post={post} key={post.id} />
             ))}
           </div>
         )}

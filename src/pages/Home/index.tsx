@@ -14,6 +14,7 @@ const Home: React.FC = () => {
   const darkmode: boolean = viewState((state) => state.darkMode);
   const fetchSubamins = subaminsState((state) => state.fetchSubamins);
   const fetchTopPosts = postState((state) => state.fetchTopPosts);
+  const fetchNewPosts = postState((state) => state.fetchNewPosts);
   const posts = postState((state) => state.posts);
   const classicview: boolean = viewState((state) => state.classicView);
   const subamins = subaminsState((state) => state.subamins);
@@ -26,7 +27,7 @@ const Home: React.FC = () => {
   return (
     <HomeComponent darkmode={darkmode} classicview={classicview}>
       <Posts darkmode={darkmode} classicview={classicview}>
-        <Header />
+        <Header topFunction={fetchTopPosts} newFunction={fetchNewPosts} />
         {posts.map((post) => (
           <Post post={post} key={post.id} />
         ))}

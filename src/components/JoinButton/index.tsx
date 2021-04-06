@@ -15,7 +15,7 @@ const JoinButton = () => {
       $compactview={compactView}
     >
       <button className="join-button">
-        + <span>join</span>
+        + <span>Join</span>
       </button>
     </Button>
   );

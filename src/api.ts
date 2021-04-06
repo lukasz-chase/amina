@@ -7,6 +7,8 @@ export const postsUrl = (what: string, order: string) =>
 
 export const postDetails = (id: number) => `${mainUrl}posts/${id}`;
 
-export const subaminsSearch = (question: string) =>
-  `${mainUrl}subamins?q=${question}`;
-export const postSearch = (question: string) => `${mainUrl}posts?q=${question}`;
+export const subaminsSearch = (question: string, what: string, order: string) =>
+  `${mainUrl}subamins?q=${question}&_sort=${what}&_order=${order}`;
+
+export const postSearch = (question: string, what: string, order: string) =>
+  `${mainUrl}posts?q=${question}&_sort=${what}&_order=${order}`;

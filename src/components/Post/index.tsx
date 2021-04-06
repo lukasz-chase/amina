@@ -46,7 +46,7 @@ const Post: React.FC<PostProps> = ({ post }) => {
               </div>
               a/{post.subaminName}
               <span className="author">Posted by u/{post.author}</span>
-              <span className="author">{format(post.date)}</span>
+              <span className="date">{format(post.date)}</span>
             </span>
             <JoinButton />
           </div>
