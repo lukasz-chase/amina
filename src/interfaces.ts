@@ -24,4 +24,5 @@ export interface Subamin {
   members: number;
   logo: string;
   desc: string;
+  background?: string;
 }

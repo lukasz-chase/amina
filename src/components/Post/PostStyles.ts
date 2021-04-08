@@ -109,6 +109,7 @@ export const PostComponent = styled(Link)<PostProps>`
       order: 3;
       display: ${({ $classicview: classicView }) =>
         classicView ? "none" : "flex"};
+      align-items: center;
       button {
         outline: none;
         border: none;
@@ -130,6 +131,7 @@ export const PostComponent = styled(Link)<PostProps>`
         }
       }
       .upvotes {
+        color: ${({ $darkmode }) => ($darkmode ? "#d2d5d7" : "gray")};
         display: none;
         @media screen and (max-width: 1000px) {
           display: flex;

@@ -5,6 +5,8 @@ import { SearchPageComponent, Wrapper } from "./SearchPageStyles";
 import { useLocation, Link } from "react-router-dom";
 //store
 import searchState from "../../state/searchState";
+import viewState from "../../state/viewState";
+//components
 import Post from "../../components/Post";
 import JoinButton from "../../components/JoinButton";
 import Header from "../../components/Header";
@@ -18,6 +20,7 @@ const SearchPage = () => {
   const posts = searchState((state) => state.postSearch);
   const fetchTopPosts = searchState((state) => state.fetchTopPostsSearch);
   const fetchNewPosts = searchState((state) => state.fetchNewPostsSearch);
+  const darkMode = viewState((state) => state.darkMode);
   const fetchTopSubamins = searchState(
     (state) => state.fetchTopSubaminasSearch
   );
@@ -30,7 +33,7 @@ const SearchPage = () => {
   }, [fetchTopPosts, fetchTopSubamins, question]);
   console.log(posts);
   return (
-    <SearchPageComponent>
+    <SearchPageComponent darkmode={darkMode}>
       <div className="header">
         <div className="text">
           <h1>{question}</h1>
@@ -53,7 +56,7 @@ const SearchPage = () => {
           </Link>
         </div>
       </div>
-      <Wrapper>
+      <Wrapper darkmode={darkMode}>
         {path === "subaminas" ? (
           <div className="subamins">
             <Header

@@ -22,10 +22,9 @@ export const Posts = styled.div<homeProps>`
 
 export const Info = styled.div<homeProps>`
   background: ${({ darkmode }) => (darkmode ? "#1A1A1B" : "white")};
-  width: 20%;
   margin-top: 2rem;
   margin-left: 2rem;
-  height: 29rem;
+  height: fit-content;
   border-radius: 5px;
   .trending {
     h2 {

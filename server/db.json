@@ -5,14 +5,16 @@
       "name": "sports",
       "members": 5,
       "desc": "skdjgderkjkjdfghjkld jgjertgner klerhlerh",
-      "logo": "https://media.npr.org/assets/img/2020/06/10/gettyimages-200199027-001-b5fb3d8d8469ab744d9e97706fa67bc5c0e4fa40.jpg"
+      "logo": "https://media.npr.org/assets/img/2020/06/10/gettyimages-200199027-001-b5fb3d8d8469ab744d9e97706fa67bc5c0e4fa40.jpg",
+      "background": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Youth-soccer-indiana.jpg/1200px-Youth-soccer-indiana.jpg"
     },
     {
       "id": 2,
       "name": "gaming",
       "desc": "skdjgderkjkjdfghjkld jgjertgner klerhlerh",
       "members": 15,
-      "logo": "https://inwestycje.pl/wp-content/uploads/2020/03/gaming.jpg"
+      "logo": "https://inwestycje.pl/wp-content/uploads/2020/03/gaming.jpg",
+      "background": "https://crn.pl/wp-content/uploads/2020/09/AdobeStock_335160283-autor-Anton-gaming.jpg"
     },
     {
       "id": 3,
@@ -26,14 +28,16 @@
       "name": "cars",
       "desc": "skdjgderkjkjdfghjkld jgjertgner klerhlerh",
       "members": 5,
-      "logo": "https://static.posters.cz/image/750/plakaty/auta-3-cars-3-mcqueen-race-i47515.jpg"
+      "logo": "https://static.posters.cz/image/750/plakaty/auta-3-cars-3-mcqueen-race-i47515.jpg",
+      "background": "http://patriziawish.com/wp-content/uploads/2019/06/1561682347.jpg"
     },
     {
       "id": 5,
       "name": "cats",
       "desc": "skdjgderkjkjdfghjkld jgjertgner klerhlerh",
       "members": 5000,
-      "logo": "https://cdnuploads.aa.com.tr/uploads/Contents/2020/05/14/thumbs_b_c_88bedbc66bb57f0e884555e8250ae5f9.jpg?v=140708"
+      "logo": "https://cdnuploads.aa.com.tr/uploads/Contents/2020/05/14/thumbs_b_c_88bedbc66bb57f0e884555e8250ae5f9.jpg?v=140708",
+      "background": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Youth-soccer-indiana.jpg/1200px-Youth-soccer-indiana.jpg"
     }
   ],
   "posts": [

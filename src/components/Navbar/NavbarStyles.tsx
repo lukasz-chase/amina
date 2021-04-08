@@ -11,6 +11,8 @@ export const Nav = styled.nav<NavProps>`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-bottom: ${({ $darkmode }) =>
+    $darkmode ? "1px solid #262627" : "1px solid #F6F7F8"};
 `;
 
 export const Logo = styled(Link)<NavProps>`
