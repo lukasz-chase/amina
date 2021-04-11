@@ -4,10 +4,12 @@ import { HomeComponent, Posts, Info } from "./HomeStyles";
 //store
 import viewState from "../../state/viewState";
 import postState from "../../state/postState";
-import subaminsState from "../../state/subaminState";
+import subaminsState from "../../state/subaminsState";
 //components
 import Header from "../../components/Header";
 import Post from "../../components/Post";
+//router
+import { Link } from "react-router-dom";
 
 const Home: React.FC = () => {
   //state
@@ -39,11 +41,11 @@ const Home: React.FC = () => {
             .sort((a, b) => a.members - b.members)
             .slice(0, 5)
             .map((subamin, index) => (
-              <div className="subamina" key={index}>
+              <Link className="subamina" key={index} to={`/s/${subamin.id}`}>
                 <span>{index + 1}</span>
                 <img src={subamin.logo} alt={subamin.name} className="logo" />
                 <span>{subamin.name}</span>
-              </div>
+              </Link>
             ))}
         </div>
       </Info>

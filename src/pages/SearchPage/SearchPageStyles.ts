@@ -55,6 +55,7 @@ export const Wrapper = styled.div<SearchProps>`
       align-items: center;
       padding: 5px;
       border-radius: 10px;
+      text-decoration: none;
       .left {
         display: flex;
         align-items: center;

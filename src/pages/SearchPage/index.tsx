@@ -65,7 +65,11 @@ const SearchPage = () => {
               question={question}
             />
             {subamins.map((subamin) => (
-              <div className="community" key={subamin.id}>
+              <Link
+                className="community"
+                key={subamin.id}
+                to={`/s/${subamin.id}`}
+              >
                 <div className="left">
                   <img src={subamin.logo} alt={subamin.name} />
                   <div className="name-members">
@@ -75,7 +79,7 @@ const SearchPage = () => {
                 </div>
                 <span className="info">{subamin.desc}</span>
                 <JoinButton />
-              </div>
+              </Link>
             ))}
           </div>
         ) : (

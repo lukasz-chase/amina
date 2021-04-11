@@ -8,6 +8,7 @@ import { Route } from "react-router-dom";
 import Home from "./pages/Home";
 import PostDetails from "./pages/PostDetails";
 import SearchPage from "./pages/SearchPage";
+import SubaminDetails from "./pages/SubaminDetails";
 
 function App() {
   return (
@@ -19,6 +20,9 @@ function App() {
       </Route>
       <Route path="/post/:id" exact>
         <PostDetails />
+      </Route>
+      <Route path="/s/:id" exact>
+        <SubaminDetails />
       </Route>
       <Route path={["/search/posts/:id", "/search/subaminas/:id"]} exact>
         <SearchPage />

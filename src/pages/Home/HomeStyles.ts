@@ -34,6 +34,7 @@ export const Info = styled.div<homeProps>`
       padding: 1rem;
     }
     .subamina {
+      text-decoration: none;
       padding: 1rem 0;
       margin-top: 0.5rem;
       display: flex;
