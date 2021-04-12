@@ -8,15 +8,23 @@ import { AiOutlineLineChart } from "react-icons/ai";
 import { MdNewReleases } from "react-icons/md";
 
 type HeaderProps = {
-  topFunction: (question?: string) => void;
-  newFunction: (question?: string) => void;
+  topFunction?: (question?: string) => void;
+  newFunction?: (question?: string) => void;
   question?: string;
+  id?: number;
+  subamin?: boolean;
+  topSubaminFunction?: (id?: number) => void;
+  newSubaminFunction?: (id?: number) => void;
 };
 
 const Header: React.FC<HeaderProps> = ({
   topFunction,
   newFunction,
+  topSubaminFunction,
+  newSubaminFunction,
   question,
+  id,
+  subamin,
 }) => {
   //state
   const darkMode: boolean = viewState((state) => state.darkMode);
@@ -25,11 +33,21 @@ const Header: React.FC<HeaderProps> = ({
   return (
     <HeaderComponent darkmode={darkMode}>
       <div className="buttons">
-        <Button darkmode={darkMode} onClick={() => topFunction(question)}>
+        <Button
+          darkmode={darkMode}
+          onClick={() =>
+            subamin ? topSubaminFunction!(id) : topFunction!(question)
+          }
+        >
           <AiOutlineLineChart className="button-icon" />
           Top
         </Button>
-        <Button darkmode={darkMode} onClick={() => newFunction(question)}>
+        <Button
+          darkmode={darkMode}
+          onClick={() =>
+            subamin ? newSubaminFunction!(id) : newFunction!(question)
+          }
+        >
           <MdNewReleases className="button-icon" />
           New
         </Button>
