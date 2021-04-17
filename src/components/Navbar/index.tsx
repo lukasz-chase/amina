@@ -5,6 +5,7 @@ import { Nav, Logo, TextInput, Buttons, Account } from "./NavbarStyles";
 import logo from "../../images/logo.png";
 //location
 import { useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 //material ui
 import Input from "@material-ui/core/Input";
 import InputAdornment from "@material-ui/core/InputAdornment";
@@ -57,8 +58,12 @@ const Navbar: React.FC = () => {
         />
       </TextInput>
       <Buttons $darkmode={darkMode}>
-        <button className="login">Log In</button>
-        <button className="sign-up">Sign Up</button>
+        <Link className="login" to="/login">
+          Log In
+        </Link>
+        <Link className="sign-up" to="/register">
+          Sign Up
+        </Link>
         <Account onClick={() => setOpen(!open)} $darkmode={darkMode}>
           <MdAccountCircle className="account-icon" />
           <RiArrowDownSFill className="account-icon" />

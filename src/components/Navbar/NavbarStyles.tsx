@@ -63,16 +63,16 @@ export const TextInput = styled.div<NavProps>`
 export const Buttons = styled.div<NavProps>`
   display: flex;
   align-items: center;
-  button {
+  .login,
+  .sign-up {
     width: 8rem;
     padding: 0.5rem;
     margin: 0 0.5rem;
     border-radius: 1rem;
     transition: all 0.2s ease-in-out;
     font-weight: bold;
-  }
-  .login,
-  .sign-up {
+    text-decoration: none;
+    text-align: center;
     cursor: pointer;
     @media screen and (max-width: 620px) {
       display: none;
