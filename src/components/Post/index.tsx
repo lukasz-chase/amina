@@ -9,6 +9,7 @@ import { IoIosShareAlt } from "react-icons/io";
 import { format } from "timeago.js";
 //store
 import viewState from "../../state/viewState";
+import userState from "../../state/userState";
 //components
 import UpvoteStyles from "../Upvotes";
 //interfaces
@@ -21,7 +22,10 @@ interface PostProps {
 
 const Post: React.FC<PostProps> = ({ post }) => {
   //state
-  const darkMode: boolean = viewState((state) => state.darkMode);
+  const loggedUser = userState((state) => state.loggedUser);
+  const isLogged = userState((state) => state.isLogged);
+  const darkmodeState = viewState((state) => state.darkMode);
+  const darkMode: boolean = isLogged ? loggedUser.darkMode : darkmodeState;
   const classicView: boolean = viewState((state) => state.classicView);
   const compactView: boolean = viewState((state) => state.compactView);
   return (

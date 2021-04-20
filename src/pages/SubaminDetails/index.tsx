@@ -7,10 +7,12 @@ import { Location } from "history";
 //store
 import subaminState from "../../state/subaminDetailsState";
 import viewState from "../../state/viewState";
+import userState from "../../state/userState";
 //components
 import Header from "../../components/Header";
 import JoinButton from "../../components/JoinButton";
 import Post from "../../components/Post";
+
 const SubaminDetails = () => {
   //state
   const location = useLocation<Location>();
@@ -24,12 +26,19 @@ const SubaminDetails = () => {
     (state) => state.fetchSubaminNewPosts
   );
   const subaminPosts = subaminState((state) => state.subaminPosts);
-  const darkMode = viewState((state) => state.darkMode);
+  const loggedUser = userState((state) => state.loggedUser);
+  const isLogged = userState((state) => state.isLogged);
+  const darkmodeState = viewState((state) => state.darkMode);
+  const darkMode: boolean = isLogged ? loggedUser.darkMode : darkmodeState;
+  const fetchUser = userState((state) => state.fetchUser);
+  //useEffect
   useEffect(() => {
     fetchSubamin(Number(subaminId));
     fetchSubaminNewPosts(Number(subaminId));
   }, [fetchSubamin, fetchSubaminNewPosts, subaminId]);
-  console.log(subaminPosts);
+  useEffect(() => {
+    fetchUser(Number(localStorage.getItem("userId")));
+  }, [fetchUser]);
   return (
     <DetailsComponent
       bgimage={

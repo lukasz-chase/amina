@@ -9,6 +9,7 @@ import {
 //store
 import postState from "../../state/postState";
 import viewState from "../../state/viewState";
+import userState from "../../state/userState";
 //location
 import { useLocation, useHistory } from "react-router-dom";
 import { Location } from "history";
@@ -30,12 +31,16 @@ const PostDetails: React.FC = () => {
   const postDetails = postState((state) => state.postDetails);
   const fetchPostDetails = postState((state) => state.fetchPostDetails);
   const collapseThread = postState((state) => state.collapseThread);
-  const darkMode = viewState((state) => state.darkMode);
+  const loggedUser = userState((state) => state.loggedUser);
+  const isLogged = userState((state) => state.isLogged);
+  const darkmodeState = viewState((state) => state.darkMode);
+  const darkMode: boolean = isLogged ? loggedUser.darkMode : darkmodeState;
   const [sortNewComments, setSortNewComments] = useState<boolean>(false);
   const location = useLocation<Location>();
   const postId = location.pathname.split("/")[2];
   const history = useHistory();
   const textToCopy = useRef<HTMLDivElement>(null);
+  const fetchUser = userState((state) => state.fetchUser);
   //useEffect
   useEffect(() => {
     fetchPostDetails(Number(postId));
@@ -49,6 +54,11 @@ const PostDetails: React.FC = () => {
     document.execCommand("copy");
     document.body.removeChild(el);
   };
+
+  useEffect(() => {
+    fetchUser(Number(localStorage.getItem("userId")));
+  }, [fetchUser]);
+
   return (
     <Wrapper darkmode={darkMode}>
       <Header darkmode={darkMode}>

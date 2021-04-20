@@ -6,27 +6,28 @@ type DropdownProps = {
 };
 
 type OptionProps = {
-  darkMode:boolean;
-}
+  darkMode: boolean;
+};
 
 export const Dropdown = styled.div<DropdownProps>`
   display: ${({ open }) => (open ? "flex" : "none")};
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: ${({darkMode})=> (darkMode ? '#1a1a1b' : 'white')};
+  background: ${({ darkMode }) => (darkMode ? "#1a1a1b" : "white")};
   position: absolute;
   top: 50px;
   right: 0;
-  .options {
-    color: ${({darkMode})=> (darkMode ? '#818384' : 'black')};
+  .options,
+  .my-stuff {
+    color: ${({ darkMode }) => (darkMode ? "#818384" : "black")};
     font-size: 0.6rem;
     .header {
       padding: 0.2rem 1rem;
     }
   }
   .stuff {
-    color: ${({darkMode})=> (darkMode ? '#818384' : 'black')};
+    color: ${({ darkMode }) => (darkMode ? "#818384" : "black")};
     font-size: 0.6rem;
     position: relative;
     z-index: 1;
@@ -44,15 +45,18 @@ export const Dropdown = styled.div<DropdownProps>`
       padding: 0.2rem 1rem;
     }
   }
+  .login {
+    text-decoration: none;
+  }
 `;
 export const Option = styled.div<OptionProps>`
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  color: ${({darkMode})=> (darkMode ? '#d7dad0' : 'black')};
+  color: ${({ darkMode }) => (darkMode ? "#d7dad0" : "black")};
   padding: 0.6rem 1rem;
   width: 13rem;
-  font-size: 1rem; 
+  font-size: 1rem;
   cursor: pointer;
   &:hover {
     background: #d7dadc;

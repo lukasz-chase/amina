@@ -17,13 +17,17 @@ import { RiArrowDownSFill } from "react-icons/ri";
 import OptionsDropdown from "./OptionsDropdown.js";
 //store
 import viewState from "../../state/viewState";
+import userState from "../../state/userState";
 
 const Navbar: React.FC = () => {
   //state
   const [open, setOpen] = useState<boolean>(false);
   const [question, setQuestion] = useState<string>("");
-  const darkMode: boolean = viewState((state) => state.darkMode);
   const history = useHistory();
+  const loggedUser = userState((state) => state.loggedUser);
+  const isLogged = userState((state) => state.isLogged);
+  const darkmodeState = viewState((state) => state.darkMode);
+  const darkMode: boolean = isLogged ? loggedUser.darkMode : darkmodeState;
   //handlers
   const searchHandler = (text: string) => {
     if (question !== "") {
@@ -57,18 +61,25 @@ const Navbar: React.FC = () => {
           }
         />
       </TextInput>
+
       <Buttons $darkmode={darkMode}>
-        <Link className="login" to="/login">
-          Log In
-        </Link>
-        <Link className="sign-up" to="/register">
-          Sign Up
-        </Link>
+        {!isLogged && (
+          <>
+            <Link className="login" to="/login">
+              Log In
+            </Link>
+            <Link className="sign-up" to="/register">
+              Sign Up
+            </Link>
+          </>
+        )}
         <Account onClick={() => setOpen(!open)} $darkmode={darkMode}>
+          {isLogged && <span className="name">{loggedUser.username}</span>}
           <MdAccountCircle className="account-icon" />
           <RiArrowDownSFill className="account-icon" />
         </Account>
       </Buttons>
+
       <OptionsDropdown open={open} setOpen={setOpen} />
     </Nav>
   );

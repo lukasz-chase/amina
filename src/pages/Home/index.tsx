@@ -5,6 +5,7 @@ import { HomeComponent, Posts, Info } from "./HomeStyles";
 import viewState from "../../state/viewState";
 import postState from "../../state/postState";
 import subaminsState from "../../state/subaminsState";
+import userState from "../../state/userState";
 //components
 import Header from "../../components/Header";
 import Post from "../../components/Post";
@@ -13,14 +14,21 @@ import { Link } from "react-router-dom";
 
 const Home: React.FC = () => {
   //state
-  const darkmode: boolean = viewState((state) => state.darkMode);
+  const loggedUser = userState((state) => state.loggedUser);
+  const isLogged = userState((state) => state.isLogged);
+  const darkmodeState = viewState((state) => state.darkMode);
+  const darkmode: boolean = isLogged ? loggedUser.darkMode : darkmodeState;
   const fetchSubamins = subaminsState((state) => state.fetchSubamins);
   const fetchTopPosts = postState((state) => state.fetchTopPosts);
   const fetchNewPosts = postState((state) => state.fetchNewPosts);
   const posts = postState((state) => state.posts);
   const classicview: boolean = viewState((state) => state.classicView);
   const subamins = subaminsState((state) => state.subamins);
+  const fetchUser = userState((state) => state.fetchUser);
   //useEffect
+  useEffect(() => {
+    fetchUser(Number(localStorage.getItem("userId")));
+  }, [fetchUser]);
   useEffect(() => {
     fetchSubamins();
     fetchTopPosts();

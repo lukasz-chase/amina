@@ -6,6 +6,7 @@ import { useLocation, Link } from "react-router-dom";
 //store
 import searchState from "../../state/searchState";
 import viewState from "../../state/viewState";
+import userState from "../../state/userState";
 //components
 import Post from "../../components/Post";
 import JoinButton from "../../components/JoinButton";
@@ -20,18 +21,27 @@ const SearchPage = () => {
   const posts = searchState((state) => state.postSearch);
   const fetchTopPosts = searchState((state) => state.fetchTopPostsSearch);
   const fetchNewPosts = searchState((state) => state.fetchNewPostsSearch);
-  const darkMode = viewState((state) => state.darkMode);
+  const loggedUser = userState((state) => state.loggedUser);
+  const isLogged = userState((state) => state.isLogged);
+  const darkmodeState = viewState((state) => state.darkMode);
+  const darkMode: boolean = isLogged ? loggedUser.darkMode : darkmodeState;
+  const fetchUser = userState((state) => state.fetchUser);
   const fetchTopSubamins = searchState(
     (state) => state.fetchTopSubaminasSearch
   );
   const fetchNewSubamins = searchState(
     (state) => state.fetchNewSubaminasSearch
   );
+  //useEffects
   useEffect(() => {
     fetchTopPosts(question);
     fetchTopSubamins(question);
   }, [fetchTopPosts, fetchTopSubamins, question]);
-  console.log(posts);
+
+  useEffect(() => {
+    fetchUser(Number(localStorage.getItem("userId")));
+  }, [fetchUser]);
+
   return (
     <SearchPageComponent darkmode={darkMode}>
       <div className="header">

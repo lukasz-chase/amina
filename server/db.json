@@ -169,8 +169,11 @@
   "users": [
     {
       "id": 1,
-      "login": "luki",
-      "password": "luki"
+      "username": "luki",
+      "email": "luki@kiepek",
+      "password": "luki",
+      "followedSubaminas": [],
+      "darkMode": true
     }
   ]
 }

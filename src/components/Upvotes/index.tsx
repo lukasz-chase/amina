@@ -1,6 +1,7 @@
 import { UpvoteComponent } from "./upvoteStyles";
 //store
 import viewState from "../../state/viewState";
+import userState from "../../state/userState";
 //icons
 import { BiUpvote, BiDownvote } from "react-icons/bi";
 
@@ -14,8 +15,11 @@ const UpvoteStyles: React.FC<Props> = ({
   flexDirection,
   darkModeBg,
 }) => {
-  const darkMode = viewState((state) => state.darkMode);
   const classicview = viewState((state) => state.classicView);
+  const loggedUser = userState((state) => state.loggedUser);
+  const isLogged = userState((state) => state.isLogged);
+  const darkmodeState = viewState((state) => state.darkMode);
+  const darkMode: boolean = isLogged ? loggedUser.darkMode : darkmodeState;
   return (
     <UpvoteComponent
       darkmode={darkMode}

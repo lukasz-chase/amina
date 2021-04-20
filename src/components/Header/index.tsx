@@ -3,6 +3,7 @@ import React from "react";
 import { HeaderComponent, Button, ViewOption } from "./HeaderStyles";
 //store
 import viewState from "../../state/viewState";
+import userState from "../../state/userState";
 //icons
 import { AiOutlineLineChart } from "react-icons/ai";
 import { MdNewReleases } from "react-icons/md";
@@ -27,9 +28,12 @@ const Header: React.FC<HeaderProps> = ({
   subamin,
 }) => {
   //state
-  const darkMode: boolean = viewState((state) => state.darkMode);
   const setClassicView = viewState((state) => state.setClassicView);
   const setCompactView = viewState((state) => state.setCompactView);
+  const loggedUser = userState((state) => state.loggedUser);
+  const isLogged = userState((state) => state.isLogged);
+  const darkmodeState = viewState((state) => state.darkMode);
+  const darkMode: boolean = isLogged ? loggedUser.darkMode : darkmodeState;
   return (
     <HeaderComponent darkmode={darkMode}>
       <div className="buttons">

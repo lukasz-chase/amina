@@ -65,8 +65,8 @@ export const Buttons = styled.div<NavProps>`
   align-items: center;
   .login,
   .sign-up {
-    width: 8rem;
-    padding: 0.5rem;
+    width: 5rem;
+    padding: 0.3rem;
     margin: 0 0.5rem;
     border-radius: 1rem;
     transition: all 0.2s ease-in-out;
@@ -79,7 +79,8 @@ export const Buttons = styled.div<NavProps>`
     }
   }
   .login {
-    background: ${({ $darkmode: darkMode }) => (darkMode ? "black" : "white")};
+    background: ${({ $darkmode: darkMode }) =>
+      darkMode ? "#030303" : "white"};
     color: ${({ $darkmode: darkMode }) => (darkMode ? "white" : "#1484D6")};
     border: ${({ $darkmode: darkMode }) =>
       darkMode ? "1px solid white" : "1px solid #1484D6 "};
@@ -113,5 +114,9 @@ export const Account = styled.div<NavProps>`
   .account-icon {
     font-size: 1.5rem;
     color: #818384;
+  }
+  .name {
+    color: #636366;
+    padding: 0 0.5rem;
   }
 `;

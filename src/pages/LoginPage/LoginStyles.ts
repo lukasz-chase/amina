@@ -18,6 +18,10 @@ export const LoginComponent = styled.div<LoginProps>`
   .form {
     display: flex;
     flex-direction: column;
+    .false-username,
+    .false-password {
+      color: red;
+    }
     .label {
       margin: 1rem 0;
       color: ${({ darkmode }) => (darkmode ? "#B4B7B9" : "black")};

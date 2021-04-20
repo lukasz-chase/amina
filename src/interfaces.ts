@@ -26,3 +26,12 @@ export interface Subamin {
   desc: string;
   background?: string;
 }
+
+export interface User {
+  id: number;
+  username: string;
+  email: string;
+  password: string;
+  followedSubaminas: number[];
+  darkMode: boolean;
+}
