@@ -4,11 +4,12 @@ interface ButtonProps {
   $darkmode: boolean;
   $classicview: boolean;
   $compactview: boolean;
+  $islogged: boolean;
 }
 
 export const Button = styled.div<ButtonProps>`
   .join-button {
-    display: flex;
+    display: ${({ $islogged }) => ($islogged ? "flex" : "none")};
     align-items: center;
     justify-content: space-evenly;
     outline: none;

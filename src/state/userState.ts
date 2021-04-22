@@ -9,7 +9,6 @@ type Store = {
   fetchUser: (id: number) => void;
   isLogged: boolean;
   logOut: () => void;
-  logIn: () => void;
 };
 
 const userState = create<Store>((set) => ({
@@ -26,7 +25,6 @@ const userState = create<Store>((set) => ({
     const response = await fetch(userDetails(id));
     set({ loggedUser: await response.json(), isLogged: response.ok });
   },
-  logIn: () => set({ isLogged: true }),
   logOut: () => set({ isLogged: false }),
 }));
 

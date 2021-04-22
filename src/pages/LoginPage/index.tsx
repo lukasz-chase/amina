@@ -17,6 +17,10 @@ import { useLocation, Link, useHistory } from "react-router-dom";
 import { Location } from "history";
 //axios
 import axios from "axios";
+//encrypting password
+import sha512 from "crypto-js/sha512";
+import Base64 from "crypto-js/enc-base64";
+
 const LoginPage: React.FC = () => {
   //login State
   const [username, setUsername] = useState("");
@@ -31,24 +35,25 @@ const LoginPage: React.FC = () => {
   const [registerEmail, setRegisterEmail] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
   const [registerPassVisibility, setRegPassVisibility] = useState(false);
+  const [registerSuccess, setRegisterSuccess] = useState(false);
+  const [registerError, setRegisterError] = useState(false);
+  const [registerErrorMsg, setRegisterErrorMsg] = useState("");
   //state
   const darkMode = viewState((state) => state.darkMode);
   const location = useLocation<Location>();
   const page = location.pathname.split("/")[1];
   const history = useHistory();
   const fetchUser = userState((state) => state.fetchUser);
-  const logIn = userState((state) => state.logIn);
-  //handlers
 
+  //handlers
   const loginHandler = (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
     axios.get(loginUrl(username)).then((res) => {
       if (res.data[0]) {
-        if (res.data[0].password === password) {
+        if (res.data[0].password === sha512(password).toString(Base64)) {
           history.push("/");
           localStorage.setItem("userId", res.data[0].id);
           fetchUser(res.data[0].id);
-          logIn();
         } else {
           setPasswordErrorMsg("incorrect password");
           setFalsePassword(true);
@@ -60,6 +65,57 @@ const LoginPage: React.FC = () => {
         setUsernameErrorMsg("incorrect username");
       }
     });
+  };
+
+  const registerHandler = (e: React.FormEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    axios
+      .get(`http://localhost:3000/users?email=${registerEmail}`)
+      .then((res) => {
+        if (res.data[0]) {
+          setRegisterSuccess(false);
+          setRegisterError(true);
+          setRegisterErrorMsg("Theres already an account with that email");
+        } else {
+          if (
+            /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
+              registerEmail
+            )
+          ) {
+            if (registerPassword.length >= 6) {
+              if (registerUsername !== "") {
+                axios
+                  .post(`http://localhost:3000/users`, {
+                    username: registerUsername,
+                    email: registerEmail,
+                    password: sha512(registerPassword).toString(Base64),
+                    followedSubaminas: [],
+                    darkMode: false,
+                  })
+                  .then(() => {
+                    setRegisterError(false);
+                    setRegisterSuccess(true);
+                    setRegisterPassword("");
+                    setRegisterEmail("");
+                    setRegisterUsername("");
+                  });
+              } else {
+                setRegisterSuccess(false);
+                setRegisterError(true);
+                setRegisterErrorMsg("Inputs cant be empty");
+              }
+            } else {
+              setRegisterSuccess(false);
+              setRegisterError(true);
+              setRegisterErrorMsg("Password has to be at least 6 letters long");
+            }
+          } else {
+            setRegisterSuccess(false);
+            setRegisterError(true);
+            setRegisterErrorMsg("incorrect email");
+          }
+        }
+      });
   };
 
   return (
@@ -125,6 +181,10 @@ const LoginPage: React.FC = () => {
         </form>
       ) : (
         <form className="form">
+          <span className="error">{registerError ? registerErrorMsg : ""}</span>
+          <span className="success">
+            {registerSuccess ? "Registration was successfull" : ""}
+          </span>
           <InputLabel htmlFor="filled-adornment-password" className="label">
             Email
           </InputLabel>
@@ -168,7 +228,11 @@ const LoginPage: React.FC = () => {
               </InputAdornment>
             }
           />
-          <button type="submit" className="submit-button">
+          <button
+            type="submit"
+            className="submit-button"
+            onClick={(e) => registerHandler(e)}
+          >
             Register
           </button>
           <span className="sing-up">

@@ -22,6 +22,16 @@ export const LoginComponent = styled.div<LoginProps>`
     .false-password {
       color: red;
     }
+    .error,
+    .success {
+      text-align: center;
+    }
+    .error {
+      color: red;
+    }
+    .success {
+      color: green;
+    }
     .label {
       margin: 1rem 0;
       color: ${({ darkmode }) => (darkmode ? "#B4B7B9" : "black")};

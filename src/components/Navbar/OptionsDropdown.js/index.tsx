@@ -18,7 +18,8 @@ import userState from "../../../state/userState";
 import { Link } from "react-router-dom";
 //location
 import { useHistory } from "react-router-dom";
-
+//axios
+import axios from "axios";
 interface Props {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -28,22 +29,39 @@ const OptionsDropdown: React.FC<Props> = ({ open, setOpen }) => {
   //state
   const loggedUser = userState((state) => state.loggedUser);
   const isLogged = userState((state) => state.isLogged);
+  const fetchUser = userState((state) => state.fetchUser);
   const darkmodeState = viewState((state) => state.darkMode);
   const darkMode: boolean = isLogged ? loggedUser.darkMode : darkmodeState;
-  const changeDarkMode = viewState((state) => state.changeDarkMode);
+  const changeDarkModeState = viewState((state) => state.changeDarkMode);
   const logOut = userState((state) => state.logOut);
   const history = useHistory();
+
   //handlers
-  const handleChange = () => {
-    changeDarkMode();
-    setOpen(!open);
-  };
   const LogOutHandler = () => {
     localStorage.removeItem("userId");
     history.push("/login");
     setOpen(!open);
     logOut();
   };
+  const darkModeHandler = () => {
+    axios
+      .put(`http://localhost:3000/users/${loggedUser.id}`, {
+        id: loggedUser.id,
+        username: loggedUser.username,
+        email: loggedUser.email,
+        password: loggedUser.password,
+        followedSubaminas: loggedUser.followedSubaminas,
+        darkMode: !loggedUser.darkMode,
+      })
+      .then(() => {
+        fetchUser(loggedUser.id);
+      });
+  };
+  const handleChange = () => {
+    isLogged ? darkModeHandler() : changeDarkModeState();
+    setOpen(!open);
+  };
+
   return (
     <Dropdown open={open} darkMode={darkMode}>
       {isLogged && (
