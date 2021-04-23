@@ -56,7 +56,7 @@ const SubaminDetails = () => {
           </div>
           <div className="name">
             <h1>{subamin.name}</h1>
-            <JoinButton />
+            <JoinButton id={subamin.id} />
           </div>
         </div>
       </div>

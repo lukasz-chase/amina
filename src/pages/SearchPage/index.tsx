@@ -88,7 +88,7 @@ const SearchPage = () => {
                   </div>
                 </div>
                 <span className="info">{subamin.desc}</span>
-                <JoinButton />
+                <JoinButton id={subamin.id} />
               </Link>
             ))}
           </div>

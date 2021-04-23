@@ -166,28 +166,23 @@
   ],
   "users": [
     {
-      "id": 1,
       "username": "luki",
       "email": "luki@email.com",
       "password": "jd4bukq/A3K8pr6Z08gdbPUZ790aie87UofsVskRYNJnEM3do2keivX9Plzi2HWkdcDO6nIWBd163cxeHrIb+w==",
-      "followedSubaminas": [],
+      "followedSubaminas": [
+        1,
+        5
+      ],
+      "id": 1,
       "darkMode": true
     },
     {
-      "username": "luki",
-      "email": "luki1@email.com",
+      "username": "luki2",
+      "email": "luki2@email.com",
       "password": "jd4bukq/A3K8pr6Z08gdbPUZ790aie87UofsVskRYNJnEM3do2keivX9Plzi2HWkdcDO6nIWBd163cxeHrIb+w==",
       "followedSubaminas": [],
       "darkMode": false,
       "id": 2
-    },
-    {
-      "username": "asd",
-      "email": "asd@email.com",
-      "password": "K05IAU/S9AVV5WRoNj48R8EQ/WV6RW57NA9F6jV4d4ZQ8piZciXD6865k97ekrNhMorrlHM/CcJWkmBUKCjJwA==",
-      "followedSubaminas": [],
-      "darkMode": false,
-      "id": 3
     }
   ]
 }

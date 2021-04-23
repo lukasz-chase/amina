@@ -52,7 +52,7 @@ const Post: React.FC<PostProps> = ({ post }) => {
               <span className="author">Posted by u/{post.author}</span>
               <span className="date">{format(post.date)}</span>
             </span>
-            <JoinButton />
+            <JoinButton id={post.id} />
           </div>
           <div className="post-title">{post.title}</div>
           <div className="post-tools">

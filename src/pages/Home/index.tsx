@@ -24,6 +24,8 @@ const Home: React.FC = () => {
   const posts = postState((state) => state.posts);
   const classicview: boolean = viewState((state) => state.classicView);
   const subamins = subaminsState((state) => state.subamins);
+  const usersFeed = subaminsState((state) => state.usersFeed);
+  const fetchSubaminsByIds = subaminsState((state) => state.fetchSubaminByIds);
   const fetchUser = userState((state) => state.fetchUser);
   //useEffect
   useEffect(() => {
@@ -32,15 +34,25 @@ const Home: React.FC = () => {
   useEffect(() => {
     fetchSubamins();
     fetchTopPosts();
-    // store.fetchSubaminByIds([1, 2, 3]);
-  }, [fetchSubamins, fetchTopPosts]);
+    fetchSubaminsByIds(loggedUser.followedSubaminas);
+  }, [fetchSubamins, fetchTopPosts, fetchSubaminsByIds]);
   return (
     <HomeComponent darkmode={darkmode} classicview={classicview}>
       <Posts darkmode={darkmode} classicview={classicview}>
         <Header topFunction={fetchTopPosts} newFunction={fetchNewPosts} />
-        {posts.map((post) => (
-          <Post post={post} key={post.id} />
-        ))}
+        {isLogged && loggedUser.followedSubaminas ? (
+          <>
+            {usersFeed.map((post) => (
+              <Post post={post} key={post.id} />
+            ))}
+          </>
+        ) : (
+          <>
+            {posts.map((post) => (
+              <Post post={post} key={post.id} />
+            ))}
+          </>
+        )}
       </Posts>
       <Info darkmode={darkmode} classicview={classicview}>
         <div className="trending">

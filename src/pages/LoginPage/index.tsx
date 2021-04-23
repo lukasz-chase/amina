@@ -77,43 +77,57 @@ const LoginPage: React.FC = () => {
           setRegisterError(true);
           setRegisterErrorMsg("Theres already an account with that email");
         } else {
-          if (
-            /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
-              registerEmail
-            )
-          ) {
-            if (registerPassword.length >= 6) {
-              if (registerUsername !== "") {
-                axios
-                  .post(`http://localhost:3000/users`, {
-                    username: registerUsername,
-                    email: registerEmail,
-                    password: sha512(registerPassword).toString(Base64),
-                    followedSubaminas: [],
-                    darkMode: false,
-                  })
-                  .then(() => {
-                    setRegisterError(false);
-                    setRegisterSuccess(true);
-                    setRegisterPassword("");
-                    setRegisterEmail("");
-                    setRegisterUsername("");
-                  });
-              } else {
+          axios
+            .get(`http://localhost:3000/users?username=${registerUsername}`)
+            .then((res) => {
+              if (res.data[0]) {
                 setRegisterSuccess(false);
                 setRegisterError(true);
-                setRegisterErrorMsg("Inputs cant be empty");
+                setRegisterErrorMsg(
+                  "Theres already an account with that username"
+                );
+              } else {
+                if (
+                  /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
+                    registerEmail
+                  )
+                ) {
+                  if (registerPassword.length >= 6) {
+                    if (registerUsername !== "") {
+                      axios
+                        .post(`http://localhost:3000/users`, {
+                          username: registerUsername,
+                          email: registerEmail,
+                          password: sha512(registerPassword).toString(Base64),
+                          followedSubaminas: [],
+                          darkMode: false,
+                        })
+                        .then(() => {
+                          setRegisterError(false);
+                          setRegisterSuccess(true);
+                          setRegisterPassword("");
+                          setRegisterEmail("");
+                          setRegisterUsername("");
+                        });
+                    } else {
+                      setRegisterSuccess(false);
+                      setRegisterError(true);
+                      setRegisterErrorMsg("Inputs cant be empty");
+                    }
+                  } else {
+                    setRegisterSuccess(false);
+                    setRegisterError(true);
+                    setRegisterErrorMsg(
+                      "Password has to be at least 6 letters long"
+                    );
+                  }
+                } else {
+                  setRegisterSuccess(false);
+                  setRegisterError(true);
+                  setRegisterErrorMsg("incorrect email");
+                }
               }
-            } else {
-              setRegisterSuccess(false);
-              setRegisterError(true);
-              setRegisterErrorMsg("Password has to be at least 6 letters long");
-            }
-          } else {
-            setRegisterSuccess(false);
-            setRegisterError(true);
-            setRegisterErrorMsg("incorrect email");
-          }
+            });
         }
       });
   };

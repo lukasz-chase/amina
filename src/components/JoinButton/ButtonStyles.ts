@@ -14,6 +14,7 @@ export const Button = styled.div<ButtonProps>`
     justify-content: space-evenly;
     outline: none;
     border: none;
+    z-index: 5;
     border-radius: ${({ $classicview: classicView }) =>
       classicView ? "10px" : "15px"};
     background: ${({ $darkmode: darkMode }) =>

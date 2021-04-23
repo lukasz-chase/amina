@@ -1,12 +1,12 @@
 import create from "zustand";
-import { subaminsUrl } from "../api";
-import { Subamin } from "../interfaces";
+import { subaminsUrl, feed } from "../api";
+import { PostProperties, Subamin } from "../interfaces";
 
 type Store = {
   subamins: Subamin[];
   fetchSubamins: () => void;
-  // fetchSubaminByIds: ([]) => void;
-  // users: [];
+  fetchSubaminByIds: ([]) => void;
+  usersFeed: PostProperties[];
 };
 
 export const subaminsState = create<Store>((set) => ({
@@ -15,13 +15,12 @@ export const subaminsState = create<Store>((set) => ({
     const response = await fetch(subaminsUrl);
     set({ subamins: await response.json() });
   },
-  // users: [],
-  // fetchSubaminByIds: async (ids: number[]) => {
-  //   const url = `${subaminsUrl}${ids.map((id) => `&id=${id}`).join("")}`;
-  //   console.log(url);
-  //   const response = await fetch(url);
-  //   set({ users: await response.json() });
-  // },
+  usersFeed: [],
+  fetchSubaminByIds: async (ids: number[]) => {
+    const url = `${feed}${ids.map((id) => `&id=${id}`).join("")}`;
+    const response = await fetch(url);
+    set({ usersFeed: await response.json() });
+  },
 }));
 
 export default subaminsState;
