@@ -10,10 +10,14 @@ import {
 import postState from "../../state/postState";
 import viewState from "../../state/viewState";
 import userState from "../../state/userState";
+//material ui
+import TextField from "@material-ui/core/TextField";
 //location
 import { useLocation, useHistory } from "react-router-dom";
 import { Location } from "history";
 //icons
+//icons
+import { BiUpvote, BiDownvote } from "react-icons/bi";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import {
   BsBookmark,
@@ -25,6 +29,7 @@ import { MdNewReleases } from "react-icons/md";
 //format time
 import { format } from "timeago.js";
 import UpvoteStyles from "../../components/Upvotes";
+import axios from "axios";
 
 const PostDetails: React.FC = () => {
   //state
@@ -41,10 +46,14 @@ const PostDetails: React.FC = () => {
   const history = useHistory();
   const textToCopy = useRef<HTMLDivElement>(null);
   const fetchUser = userState((state) => state.fetchUser);
+  const [comment, setComment] = useState("");
   //useEffect
   useEffect(() => {
     fetchPostDetails(Number(postId));
   }, [postId, fetchPostDetails]);
+  useEffect(() => {
+    fetchUser(Number(localStorage.getItem("userId")));
+  }, [fetchUser]);
   //handlers
   const copyToClipboard = (str: string) => {
     const el = document.createElement("textarea");
@@ -54,11 +63,39 @@ const PostDetails: React.FC = () => {
     document.execCommand("copy");
     document.body.removeChild(el);
   };
-
-  useEffect(() => {
-    fetchUser(Number(localStorage.getItem("userId")));
-  }, [fetchUser]);
-
+  const addComment = (e: React.FormEvent<HTMLButtonElement>) => {
+    var date = new Date().toLocaleString().replace("/", ".");
+    e.preventDefault();
+    if (comment) {
+      axios
+        .put(`http://localhost:3000/posts/${postDetails.id}`, {
+          id: postDetails.id,
+          subamindId: postDetails.subamindId,
+          subaminName: postDetails.subaminName,
+          subaminLogo: postDetails.subaminLogo,
+          date: postDetails.date,
+          title: postDetails.title,
+          description: postDetails.description,
+          author: postDetails.author,
+          upvotes: postDetails.upvotes,
+          image: postDetails.image,
+          comments: [
+            ...postDetails.comments!,
+            {
+              id: postDetails.comments!.length + 1,
+              author: loggedUser.username,
+              upvotes: 0,
+              date: date,
+              text: comment,
+            },
+          ],
+        })
+        .then((res) => {
+          setComment("");
+          fetchPostDetails(Number(postId));
+        });
+    }
+  };
   return (
     <Wrapper darkmode={darkMode}>
       <Header darkmode={darkMode}>
@@ -105,11 +142,42 @@ const PostDetails: React.FC = () => {
               )}
               <span>{postDetails.description}</span>
             </div>
+            <div className="upvotes-sm">
+              <BiUpvote className="upvote-button" />
+              <span>
+                {postDetails.upvotes > 1000
+                  ? (postDetails.upvotes / 1000).toFixed(1) + "K"
+                  : postDetails.upvotes}
+              </span>
+              <BiDownvote className="downvote-button" />
+            </div>
           </div>
         </div>
       </DetailsComponent>
       {postDetails.comments && (
-        <CommentsComponent darkmode={darkMode}>
+        <CommentsComponent darkmode={darkMode} comment={comment ? true : false}>
+          {isLogged && (
+            <div className="write-comment">
+              <span>Comment as {loggedUser.username}</span>
+              <form className="form">
+                <TextField
+                  className="text-field"
+                  multiline
+                  placeholder="What are your thoughts?"
+                  rows={4}
+                  value={comment}
+                  onChange={(e) => setComment(e.target.value)}
+                />
+                <button
+                  type="submit"
+                  className="submit"
+                  onClick={(e) => addComment(e)}
+                >
+                  Comment
+                </button>
+              </form>
+            </div>
+          )}
           <div className="sort-comments">
             Sort comments by:
             <span onClick={() => setSortNewComments(false)}>
@@ -123,8 +191,8 @@ const PostDetails: React.FC = () => {
             .comments!.sort((a: any, b: any) =>
               sortNewComments ? a.id - b.id : b.upvotes - a.upvotes
             )
-            .map((comment) => (
-              <div className="comment" key={comment.id}>
+            .map((comment, index) => (
+              <div className="comment" key={index}>
                 <div className="header">
                   <span className="name">{comment.author}</span>{" "}
                   <span className="time">{format(comment.date)}</span>

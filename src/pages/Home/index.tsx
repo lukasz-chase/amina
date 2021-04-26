@@ -30,17 +30,19 @@ const Home: React.FC = () => {
   //useEffect
   useEffect(() => {
     fetchUser(Number(localStorage.getItem("userId")));
-  }, [fetchUser]);
-  useEffect(() => {
     fetchSubamins();
     fetchTopPosts();
-    fetchSubaminsByIds(loggedUser.followedSubaminas);
-  }, [fetchSubamins, fetchTopPosts, fetchSubaminsByIds]);
+  }, [fetchSubamins, fetchTopPosts, fetchUser, fetchSubaminsByIds]);
+  useEffect(() => {
+    if (isLogged) {
+      fetchSubaminsByIds(loggedUser.followedSubaminas);
+    }
+  }, [loggedUser.followedSubaminas, fetchSubaminsByIds, isLogged]);
   return (
     <HomeComponent darkmode={darkmode} classicview={classicview}>
       <Posts darkmode={darkmode} classicview={classicview}>
         <Header topFunction={fetchTopPosts} newFunction={fetchNewPosts} />
-        {isLogged && loggedUser.followedSubaminas ? (
+        {isLogged && usersFeed ? (
           <>
             {usersFeed.map((post) => (
               <Post post={post} key={post.id} />

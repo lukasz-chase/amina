@@ -59,6 +59,34 @@
           "upvotes": 50,
           "date": "24.03.2021 11:03",
           "text": "asdasdasd"
+        },
+        {
+          "id": 2,
+          "author": "luki",
+          "upvotes": 0,
+          "date": "26.01.2021 22:53:38",
+          "text": "siema"
+        },
+        {
+          "id": 3,
+          "author": "luki",
+          "upvotes": 0,
+          "date": "26.04.2021, 23:26:04",
+          "text": "siema"
+        },
+        {
+          "id": 4,
+          "author": "luki",
+          "upvotes": 0,
+          "date": "26.04.2021, 23:29:12",
+          "text": "rtjtukiyujkt"
+        },
+        {
+          "id": 5,
+          "author": "luki",
+          "upvotes": 0,
+          "date": "26.04.2021, 23:31:43",
+          "text": "kupa\n"
         }
       ]
     },
@@ -166,6 +194,7 @@
   ],
   "users": [
     {
+      "id": 1,
       "username": "luki",
       "email": "luki@email.com",
       "password": "jd4bukq/A3K8pr6Z08gdbPUZ790aie87UofsVskRYNJnEM3do2keivX9Plzi2HWkdcDO6nIWBd163cxeHrIb+w==",
@@ -173,8 +202,7 @@
         1,
         5
       ],
-      "id": 1,
-      "darkMode": true
+      "darkMode": false
     },
     {
       "username": "luki2",
