@@ -49,6 +49,10 @@ const PostDetails: React.FC = () => {
   const textToCopy = useRef<HTMLDivElement>(null);
   const fetchUser = userState((state) => state.fetchUser);
   const [comment, setComment] = useState("");
+  const [upvoted, setUpvoted] = useState<boolean>(false);
+  const [downvoted, setDownvoted] = useState(false);
+  const [upvotedComment, setCommentUpvoted] = useState<boolean>(false);
+  const [downvotedComment, setCommentDownvoted] = useState(false);
   //useEffect
   useEffect(() => {
     fetchPostDetails(Number(postId));
@@ -56,6 +60,20 @@ const PostDetails: React.FC = () => {
   useEffect(() => {
     fetchUser(Number(localStorage.getItem("userId")));
   }, [fetchUser]);
+  useEffect(() => {
+    if (
+      isLogged &&
+      postDetails.upvotedBy &&
+      postDetails.upvotedBy.find((a) => a === loggedUser.id)
+    ) {
+      setUpvoted(true);
+    } else if (
+      postDetails.downvotedBy &&
+      postDetails.downvotedBy.find((a) => a === loggedUser.id)
+    ) {
+      setDownvoted(true);
+    }
+  }, [isLogged, loggedUser.id, postDetails.downvotedBy, postDetails.upvotedBy]);
   //handlers
   const copyToClipboard = (str: string) => {
     const el = document.createElement("textarea");
@@ -97,6 +115,8 @@ const PostDetails: React.FC = () => {
               upvotes: 0,
               date: `${mm}/${dd}/${yyyy}, ${hour}:${minutes}:${seconds}`,
               text: comment,
+              upvotedBy: [],
+              downvotedBy: [],
             },
           ],
         })
@@ -106,6 +126,213 @@ const PostDetails: React.FC = () => {
         });
     }
   };
+  const upvoteHandler = (what: string) => {
+    if (
+      postDetails.upvotedBy &&
+      postDetails.upvotedBy.find((a) => a === loggedUser.id)
+    ) {
+      axios
+        .put(`http://localhost:3000/posts/${postDetails.id}`, {
+          id: postDetails.id,
+          subamindId: postDetails.subamindId,
+          subaminName: postDetails.subaminName,
+          subaminLogo: postDetails.subaminLogo,
+          date: postDetails.date,
+          title: postDetails.title,
+          description: postDetails.description,
+          author: postDetails.author,
+          upvotes: postDetails.upvotes - 1,
+          upvotedBy: postDetails.upvotedBy.filter((a) => a !== loggedUser.id),
+          downvotedBy: postDetails.downvotedBy,
+          image: postDetails.image,
+          comments: postDetails.comments,
+        })
+        .then(() => {
+          setDownvoted(false);
+          setUpvoted(false);
+          fetchPostDetails(Number(postId));
+        });
+    } else if (
+      postDetails.downvotedBy &&
+      postDetails.downvotedBy.find((a) => a === loggedUser.id)
+    ) {
+      axios
+        .put(`http://localhost:3000/posts/${postDetails.id}`, {
+          id: postDetails.id,
+          subamindId: postDetails.subamindId,
+          subaminName: postDetails.subaminName,
+          subaminLogo: postDetails.subaminLogo,
+          date: postDetails.date,
+          title: postDetails.title,
+          description: postDetails.description,
+          author: postDetails.author,
+          upvotes: postDetails.upvotes + 1,
+          upvotedBy: postDetails.upvotedBy,
+          downvotedBy: postDetails.downvotedBy.filter(
+            (a) => a !== loggedUser.id
+          ),
+          image: postDetails.image,
+          comments: postDetails.comments,
+        })
+        .then(() => {
+          setUpvoted(false);
+          setDownvoted(false);
+          fetchPostDetails(Number(postId));
+        });
+    } else {
+      axios
+        .put(`http://localhost:3000/posts/${postDetails.id}`, {
+          id: postDetails.id,
+          subamindId: postDetails.subamindId,
+          subaminName: postDetails.subaminName,
+          subaminLogo: postDetails.subaminLogo,
+          date: postDetails.date,
+          title: postDetails.title,
+          description: postDetails.description,
+          author: postDetails.author,
+          upvotes:
+            what === "upvote"
+              ? postDetails.upvotes + 1
+              : postDetails.upvotes - 1,
+          upvotedBy:
+            what === "upvote"
+              ? [...postDetails.upvotedBy, loggedUser.id]
+              : postDetails.upvotedBy,
+          downvotedBy:
+            what === "downvote"
+              ? [...postDetails.downvotedBy, loggedUser.id]
+              : postDetails.downvotedBy,
+          image: postDetails.image,
+          comments: postDetails.comments,
+        })
+        .then(() => {
+          if (what === "upvote") {
+            setUpvoted(true);
+          } else {
+            setDownvoted(true);
+          }
+          fetchPostDetails(Number(postId));
+        });
+    }
+  };
+
+  const upvoteCommentHandler = (id: number, what: string) => {
+    const isCommentUpvoted = postDetails.comments!.find((a) =>
+      a.upvotedBy.find((a) => a === loggedUser.id)
+    );
+    const isCommentDownvoted = postDetails.comments!.find((a) =>
+      a.downvotedBy.find((a) => a === loggedUser.id)
+    );
+    if (postDetails.comments && isCommentUpvoted) {
+      axios
+        .put(`http://localhost:3000/posts/${postDetails.id}`, {
+          id: postDetails.id,
+          subamindId: postDetails.subamindId,
+          subaminName: postDetails.subaminName,
+          subaminLogo: postDetails.subaminLogo,
+          date: postDetails.date,
+          title: postDetails.title,
+          description: postDetails.description,
+          author: postDetails.author,
+          upvotes: postDetails.upvotes,
+          upvotedBy: postDetails.upvotedBy,
+          downvotedBy: postDetails.downvotedBy,
+          image: postDetails.image,
+          comments: postDetails.comments!.map((comment) =>
+            comment.id === id
+              ? (comment = {
+                  ...comment,
+                  upvotes: comment.upvotes - 1,
+                  upvotedBy: comment.upvotedBy.filter(
+                    (a) => a !== loggedUser.id
+                  ),
+                })
+              : comment
+          ),
+        })
+        .then(() => {
+          setCommentDownvoted(false);
+          setCommentUpvoted(false);
+          fetchPostDetails(Number(postId));
+        });
+    } else if (postDetails.comments && isCommentDownvoted) {
+      axios
+        .put(`http://localhost:3000/posts/${postDetails.id}`, {
+          id: postDetails.id,
+          subamindId: postDetails.subamindId,
+          subaminName: postDetails.subaminName,
+          subaminLogo: postDetails.subaminLogo,
+          date: postDetails.date,
+          title: postDetails.title,
+          description: postDetails.description,
+          author: postDetails.author,
+          upvotes: postDetails.upvotes,
+          upvotedBy: postDetails.upvotedBy,
+          downvotedBy: postDetails.downvotedBy,
+          image: postDetails.image,
+          comments: postDetails.comments!.map((comment) =>
+            comment.id === id
+              ? (comment = {
+                  ...comment,
+                  upvotes: comment.upvotes + 1,
+                  downvotedBy: comment.downvotedBy.filter(
+                    (a) => a !== loggedUser.id
+                  ),
+                })
+              : comment
+          ),
+        })
+        .then(() => {
+          setCommentDownvoted(false);
+          setCommentUpvoted(false);
+          fetchPostDetails(Number(postId));
+        });
+    } else {
+      axios
+        .put(`http://localhost:3000/posts/${postDetails.id}`, {
+          id: postDetails.id,
+          subamindId: postDetails.subamindId,
+          subaminName: postDetails.subaminName,
+          subaminLogo: postDetails.subaminLogo,
+          date: postDetails.date,
+          title: postDetails.title,
+          description: postDetails.description,
+          author: postDetails.author,
+          upvotes: postDetails.upvotes,
+          upvotedBy: postDetails.upvotedBy,
+          downvotedBy: postDetails.downvotedBy,
+          image: postDetails.image,
+          comments: postDetails.comments!.map((comment) =>
+            comment.id === id
+              ? (comment = {
+                  ...comment,
+                  upvotes:
+                    what === "upvote"
+                      ? comment.upvotes + 1
+                      : comment.upvotes - 1,
+                  downvotedBy:
+                    what === "upvote"
+                      ? comment.downvotedBy
+                      : [...comment.downvotedBy, loggedUser.id],
+                  upvotedBy:
+                    what === "upvote"
+                      ? [...comment.upvotedBy, loggedUser.id]
+                      : comment.upvotedBy,
+                })
+              : comment
+          ),
+        })
+        .then(() => {
+          if (what === "upvote") {
+            setCommentUpvoted(true);
+          } else {
+            setCommentDownvoted(true);
+          }
+          fetchPostDetails(Number(postId));
+        });
+    }
+  };
+
   return (
     <Wrapper darkmode={darkMode}>
       <Header darkmode={darkMode}>
@@ -126,6 +353,9 @@ const PostDetails: React.FC = () => {
               flexDirection="column"
               darkModeBg="#1A1A1B"
               whiteModebg="white"
+              upvotePost={upvoteHandler}
+              upvoted={upvoted}
+              downvoted={downvoted}
             />
           </div>
           <div className="post">
@@ -219,6 +449,10 @@ const PostDetails: React.FC = () => {
                     flexDirection="row"
                     darkModeBg="#1A1A1B"
                     whiteModebg="white"
+                    upvoteComment={upvoteCommentHandler}
+                    commentId={comment.id}
+                    upvoted={upvotedComment}
+                    downvoted={downvotedComment}
                   />
                   <span
                     className="button"

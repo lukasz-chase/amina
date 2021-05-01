@@ -8,25 +8,37 @@ type homeProps = {
 export const HomeComponent = styled.div<homeProps>`
   width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   background: ${({ darkmode }) => (darkmode ? "#030303" : "#DAE0E6")};
 `;
 
 export const Posts = styled.div<homeProps>`
   min-height: 100vh;
-  width: ${({ classicview }) => (classicview ? "70%" : "40%")};
-  @media screen and (max-width: 1000px) {
+  width: ${({ classicview }) => (classicview ? "70%" : "60%")};
+  @media screen and (max-width: 1300px) {
     width: 100%;
+  }
+  display: flex;
+  flex-direction: column;
+  .post-wrapper {
+    width: ${({ classicview }) => (classicview ? "130vh" : "80vh")};
+    justify-self: flex-end;
+    align-self: flex-end;
+    @media screen and (max-width: 1300px) {
+      width: 100%;
+    }
   }
 `;
 
 export const Info = styled.div<homeProps>`
-  background: ${({ darkmode }) => (darkmode ? "#1A1A1B" : "white")};
+  width: ${({ classicview }) => (classicview ? "30%" : "40%")};
   margin-top: 2rem;
   margin-left: 2rem;
   height: fit-content;
   border-radius: 5px;
   .trending {
+    background: ${({ darkmode }) => (darkmode ? "#1A1A1B" : "white")};
+    width: 30vh;
     h2 {
       color: ${({ darkmode }) => (darkmode ? "white" : "black")};
       font-size: 1rem;
@@ -53,7 +65,7 @@ export const Info = styled.div<homeProps>`
       }
     }
   }
-  @media screen and (max-width: 1000px) {
+  @media screen and (max-width: 1300px) {
     display: none;
   }
 `;

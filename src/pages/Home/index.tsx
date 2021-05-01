@@ -43,21 +43,23 @@ const Home: React.FC = () => {
   return (
     <HomeComponent darkmode={darkmode} classicview={classicview}>
       <Posts darkmode={darkmode} classicview={classicview}>
-        {isLogged && usersFeed ? (
-          <>
-            <Header feed />
-            {usersFeed.map((post) => (
-              <Post post={post} key={post.id} />
-            ))}
-          </>
-        ) : (
-          <>
-            <Header topFunction={fetchTopPosts} newFunction={fetchNewPosts} />
-            {posts.map((post) => (
-              <Post post={post} key={post.id} />
-            ))}
-          </>
-        )}
+        <div className="post-wrapper">
+          {isLogged && usersFeed ? (
+            <>
+              <Header feed />
+              {usersFeed.map((post) => (
+                <Post post={post} key={post.id} />
+              ))}
+            </>
+          ) : (
+            <>
+              <Header topFunction={fetchTopPosts} newFunction={fetchNewPosts} />
+              {posts.map((post) => (
+                <Post post={post} key={post.id} />
+              ))}
+            </>
+          )}
+        </div>
       </Posts>
       <Info darkmode={darkmode} classicview={classicview}>
         <div className="trending">

@@ -242,7 +242,7 @@ export const CommentsComponent = styled.div<CommentProps>`
     .tool-box {
       display: flex;
       align-items: center;
-      padding-left: 70px;
+      padding-left: 80px;
       color: #878a8c;
       font-weight: bold;
       position: relative;

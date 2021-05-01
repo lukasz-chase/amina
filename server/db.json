@@ -50,38 +50,21 @@
       "title": "cars are fast",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum malesuada, quam vitae imperdiet porttitor, ligula nunc malesuada metus, at consequat nibh nibh sit amet dolor.",
       "author": "luki",
-      "upvotedBy": [],
+      "upvotes": 52,
+      "upvotedBy": [
+        1
+      ],
       "downvotedBy": [],
-      "upvotes": 51,
       "image": "https://static.posters.cz/image/750/plakaty/auta-3-cars-3-mcqueen-race-i47515.jpg",
       "comments": [
         {
           "id": 1,
           "author": "luki",
-          "upvotes": 0,
+          "upvotes": 10,
           "date": "05/01/2021, 9:54:47",
-          "text": "asd"
-        },
-        {
-          "id": 2,
-          "author": "luki",
-          "upvotes": 0,
-          "date": "05/01/2021, 9:54:48",
-          "text": "fdgdfg"
-        },
-        {
-          "id": 3,
-          "author": "luki",
-          "upvotes": 0,
-          "date": "05/01/2021, 9:54:50",
-          "text": "fgnfgn"
-        },
-        {
-          "id": 4,
-          "author": "luki",
-          "upvotes": 0,
-          "date": "05/01/2021, 9:54:51",
-          "text": "vbnvbn"
+          "text": "asd",
+          "upvotedBy": [],
+          "downvotedBy": []
         }
       ]
     },
@@ -104,7 +87,9 @@
           "author": "ja",
           "upvotes": 50,
           "date": "24.03.2021 11:03",
-          "text": "asdasdasd"
+          "text": "asdasdasd",
+          "upvotedBy": [],
+          "downvotedBy": []
         }
       ]
     },
@@ -126,7 +111,9 @@
           "author": "ja",
           "upvotes": 50,
           "date": "24.03.2021 11:03",
-          "text": "asdasdasd"
+          "text": "asdasdasd",
+          "upvotedBy": [],
+          "downvotedBy": []
         }
       ]
     },
@@ -140,7 +127,9 @@
       "description": "because i dont like them",
       "author": "dfhfh",
       "upvotes": 521,
-      "upvotedBy": [1],
+      "upvotedBy": [
+        1
+      ],
       "downvotedBy": [],
       "comments": [
         {
@@ -148,7 +137,9 @@
           "author": "ja",
           "upvotes": 50,
           "date": "24.03.2021 11:03",
-          "text": "asdasdasd"
+          "text": "asdasdasd",
+          "upvotedBy": [],
+          "downvotedBy": []
         }
       ]
     },
@@ -171,14 +162,18 @@
           "author": "ja",
           "upvotes": 50,
           "date": "24.03.2021 11:03",
-          "text": "asdasdasd"
+          "text": "asdasdasd",
+          "upvotedBy": [],
+          "downvotedBy": []
         },
         {
           "id": 2,
           "author": "doktor kox",
           "upvotes": 550,
           "date": "24.01.2021 11:03",
-          "text": "czesc jestem lukasz a czego ty tu szukasz"
+          "text": "czesc jestem lukasz a czego ty tu szukasz",
+          "upvotedBy": [],
+          "downvotedBy": []
         }
       ]
     },
@@ -204,7 +199,11 @@
       "username": "luki",
       "email": "luki@email.com",
       "password": "jd4bukq/A3K8pr6Z08gdbPUZ790aie87UofsVskRYNJnEM3do2keivX9Plzi2HWkdcDO6nIWBd163cxeHrIb+w==",
-      "followedSubaminas": [1, 6, 4],
+      "followedSubaminas": [
+        1,
+        6,
+        4
+      ],
       "darkMode": true
     },
     {

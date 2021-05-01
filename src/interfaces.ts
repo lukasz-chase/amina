@@ -4,6 +4,8 @@ interface CommentProperties {
   upvotes: number;
   date: string;
   text: string;
+  upvotedBy: number[];
+  downvotedBy: number[];
 }
 export interface PostProperties {
   id: number;
