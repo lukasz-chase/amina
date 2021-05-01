@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 //styles
 import { Button } from "./ButtonStyles";
 //store
@@ -14,25 +14,30 @@ const JoinButton: React.FC<joinProps> = ({ id }) => {
   //state
   const loggedUser = userState((state) => state.loggedUser);
   const isLoggedState = userState((state) => state.isLogged);
-  const isJoined =
+  const [isJoined, setIsJoined] = useState(
     isLoggedState && loggedUser.followedSubaminas.find((a) => a === id)
       ? false
-      : true;
+      : true
+  );
+
   const darkmodeState = viewState((state) => state.darkMode);
   const darkMode: boolean = isLoggedState ? loggedUser.darkMode : darkmodeState;
   const classicView: boolean = viewState((state) => state.classicView);
   const compactView: boolean = viewState((state) => state.compactView);
-
   //handlers
   const joinHandler = () => {
-    axios.put(`http://localhost:3000/users/${loggedUser.id}`, {
-      username: loggedUser.username,
-      email: loggedUser.email,
-      password: loggedUser.password,
-      followedSubaminas: [...loggedUser.followedSubaminas, id],
-      id: loggedUser.id,
-      darkMode: loggedUser.darkMode,
-    });
+    axios
+      .put(`http://localhost:3000/users/${loggedUser.id}`, {
+        username: loggedUser.username,
+        email: loggedUser.email,
+        password: loggedUser.password,
+        followedSubaminas: [...loggedUser.followedSubaminas, id],
+        id: loggedUser.id,
+        darkMode: loggedUser.darkMode,
+      })
+      .then(() => {
+        setIsJoined(false);
+      });
   };
 
   return (

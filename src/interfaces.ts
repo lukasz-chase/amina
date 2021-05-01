@@ -14,6 +14,8 @@ export interface PostProperties {
   description: string;
   author: string;
   upvotes: number;
+  upvotedBy: number[];
+  downvotedBy: number[];
   date: string;
   comments?: CommentProperties[];
   image?: string;

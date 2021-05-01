@@ -3,6 +3,7 @@ import styled from "styled-components";
 interface DetailsProps {
   bgimage: string;
   darkmode: boolean;
+  classicview: boolean;
 }
 
 export const DetailsComponent = styled.div<DetailsProps>`
@@ -42,8 +43,10 @@ export const DetailsComponent = styled.div<DetailsProps>`
         }
       }
       .name {
+        position: relative;
         display: flex;
         align-items: center;
+        padding-right: 70px;
         h1 {
           padding: 0 1rem;
         }
@@ -69,7 +72,7 @@ export const DetailsComponent = styled.div<DetailsProps>`
         order: 2;
       }
       .posts {
-        width: 70%;
+        width: ${({ classicview }) => (classicview ? "100%" : "70%")};
         @media screen and (max-width: 1000px) {
           width: 100%;
         }

@@ -1,7 +1,8 @@
 const mainUrl = "http://localhost:3000/";
 
 export const subaminsUrl = `${mainUrl}subamins`;
-export const feed = `${mainUrl}posts?`;
+export const feed = (what: string, order: string) =>
+  `${mainUrl}posts?_sort=${what}&_order=${order}`;
 
 export const postsUrl = (what: string, order: string) =>
   `${mainUrl}posts?_sort=${what}&_order=${order}`;

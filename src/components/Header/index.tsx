@@ -4,6 +4,7 @@ import { HeaderComponent, Button, ViewOption } from "./HeaderStyles";
 //store
 import viewState from "../../state/viewState";
 import userState from "../../state/userState";
+import subaminsState from "../../state/subaminsState";
 //icons
 import { AiOutlineLineChart } from "react-icons/ai";
 import { MdNewReleases } from "react-icons/md";
@@ -14,6 +15,7 @@ type HeaderProps = {
   question?: string;
   id?: number;
   subamin?: boolean;
+  feed?: boolean;
   topSubaminFunction?: (id?: number) => void;
   newSubaminFunction?: (id?: number) => void;
 };
@@ -26,6 +28,7 @@ const Header: React.FC<HeaderProps> = ({
   question,
   id,
   subamin,
+  feed,
 }) => {
   //state
   const setClassicView = viewState((state) => state.setClassicView);
@@ -34,24 +37,35 @@ const Header: React.FC<HeaderProps> = ({
   const isLogged = userState((state) => state.isLogged);
   const darkmodeState = viewState((state) => state.darkMode);
   const darkMode: boolean = isLogged ? loggedUser.darkMode : darkmodeState;
+  const fetchTopFeed = subaminsState((state) => state.fetchTopSubaminByIds);
+  const fetchNewFeed = subaminsState((state) => state.fetchNewSubaminByIds);
+  //handlers
+  const topFunctionHandler = () => {
+    if (subamin) {
+      topSubaminFunction!(id);
+    } else if (feed) {
+      fetchTopFeed(loggedUser.followedSubaminas);
+    } else {
+      topFunction!(question);
+    }
+  };
+  const newFunctionHandler = () => {
+    if (subamin) {
+      newSubaminFunction!(id);
+    } else if (feed) {
+      fetchNewFeed(loggedUser.followedSubaminas);
+    } else {
+      newFunction!(question);
+    }
+  };
   return (
     <HeaderComponent darkmode={darkMode}>
       <div className="buttons">
-        <Button
-          darkmode={darkMode}
-          onClick={() =>
-            subamin ? topSubaminFunction!(id) : topFunction!(question)
-          }
-        >
+        <Button darkmode={darkMode} onClick={() => topFunctionHandler()}>
           <AiOutlineLineChart className="button-icon" />
           Top
         </Button>
-        <Button
-          darkmode={darkMode}
-          onClick={() =>
-            subamin ? newSubaminFunction!(id) : newFunction!(question)
-          }
-        >
+        <Button darkmode={darkMode} onClick={() => newFunctionHandler()}>
           <MdNewReleases className="button-icon" />
           New
         </Button>

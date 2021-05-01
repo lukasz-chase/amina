@@ -50,6 +50,7 @@ export const Wrapper = styled.div<SearchProps>`
     }
     .community {
       display: flex;
+      position: relative;
       justify-content: space-between;
       background-color: ${({ darkmode }) => (darkmode ? "#1A1A1B" : "white")};
       align-items: center;

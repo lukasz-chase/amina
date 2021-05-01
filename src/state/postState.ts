@@ -32,6 +32,8 @@ export const postState = create<Store>((set) => ({
     description: "loading...",
     author: "loading...",
     upvotes: 1,
+    upvotedBy: [],
+    downvotedBy: [],
     date: "loading...",
   },
   fetchPostDetails: async (id) => {
@@ -50,6 +52,8 @@ export const postState = create<Store>((set) => ({
         description: state.postDetails.description,
         author: state.postDetails.author,
         upvotes: state.postDetails.upvotes,
+        upvotedBy: state.postDetails.upvotedBy,
+        downvotedBy: state.postDetails.downvotedBy,
         date: state.postDetails.date,
         image: state.postDetails.image,
         comments: state.postDetails.comments?.filter(

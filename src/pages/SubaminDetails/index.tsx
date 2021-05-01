@@ -29,6 +29,7 @@ const SubaminDetails = () => {
   const loggedUser = userState((state) => state.loggedUser);
   const isLogged = userState((state) => state.isLogged);
   const darkmodeState = viewState((state) => state.darkMode);
+  const classicView = viewState((state) => state.classicView);
   const darkMode: boolean = isLogged ? loggedUser.darkMode : darkmodeState;
   const fetchUser = userState((state) => state.fetchUser);
   //useEffect
@@ -47,6 +48,7 @@ const SubaminDetails = () => {
           : "https://www.developingngo.org/wp-content/uploads/2018/01/2560x1440-gray-solid-color-background.jpg"
       }
       darkmode={darkMode}
+      classicview={classicView}
     >
       <div className="header">
         <div className="subamin-bg"></div>

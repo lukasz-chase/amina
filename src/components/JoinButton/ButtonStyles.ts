@@ -9,6 +9,10 @@ interface ButtonProps {
 
 export const Button = styled.div<ButtonProps>`
   .join-button {
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin: 1rem;
     display: ${({ $islogged }) => ($islogged ? "flex" : "none")};
     align-items: center;
     justify-content: space-evenly;

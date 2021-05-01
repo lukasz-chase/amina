@@ -27,8 +27,10 @@ import {
 } from "react-icons/bs";
 import { MdNewReleases } from "react-icons/md";
 //format time
-import { format } from "timeago.js";
-import UpvoteStyles from "../../components/Upvotes";
+import TimeAgo from "react-timeago";
+//components
+import Upvotes from "../../components/Upvotes";
+//axios
 import axios from "axios";
 
 const PostDetails: React.FC = () => {
@@ -64,7 +66,13 @@ const PostDetails: React.FC = () => {
     document.body.removeChild(el);
   };
   const addComment = (e: React.FormEvent<HTMLButtonElement>) => {
-    var date = new Date().toLocaleString().replace("/", ".");
+    const today = new Date();
+    const dd = String(today.getDate()).padStart(2, "0");
+    const mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
+    const yyyy = today.getFullYear();
+    const hour = today.getHours();
+    const minutes = today.getMinutes();
+    const seconds = today.getSeconds();
     e.preventDefault();
     if (comment) {
       axios
@@ -78,6 +86,8 @@ const PostDetails: React.FC = () => {
           description: postDetails.description,
           author: postDetails.author,
           upvotes: postDetails.upvotes,
+          upvotedBy: postDetails.upvotedBy,
+          downvotedBy: postDetails.downvotedBy,
           image: postDetails.image,
           comments: [
             ...postDetails.comments!,
@@ -85,12 +95,12 @@ const PostDetails: React.FC = () => {
               id: postDetails.comments!.length + 1,
               author: loggedUser.username,
               upvotes: 0,
-              date: date,
+              date: `${mm}/${dd}/${yyyy}, ${hour}:${minutes}:${seconds}`,
               text: comment,
             },
           ],
         })
-        .then((res) => {
+        .then(() => {
           setComment("");
           fetchPostDetails(Number(postId));
         });
@@ -111,10 +121,11 @@ const PostDetails: React.FC = () => {
       <DetailsComponent darkmode={darkMode}>
         <div className="post-wrapper">
           <div className="upvotes">
-            <UpvoteStyles
+            <Upvotes
               upvotes={postDetails.upvotes}
               flexDirection="column"
               darkModeBg="#1A1A1B"
+              whiteModebg="white"
             />
           </div>
           <div className="post">
@@ -131,7 +142,7 @@ const PostDetails: React.FC = () => {
                 </span>
                 <span>
                   Posted by <span className="user">u/{postDetails.author}</span>{" "}
-                  - {format(postDetails.date)}
+                  - <TimeAgo date={postDetails.date} />
                 </span>
               </div>
             </div>
@@ -195,16 +206,19 @@ const PostDetails: React.FC = () => {
               <div className="comment" key={index}>
                 <div className="header">
                   <span className="name">{comment.author}</span>{" "}
-                  <span className="time">{format(comment.date)}</span>
+                  <span className="time">
+                    <TimeAgo date={comment.date} />
+                  </span>
                 </div>
                 <div className="comment-text" ref={textToCopy}>
                   {comment.text}
                 </div>
                 <div className="tool-box">
-                  <UpvoteStyles
+                  <Upvotes
                     upvotes={comment.upvotes}
                     flexDirection="row"
                     darkModeBg="#1A1A1B"
+                    whiteModebg="white"
                   />
                   <span
                     className="button"

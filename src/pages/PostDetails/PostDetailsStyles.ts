@@ -43,6 +43,8 @@ export const DetailsComponent = styled.div<PostProps>`
   align-items: center;
   background-color: ${({ darkmode }) => (darkmode ? "black" : "#dae0e6")};
   .post-wrapper {
+    position: relative;
+    padding-left: 40px;
     width: 55vw;
     background-color: ${({ darkmode }) => (darkmode ? "#1A1A1B" : "white")};
     display: flex;
@@ -240,8 +242,10 @@ export const CommentsComponent = styled.div<CommentProps>`
     .tool-box {
       display: flex;
       align-items: center;
+      padding-left: 70px;
       color: #878a8c;
       font-weight: bold;
+      position: relative;
       span {
         font-size: 0.8rem;
         padding: 0.2rem;

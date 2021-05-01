@@ -25,31 +25,34 @@ const Home: React.FC = () => {
   const classicview: boolean = viewState((state) => state.classicView);
   const subamins = subaminsState((state) => state.subamins);
   const usersFeed = subaminsState((state) => state.usersFeed);
-  const fetchSubaminsByIds = subaminsState((state) => state.fetchSubaminByIds);
+  const fetchNewSubaminByIds = subaminsState(
+    (state) => state.fetchNewSubaminByIds
+  );
   const fetchUser = userState((state) => state.fetchUser);
   //useEffect
   useEffect(() => {
     fetchUser(Number(localStorage.getItem("userId")));
     fetchSubamins();
     fetchTopPosts();
-  }, [fetchSubamins, fetchTopPosts, fetchUser, fetchSubaminsByIds]);
+  }, [fetchSubamins, fetchTopPosts, fetchUser]);
   useEffect(() => {
     if (isLogged) {
-      fetchSubaminsByIds(loggedUser.followedSubaminas);
+      fetchNewSubaminByIds(loggedUser.followedSubaminas);
     }
-  }, [loggedUser.followedSubaminas, fetchSubaminsByIds, isLogged]);
+  }, [loggedUser.followedSubaminas, fetchNewSubaminByIds, isLogged]);
   return (
     <HomeComponent darkmode={darkmode} classicview={classicview}>
       <Posts darkmode={darkmode} classicview={classicview}>
-        <Header topFunction={fetchTopPosts} newFunction={fetchNewPosts} />
         {isLogged && usersFeed ? (
           <>
+            <Header feed />
             {usersFeed.map((post) => (
               <Post post={post} key={post.id} />
             ))}
           </>
         ) : (
           <>
+            <Header topFunction={fetchTopPosts} newFunction={fetchNewPosts} />
             {posts.map((post) => (
               <Post post={post} key={post.id} />
             ))}
