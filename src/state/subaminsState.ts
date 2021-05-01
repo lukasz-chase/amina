@@ -21,14 +21,14 @@ export const subaminsState = create<Store>((set) => ({
   },
   fetchNewSubaminByIds: async (ids: number[]) => {
     const url = `${feed("date", "desc")}${ids
-      .map((id) => `&id=${id}`)
+      .map((id) => `&subaminId=${id}`)
       .join("")}`;
     const response = await fetch(url);
     set({ usersFeed: await response.json() });
   },
   fetchTopSubaminByIds: async (ids: number[]) => {
     const url = `${feed("upvotes", "desc")}${ids
-      .map((id) => `&id=${id}`)
+      .map((id) => `&subaminId=${id}`)
       .join("")}`;
     const response = await fetch(url);
     set({ usersFeed: await response.json() });

@@ -16,10 +16,9 @@ const JoinButton: React.FC<joinProps> = ({ id }) => {
   const isLoggedState = userState((state) => state.isLogged);
   const [isJoined, setIsJoined] = useState(
     isLoggedState && loggedUser.followedSubaminas.find((a) => a === id)
-      ? false
-      : true
+      ? true
+      : false
   );
-
   const darkmodeState = viewState((state) => state.darkMode);
   const darkMode: boolean = isLoggedState ? loggedUser.darkMode : darkmodeState;
   const classicView: boolean = viewState((state) => state.classicView);
@@ -36,23 +35,40 @@ const JoinButton: React.FC<joinProps> = ({ id }) => {
         darkMode: loggedUser.darkMode,
       })
       .then(() => {
+        setIsJoined(true);
+      });
+  };
+  const leaveHandler = () => {
+    axios
+      .put(`http://localhost:3000/users/${loggedUser.id}`, {
+        username: loggedUser.username,
+        email: loggedUser.email,
+        password: loggedUser.password,
+        followedSubaminas: loggedUser.followedSubaminas.filter((a) => a !== id),
+        id: loggedUser.id,
+        darkMode: loggedUser.darkMode,
+      })
+      .then(() => {
         setIsJoined(false);
       });
   };
-
   return (
     <Button
       $darkmode={darkMode}
       $classicview={classicView}
       $compactview={compactView}
-      $islogged={isLoggedState ? isJoined : isLoggedState}
+      $islogged={isLoggedState}
       onClick={(e) => {
         e.stopPropagation();
-        joinHandler();
+        if (isJoined) {
+          leaveHandler();
+        } else {
+          joinHandler();
+        }
       }}
     >
       <button className="join-button">
-        + <span>Join</span>
+        {isJoined ? "" : "+"} <span>{isJoined ? "Joined" : "Join"}</span>
       </button>
     </Button>
   );

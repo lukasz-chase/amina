@@ -9,7 +9,7 @@ interface CommentProperties {
 }
 export interface PostProperties {
   id: number;
-  subamindId: number;
+  subaminId: number;
   subaminName: string;
   subaminLogo: string;
   title: string;

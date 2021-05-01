@@ -40,6 +40,7 @@ const SubaminDetails = () => {
   useEffect(() => {
     fetchUser(Number(localStorage.getItem("userId")));
   }, [fetchUser]);
+  console.log(subamin.id);
   return (
     <DetailsComponent
       bgimage={

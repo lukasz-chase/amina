@@ -14,7 +14,7 @@ type Store = {
 
 const subaminState = create<Store>((set) => ({
   subamin: {
-    id: 1,
+    id: 0,
     name: "loading",
     members: 1,
     logo: "loading",

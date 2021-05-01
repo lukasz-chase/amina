@@ -54,7 +54,7 @@ const Post: React.FC<PostProps> = ({ post }) => {
       axios
         .put(`http://localhost:3000/posts/${post.id}`, {
           id: post.id,
-          subamindId: post.subamindId,
+          subaminId: post.subaminId,
           subaminName: post.subaminName,
           subaminLogo: post.subaminLogo,
           date: post.date,
@@ -79,7 +79,7 @@ const Post: React.FC<PostProps> = ({ post }) => {
       axios
         .put(`http://localhost:3000/posts/${post.id}`, {
           id: post.id,
-          subamindId: post.subamindId,
+          subaminId: post.subaminId,
           subaminName: post.subaminName,
           subaminLogo: post.subaminLogo,
           date: post.date,
@@ -101,7 +101,7 @@ const Post: React.FC<PostProps> = ({ post }) => {
       axios
         .put(`http://localhost:3000/posts/${post.id}`, {
           id: post.id,
-          subamindId: post.subamindId,
+          subaminId: post.subaminId,
           subaminName: post.subaminName,
           subaminLogo: post.subaminLogo,
           date: post.date,
@@ -130,7 +130,7 @@ const Post: React.FC<PostProps> = ({ post }) => {
         });
     }
   };
-
+  console.log(post.subaminId);
   return (
     <PostComponent
       $darkmode={darkMode}
@@ -146,7 +146,7 @@ const Post: React.FC<PostProps> = ({ post }) => {
         upvoted={upvoted}
         downvoted={downvoted}
       />
-      <JoinButton id={post.id} />
+      <JoinButton id={post.subaminId} />
       <Link
         to={`/post/${post.id}`}
         className="link"

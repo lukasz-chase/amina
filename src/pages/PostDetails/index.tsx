@@ -96,7 +96,7 @@ const PostDetails: React.FC = () => {
       axios
         .put(`http://localhost:3000/posts/${postDetails.id}`, {
           id: postDetails.id,
-          subamindId: postDetails.subamindId,
+          subaminId: postDetails.subaminId,
           subaminName: postDetails.subaminName,
           subaminLogo: postDetails.subaminLogo,
           date: postDetails.date,
@@ -134,7 +134,7 @@ const PostDetails: React.FC = () => {
       axios
         .put(`http://localhost:3000/posts/${postDetails.id}`, {
           id: postDetails.id,
-          subamindId: postDetails.subamindId,
+          subaminId: postDetails.subaminId,
           subaminName: postDetails.subaminName,
           subaminLogo: postDetails.subaminLogo,
           date: postDetails.date,
@@ -159,7 +159,7 @@ const PostDetails: React.FC = () => {
       axios
         .put(`http://localhost:3000/posts/${postDetails.id}`, {
           id: postDetails.id,
-          subamindId: postDetails.subamindId,
+          subaminId: postDetails.subaminId,
           subaminName: postDetails.subaminName,
           subaminLogo: postDetails.subaminLogo,
           date: postDetails.date,
@@ -183,7 +183,7 @@ const PostDetails: React.FC = () => {
       axios
         .put(`http://localhost:3000/posts/${postDetails.id}`, {
           id: postDetails.id,
-          subamindId: postDetails.subamindId,
+          subaminId: postDetails.subaminId,
           subaminName: postDetails.subaminName,
           subaminLogo: postDetails.subaminLogo,
           date: postDetails.date,
@@ -227,7 +227,7 @@ const PostDetails: React.FC = () => {
       axios
         .put(`http://localhost:3000/posts/${postDetails.id}`, {
           id: postDetails.id,
-          subamindId: postDetails.subamindId,
+          subaminId: postDetails.subaminId,
           subaminName: postDetails.subaminName,
           subaminLogo: postDetails.subaminLogo,
           date: postDetails.date,
@@ -259,7 +259,7 @@ const PostDetails: React.FC = () => {
       axios
         .put(`http://localhost:3000/posts/${postDetails.id}`, {
           id: postDetails.id,
-          subamindId: postDetails.subamindId,
+          subaminId: postDetails.subaminId,
           subaminName: postDetails.subaminName,
           subaminLogo: postDetails.subaminLogo,
           date: postDetails.date,
@@ -291,7 +291,7 @@ const PostDetails: React.FC = () => {
       axios
         .put(`http://localhost:3000/posts/${postDetails.id}`, {
           id: postDetails.id,
-          subamindId: postDetails.subamindId,
+          subaminId: postDetails.subaminId,
           subaminName: postDetails.subaminName,
           subaminLogo: postDetails.subaminLogo,
           date: postDetails.date,

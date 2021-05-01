@@ -25,7 +25,7 @@ export const postState = create<Store>((set) => ({
   },
   postDetails: {
     id: 1,
-    subamindId: 1,
+    subaminId: 1,
     subaminName: "loading...",
     subaminLogo: "loading...",
     title: "loading...",
@@ -45,7 +45,7 @@ export const postState = create<Store>((set) => ({
     set((state) => ({
       postDetails: {
         id: state.postDetails.id,
-        subamindId: state.postDetails.subamindId,
+        subaminId: state.postDetails.subaminId,
         subaminLogo: state.postDetails.subaminLogo,
         subaminName: state.postDetails.subaminName,
         title: state.postDetails.title,

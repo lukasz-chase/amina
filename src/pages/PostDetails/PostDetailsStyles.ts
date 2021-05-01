@@ -44,7 +44,7 @@ export const DetailsComponent = styled.div<PostProps>`
   background-color: ${({ darkmode }) => (darkmode ? "black" : "#dae0e6")};
   .post-wrapper {
     position: relative;
-    padding-left: 40px;
+    padding-left: 60px;
     width: 55vw;
     background-color: ${({ darkmode }) => (darkmode ? "#1A1A1B" : "white")};
     display: flex;

@@ -43,62 +43,52 @@
   "posts": [
     {
       "id": 1,
-      "subamindId": 4,
+      "subaminId": 4,
       "subaminName": "cars",
       "subaminLogo": "https://static.posters.cz/image/750/plakaty/auta-3-cars-3-mcqueen-race-i47515.jpg",
-      "date": "2021-01-24 10:20:00",
+      "date": "05/01/2021, 21:20:11",
       "title": "cars are fast",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum malesuada, quam vitae imperdiet porttitor, ligula nunc malesuada metus, at consequat nibh nibh sit amet dolor.",
       "author": "luki",
-      "upvotes": 52,
-      "upvotedBy": [
-        1
-      ],
+      "upvotes": 51,
+      "upvotedBy": [],
       "downvotedBy": [],
       "image": "https://static.posters.cz/image/750/plakaty/auta-3-cars-3-mcqueen-race-i47515.jpg",
-      "comments": [
-        {
-          "id": 1,
-          "author": "luki",
-          "upvotes": 10,
-          "date": "05/01/2021, 9:54:47",
-          "text": "asd",
-          "upvotedBy": [],
-          "downvotedBy": []
-        }
-      ]
+      "comments": []
     },
     {
       "id": 2,
-      "subamindId": 1,
+      "subaminId": 1,
       "subaminName": "sports",
       "subaminLogo": "https://media.npr.org/assets/img/2020/06/10/gettyimages-200199027-001-b5fb3d8d8469ab744d9e97706fa67bc5c0e4fa40.jpg",
-      "date": "2021-02-24 15:20:00",
+      "date": "05/01/2021, 21:20:11",
       "title": "sports are cool",
       "description": "because i like them",
       "author": "asd",
+      "upvotes": 1150,
       "upvotedBy": [],
       "downvotedBy": [],
-      "upvotes": 1150,
       "image": "https://webunwto.s3.eu-west-1.amazonaws.com/2020-01/sport-congresse.jpg",
       "comments": [
         {
           "id": 1,
-          "author": "ja",
-          "upvotes": 50,
-          "date": "24.03.2021 11:03",
-          "text": "asdasdasd",
-          "upvotedBy": [],
+          "author": "luki",
+          "upvotes": 1,
+          "date": "05/01/2021, 21:20:11",
+          "text": "asd",
+          "upvotedBy": [
+            1
+          ],
           "downvotedBy": []
         }
       ]
     },
     {
       "id": 3,
-      "subamindId": 2,
+      "subaminId": 2,
       "subaminName": "gaming",
       "subaminLogo": "https://inwestycje.pl/wp-content/uploads/2020/03/gaming.jpg",
-      "date": "2021-03-23 15:20:00",
+      "date": "05/01/2021, 21:20:11",
       "title": "games are coolaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
       "description": "because i like them",
       "author": "xcv",
@@ -106,23 +96,14 @@
       "upvotedBy": [],
       "downvotedBy": [],
       "image": "https://alisale.pl/wp-content/uploads/2020/11/200124_Vignette_Web_Detail1.jpg",
-      "comments": [
-        {
-          "author": "ja",
-          "upvotes": 50,
-          "date": "24.03.2021 11:03",
-          "text": "asdasdasd",
-          "upvotedBy": [],
-          "downvotedBy": []
-        }
-      ]
+      "comments": []
     },
     {
       "id": 4,
-      "subamindId": 2,
+      "subaminId": 2,
       "subaminName": "gaming",
       "subaminLogo": "https://inwestycje.pl/wp-content/uploads/2020/03/gaming.jpg",
-      "date": "2020-12-20 16:20:00",
+      "date": "05/01/2021, 21:20:11",
       "title": "games arent cool",
       "description": "because i dont like them",
       "author": "dfhfh",
@@ -131,24 +112,14 @@
         1
       ],
       "downvotedBy": [],
-      "comments": [
-        {
-          "id": 1,
-          "author": "ja",
-          "upvotes": 50,
-          "date": "24.03.2021 11:03",
-          "text": "asdasdasd",
-          "upvotedBy": [],
-          "downvotedBy": []
-        }
-      ]
+      "comments": []
     },
     {
       "id": 5,
-      "subamindId": 3,
+      "subaminId": 3,
       "subaminName": "animals",
       "subaminLogo": "https://desenio.pl/bilder/artiklar/zoom/11378_2.jpg?imgwidth=435&qt=",
-      "date": "2021-03-24 15:20:00",
+      "date": "05/01/2021, 21:20:11",
       "title": "animals are cute",
       "description": "because i like them",
       "author": "ghj",
@@ -156,33 +127,14 @@
       "upvotedBy": [],
       "downvotedBy": [],
       "image": "https://images.photowall.com/products/65791/world-of-animals-map.jpg?h=699&q=85",
-      "comments": [
-        {
-          "id": 1,
-          "author": "ja",
-          "upvotes": 50,
-          "date": "24.03.2021 11:03",
-          "text": "asdasdasd",
-          "upvotedBy": [],
-          "downvotedBy": []
-        },
-        {
-          "id": 2,
-          "author": "doktor kox",
-          "upvotes": 550,
-          "date": "24.01.2021 11:03",
-          "text": "czesc jestem lukasz a czego ty tu szukasz",
-          "upvotedBy": [],
-          "downvotedBy": []
-        }
-      ]
+      "comments": []
     },
     {
       "id": 6,
-      "subamindId": 5,
+      "subaminId": 5,
       "subaminName": "cats",
       "subaminLogo": "https://cdnuploads.aa.com.tr/uploads/Contents/2020/05/14/thumbs_b_c_88bedbc66bb57f0e884555e8250ae5f9.jpg?v=140708",
-      "date": "24.03.2021 11:03",
+      "date": "05/01/2021, 21:20:11",
       "title": "cats are the best",
       "description": "i really love cats",
       "author": "luki",
@@ -195,15 +147,13 @@
   ],
   "users": [
     {
-      "id": 1,
       "username": "luki",
       "email": "luki@email.com",
       "password": "jd4bukq/A3K8pr6Z08gdbPUZ790aie87UofsVskRYNJnEM3do2keivX9Plzi2HWkdcDO6nIWBd163cxeHrIb+w==",
       "followedSubaminas": [
-        1,
-        6,
         4
       ],
+      "id": 1,
       "darkMode": true
     },
     {
