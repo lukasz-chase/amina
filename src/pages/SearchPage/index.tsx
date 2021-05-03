@@ -11,6 +11,7 @@ import userState from "../../state/userState";
 import Post from "../../components/Post";
 import JoinButton from "../../components/JoinButton";
 import Header from "../../components/Header";
+import BackToTopButton from "../../components/BackToTopButton";
 
 const SearchPage = () => {
   //state
@@ -69,6 +70,7 @@ const SearchPage = () => {
       <Wrapper darkmode={darkMode}>
         {path === "subaminas" ? (
           <div className="subamins">
+            <BackToTopButton />
             <Header
               topFunction={fetchTopSubamins}
               newFunction={fetchNewSubamins}
@@ -94,6 +96,7 @@ const SearchPage = () => {
           </div>
         ) : (
           <div className="posts">
+            <BackToTopButton />
             <Header
               topFunction={fetchTopPosts}
               newFunction={fetchNewPosts}

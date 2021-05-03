@@ -102,6 +102,7 @@ export const DetailsComponent = styled.div<PostProps>`
           .subamin-name {
             color: gray;
             padding: 0 0.5rem;
+            text-decoration: none;
             &:hover {
               cursor: pointer;
               text-decoration: underline;

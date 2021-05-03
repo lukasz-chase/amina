@@ -5,29 +5,40 @@ import { Nav, Logo, TextInput, Buttons, Account } from "./NavbarStyles";
 import logo from "../../images/logo.png";
 //location
 import { useHistory } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import { Location } from "history";
 //material ui
 import Input from "@material-ui/core/Input";
 import InputAdornment from "@material-ui/core/InputAdornment";
+import Tooltip from "@material-ui/core/Tooltip";
+import IconButton from "@material-ui/core/IconButton";
 //icons
 import { BiSearchAlt } from "react-icons/bi";
 import { MdAccountCircle } from "react-icons/md";
 import { RiArrowDownSFill } from "react-icons/ri";
+import { MdArrowDropDown } from "react-icons/md";
+import { AiFillEdit, AiOutlineUsergroupAdd, AiFillHome } from "react-icons/ai";
 //components
 import OptionsDropdown from "./OptionsDropdown.js";
 //store
 import viewState from "../../state/viewState";
 import userState from "../../state/userState";
+import subaminState from "../../state/subaminDetailsState";
+import YourSubamins from "../YourSubamins";
 
 const Navbar: React.FC = () => {
   //state
   const [open, setOpen] = useState<boolean>(false);
+  const [openCommunity, setOpenCommunity] = useState<boolean>(false);
   const [question, setQuestion] = useState<string>("");
   const history = useHistory();
   const loggedUser = userState((state) => state.loggedUser);
   const isLogged = userState((state) => state.isLogged);
   const darkmodeState = viewState((state) => state.darkMode);
   const darkMode: boolean = isLogged ? loggedUser.darkMode : darkmodeState;
+  const location = useLocation<Location>();
+  const site = location.pathname.split("/")[1];
+  const subamin = subaminState((state) => state.subamin);
   //handlers
   const searchHandler = (text: string) => {
     if (question !== "") {
@@ -43,6 +54,39 @@ const Navbar: React.FC = () => {
           am<span>i</span>na
         </h1>
       </Logo>
+      {!site && (
+        <div className="wrapper">
+          <div
+            className="community"
+            onClick={() => setOpenCommunity(!openCommunity)}
+          >
+            {" "}
+            <div className="info">
+              <AiFillHome className="community-icon" /> Home
+            </div>
+            <div className="arrow">
+              <MdArrowDropDown className="arrow-icon" />
+            </div>
+          </div>
+          <YourSubamins open={openCommunity} setOpen={setOpenCommunity} />
+        </div>
+      )}
+      {site === "s" && (
+        <div className="wrapper">
+          <div
+            className="community"
+            onClick={() => setOpenCommunity(!openCommunity)}
+          >
+            <div className="info">
+              <img src={subamin.logo} alt={subamin.name} /> {subamin.name}
+            </div>
+            <div className="arrow">
+              <MdArrowDropDown className="arrow-icon" />
+            </div>
+          </div>
+          <YourSubamins open={openCommunity} setOpen={setOpenCommunity} />
+        </div>
+      )}
       <TextInput $darkmode={darkMode}>
         <Input
           className="textField"
@@ -61,7 +105,20 @@ const Navbar: React.FC = () => {
           }
         />
       </TextInput>
-
+      {isLogged && (
+        <div className="icons">
+          <Tooltip title="Create Post">
+            <IconButton>
+              <AiFillEdit className="icon" />
+            </IconButton>
+          </Tooltip>
+          <Tooltip title="Create Community">
+            <IconButton>
+              <AiOutlineUsergroupAdd className="icon" />
+            </IconButton>
+          </Tooltip>
+        </div>
+      )}
       <Buttons $darkmode={darkMode}>
         {!isLogged && (
           <>

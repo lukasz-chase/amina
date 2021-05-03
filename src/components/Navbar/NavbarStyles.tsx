@@ -13,6 +13,45 @@ export const Nav = styled.nav<NavProps>`
   align-items: center;
   border-bottom: ${({ $darkmode }) =>
     $darkmode ? "1px solid #262627" : "1px solid #F6F7F8"};
+  .icons {
+    .icon {
+      color: ${({ $darkmode }) => ($darkmode ? "#D7DADC" : "black")};
+    }
+    @media screen and (max-width: 650px) {
+      display: none;
+    }
+  }
+  .wrapper {
+    position: relative;
+    .community {
+      display: flex;
+      width: 15vw;
+      justify-content: space-between;
+      align-items: center;
+      color: ${({ $darkmode }) => ($darkmode ? "#D7DADC" : "black")};
+      border: ${({ $darkmode }) =>
+        $darkmode ? "1px solid black" : "1px solid white"};
+      padding: 0.5rem 1rem;
+      &:hover {
+        border: 1px solid #edeff1;
+      }
+      cursor: pointer;
+      img {
+        height: 4vh;
+        width: 2vw;
+        border-radius: 2vh;
+      }
+      .info {
+        width: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+    }
+    @media screen and (max-width: 1000px) {
+      display: none;
+    }
+  }
 `;
 
 export const Logo = styled(Link)<NavProps>`

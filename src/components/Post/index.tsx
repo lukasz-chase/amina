@@ -130,7 +130,6 @@ const Post: React.FC<PostProps> = ({ post }) => {
         });
     }
   };
-  console.log(post.subaminId);
   return (
     <PostComponent
       $darkmode={darkMode}

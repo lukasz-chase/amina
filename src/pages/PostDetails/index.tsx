@@ -13,9 +13,8 @@ import userState from "../../state/userState";
 //material ui
 import TextField from "@material-ui/core/TextField";
 //location
-import { useLocation, useHistory } from "react-router-dom";
+import { useLocation, useHistory, Link } from "react-router-dom";
 import { Location } from "history";
-//icons
 //icons
 import { BiUpvote, BiDownvote } from "react-icons/bi";
 import { AiOutlineArrowLeft } from "react-icons/ai";
@@ -367,9 +366,12 @@ const PostDetails: React.FC = () => {
                 />
               </div>
               <div className="details">
-                <span className="subamin-name">
+                <Link
+                  className="subamin-name"
+                  to={`/s/${postDetails.subaminId}`}
+                >
                   a/{postDetails.subaminName}
-                </span>
+                </Link>
                 <span>
                   Posted by <span className="user">u/{postDetails.author}</span>{" "}
                   - <TimeAgo date={postDetails.date} />

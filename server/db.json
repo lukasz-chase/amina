@@ -54,7 +54,17 @@
       "upvotedBy": [],
       "downvotedBy": [],
       "image": "https://static.posters.cz/image/750/plakaty/auta-3-cars-3-mcqueen-race-i47515.jpg",
-      "comments": []
+      "comments": [
+        {
+          "id": 1,
+          "author": "luki",
+          "upvotes": 0,
+          "date": "05/02/2021, 8:48:9",
+          "text": "fajna bryka\n",
+          "upvotedBy": [],
+          "downvotedBy": []
+        }
+      ]
     },
     {
       "id": 2,
@@ -65,8 +75,10 @@
       "title": "sports are cool",
       "description": "because i like them",
       "author": "asd",
-      "upvotes": 1150,
-      "upvotedBy": [],
+      "upvotes": 1151,
+      "upvotedBy": [
+        1
+      ],
       "downvotedBy": [],
       "image": "https://webunwto.s3.eu-west-1.amazonaws.com/2020-01/sport-congresse.jpg",
       "comments": [
@@ -151,7 +163,8 @@
       "email": "luki@email.com",
       "password": "jd4bukq/A3K8pr6Z08gdbPUZ790aie87UofsVskRYNJnEM3do2keivX9Plzi2HWkdcDO6nIWBd163cxeHrIb+w==",
       "followedSubaminas": [
-        4
+        3,
+        1
       ],
       "id": 1,
       "darkMode": true

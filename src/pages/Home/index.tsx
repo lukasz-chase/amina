@@ -9,6 +9,7 @@ import userState from "../../state/userState";
 //components
 import Header from "../../components/Header";
 import Post from "../../components/Post";
+import BackToTopButton from "../../components/BackToTopButton";
 //router
 import { Link } from "react-router-dom";
 
@@ -42,6 +43,7 @@ const Home: React.FC = () => {
   }, [loggedUser.followedSubaminas, fetchNewSubaminByIds, isLogged]);
   return (
     <HomeComponent darkmode={darkmode} classicview={classicview}>
+      <BackToTopButton />
       <Posts darkmode={darkmode} classicview={classicview}>
         <div className="post-wrapper">
           {isLogged && usersFeed ? (
