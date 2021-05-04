@@ -10,6 +10,7 @@ import PostDetails from "./pages/PostDetails";
 import SearchPage from "./pages/SearchPage";
 import SubaminDetails from "./pages/SubaminDetails";
 import LoginPage from "./pages/LoginPage";
+import CreatePost from "./pages/CreatePost";
 
 function App() {
   return (
@@ -24,6 +25,9 @@ function App() {
       </Route>
       <Route path="/s/:id" exact>
         <SubaminDetails />
+      </Route>
+      <Route path="/create/post" exact>
+        <CreatePost />
       </Route>
       <Route path={["/login", "/register"]} exact>
         <LoginPage />

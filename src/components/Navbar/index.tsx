@@ -107,16 +107,20 @@ const Navbar: React.FC = () => {
       </TextInput>
       {isLogged && (
         <div className="icons">
-          <Tooltip title="Create Post">
-            <IconButton>
-              <AiFillEdit className="icon" />
-            </IconButton>
-          </Tooltip>
-          <Tooltip title="Create Community">
-            <IconButton>
-              <AiOutlineUsergroupAdd className="icon" />
-            </IconButton>
-          </Tooltip>
+          <Link to="/create/post">
+            <Tooltip title="Create Post">
+              <IconButton>
+                <AiFillEdit className="icon" />
+              </IconButton>
+            </Tooltip>
+          </Link>
+          <Link to="/create/subamin">
+            <Tooltip title="Create Community">
+              <IconButton>
+                <AiOutlineUsergroupAdd className="icon" />
+              </IconButton>
+            </Tooltip>
+          </Link>
         </div>
       )}
       <Buttons $darkmode={darkMode}>

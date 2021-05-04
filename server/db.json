@@ -75,22 +75,42 @@
       "title": "sports are cool",
       "description": "because i like them",
       "author": "asd",
-      "upvotes": 1151,
-      "upvotedBy": [
+      "upvotes": 1149,
+      "upvotedBy": [],
+      "downvotedBy": [
         1
       ],
-      "downvotedBy": [],
       "image": "https://webunwto.s3.eu-west-1.amazonaws.com/2020-01/sport-congresse.jpg",
       "comments": [
         {
+          "id": 3,
+          "author": "luki",
+          "upvotes": -1,
+          "date": "05/04/2021, 20:18:31",
+          "text": "elo",
+          "upvotedBy": [],
+          "downvotedBy": [
+            1
+          ]
+        },
+        {
           "id": 1,
           "author": "luki",
-          "upvotes": 1,
-          "date": "05/01/2021, 21:20:11",
-          "text": "asd",
+          "upvotes": 0,
+          "date": "05/04/2021, 20:9:26",
+          "text": "siema\n",
           "upvotedBy": [
             1
           ],
+          "downvotedBy": []
+        },
+        {
+          "id": 2,
+          "author": "luki",
+          "upvotes": -6,
+          "date": "05/04/2021, 20:9:29",
+          "text": "byku",
+          "upvotedBy": [],
           "downvotedBy": []
         }
       ]
@@ -135,9 +155,11 @@
       "title": "animals are cute",
       "description": "because i like them",
       "author": "ghj",
-      "upvotes": 10,
+      "upvotes": 9,
       "upvotedBy": [],
-      "downvotedBy": [],
+      "downvotedBy": [
+        1
+      ],
       "image": "https://images.photowall.com/products/65791/world-of-animals-map.jpg?h=699&q=85",
       "comments": []
     },
@@ -159,6 +181,7 @@
   ],
   "users": [
     {
+      "id": 1,
       "username": "luki",
       "email": "luki@email.com",
       "password": "jd4bukq/A3K8pr6Z08gdbPUZ790aie87UofsVskRYNJnEM3do2keivX9Plzi2HWkdcDO6nIWBd163cxeHrIb+w==",
@@ -166,7 +189,6 @@
         3,
         1
       ],
-      "id": 1,
       "darkMode": true
     },
     {

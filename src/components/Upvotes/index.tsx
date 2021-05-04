@@ -12,8 +12,8 @@ interface Props {
   whiteModebg: string;
   upvotePost?: (what: string) => void;
   upvoteComment?: (id: number, what: string) => void;
-  upvoted?: boolean;
-  downvoted?: boolean;
+  upvoted: boolean;
+  downvoted: boolean;
   commentId?: number;
 }
 const Upvotes: React.FC<Props> = ({
@@ -45,7 +45,6 @@ const Upvotes: React.FC<Props> = ({
       upvoteComment!(commentId!, what);
     }
   };
-
   return (
     <UpvoteComponent
       darkmode={darkMode}
@@ -53,8 +52,8 @@ const Upvotes: React.FC<Props> = ({
       flexdirection={flexDirection}
       darkmodebg={darkModeBg}
       whitemodebg={whiteModebg}
-      upvoted={upvoted!}
-      downvoted={downvoted!}
+      upvoted={upvoted}
+      downvoted={downvoted}
       compactview={compactview}
     >
       <BiUpvote

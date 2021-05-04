@@ -25,8 +25,10 @@ const YourSubamins: React.FC<Props> = ({ open, setOpen }) => {
   const [community, setCommunity] = useState("");
   //useEffect
   useEffect(() => {
-    fetchSubamins(loggedUser.followedSubaminas, community);
-  }, [fetchSubamins, loggedUser.followedSubaminas, community]);
+    if (isLogged) {
+      fetchSubamins(loggedUser.followedSubaminas, community);
+    }
+  }, [fetchSubamins, loggedUser.followedSubaminas, community, isLogged]);
   //handlers
   const clickHandler = () => {
     setOpen(!open);

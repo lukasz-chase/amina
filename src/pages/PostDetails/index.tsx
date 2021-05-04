@@ -50,8 +50,6 @@ const PostDetails: React.FC = () => {
   const [comment, setComment] = useState("");
   const [upvoted, setUpvoted] = useState<boolean>(false);
   const [downvoted, setDownvoted] = useState(false);
-  const [upvotedComment, setCommentUpvoted] = useState<boolean>(false);
-  const [downvotedComment, setCommentDownvoted] = useState(false);
   //useEffect
   useEffect(() => {
     fetchPostDetails(Number(postId));
@@ -214,15 +212,30 @@ const PostDetails: React.FC = () => {
         });
     }
   };
-
+  const checkIfCommentIsUpvoted = (id: number) => {
+    const comment = postDetails.comments!.find((a) => a.id === id);
+    const isCommentUpvoted = comment!.upvotedBy.find(
+      (a) => a === loggedUser.id
+    );
+    if (isCommentUpvoted) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+  const checkIfCommentIsDownvoted = (id: number) => {
+    const comment = postDetails.comments!.find((a) => a.id === id);
+    const isCommentDownvoted = comment!.downvotedBy.find(
+      (a) => a === loggedUser.id
+    );
+    if (isCommentDownvoted) {
+      return true;
+    } else {
+      return false;
+    }
+  };
   const upvoteCommentHandler = (id: number, what: string) => {
-    const isCommentUpvoted = postDetails.comments!.find((a) =>
-      a.upvotedBy.find((a) => a === loggedUser.id)
-    );
-    const isCommentDownvoted = postDetails.comments!.find((a) =>
-      a.downvotedBy.find((a) => a === loggedUser.id)
-    );
-    if (postDetails.comments && isCommentUpvoted) {
+    if (postDetails.comments && checkIfCommentIsUpvoted(id)) {
       axios
         .put(`http://localhost:3000/posts/${postDetails.id}`, {
           id: postDetails.id,
@@ -250,11 +263,9 @@ const PostDetails: React.FC = () => {
           ),
         })
         .then(() => {
-          setCommentDownvoted(false);
-          setCommentUpvoted(false);
           fetchPostDetails(Number(postId));
         });
-    } else if (postDetails.comments && isCommentDownvoted) {
+    } else if (postDetails.comments && checkIfCommentIsDownvoted(id)) {
       axios
         .put(`http://localhost:3000/posts/${postDetails.id}`, {
           id: postDetails.id,
@@ -282,8 +293,6 @@ const PostDetails: React.FC = () => {
           ),
         })
         .then(() => {
-          setCommentDownvoted(false);
-          setCommentUpvoted(false);
           fetchPostDetails(Number(postId));
         });
     } else {
@@ -322,11 +331,6 @@ const PostDetails: React.FC = () => {
           ),
         })
         .then(() => {
-          if (what === "upvote") {
-            setCommentUpvoted(true);
-          } else {
-            setCommentDownvoted(true);
-          }
           fetchPostDetails(Number(postId));
         });
     }
@@ -453,8 +457,8 @@ const PostDetails: React.FC = () => {
                     whiteModebg="white"
                     upvoteComment={upvoteCommentHandler}
                     commentId={comment.id}
-                    upvoted={upvotedComment}
-                    downvoted={downvotedComment}
+                    upvoted={checkIfCommentIsUpvoted(comment.id)}
+                    downvoted={checkIfCommentIsDownvoted(comment.id)}
                   />
                   <span
                     className="button"
