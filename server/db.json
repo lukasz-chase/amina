@@ -161,7 +161,19 @@
         1
       ],
       "image": "https://images.photowall.com/products/65791/world-of-animals-map.jpg?h=699&q=85",
-      "comments": []
+      "comments": [
+        {
+          "id": 1,
+          "author": "luki",
+          "upvotes": 1,
+          "date": "05/04/2021, 20:45:35",
+          "text": "elo\n",
+          "upvotedBy": [
+            1
+          ],
+          "downvotedBy": []
+        }
+      ]
     },
     {
       "id": 6,
@@ -177,6 +189,53 @@
       "downvotedBy": [],
       "image": "https://cdnuploads.aa.com.tr/uploads/Contents/2020/05/14/thumbs_b_c_88bedbc66bb57f0e884555e8250ae5f9.jpg?v=140708",
       "comments": []
+    },
+    {
+      "id": 7,
+      "subaminId": 1,
+      "subaminName": "sports",
+      "subaminLogo": "https://media.npr.org/assets/img/2020/06/10/gettyimages-200199027-001-b5fb3d8d8469ab744d9e97706fa67bc5c0e4fa40.jpg",
+      "date": "05/04/2021, 23:5:55",
+      "title": "asd",
+      "description": "siema",
+      "author": "luki",
+      "upvotes": 1,
+      "upvotedBy": [
+        1
+      ],
+      "downvotedBy": [],
+      "image": "",
+      "comments": []
+    },
+    {
+      "subaminId": 3,
+      "subaminName": "animals",
+      "subaminLogo": "https://desenio.pl/bilder/artiklar/zoom/11378_2.jpg?imgwidth=435&qt=",
+      "date": "05/04/2021, 23:22:32",
+      "title": "srajaca duka",
+      "description": "",
+      "author": "luki",
+      "upvotes": 0,
+      "upvotedBy": [],
+      "downvotedBy": [],
+      "image": "https://scontent.fpoz4-1.fna.fbcdn.net/v/t1.15752-9/182848256_255471646321662_3453698380948655852_n.jpg?_nc_cat=109&ccb=1-3&_nc_sid=ae9488&_nc_ohc=sXW_J7Cke_EAX9bmbhW&_nc_ht=scontent.fpoz4-1.fna&oh=11ec7aa81a42e49d20d962632121b96b&oe=60B6522B",
+      "comments": [],
+      "id": 9
+    },
+    {
+      "subaminId": 1,
+      "subaminName": "sports",
+      "subaminLogo": "https://media.npr.org/assets/img/2020/06/10/gettyimages-200199027-001-b5fb3d8d8469ab744d9e97706fa67bc5c0e4fa40.jpg",
+      "date": "05/05/2021, 9:35:54",
+      "title": "s",
+      "description": "",
+      "author": "luki",
+      "upvotes": 0,
+      "upvotedBy": [],
+      "downvotedBy": [],
+      "image": "",
+      "comments": [],
+      "id": 10
     }
   ],
   "users": [

@@ -22,7 +22,7 @@ export const subaminsState = create<Store>((set) => ({
     set({ subamins: await response.json() });
   },
   fetchNewSubaminByIds: async (ids: number[]) => {
-    const url = `${feed("date", "desc")}${ids
+    const url = `${feed("id", "desc")}${ids
       .map((id) => `&subaminId=${id}`)
       .join("")}`;
     const response = await fetch(url);

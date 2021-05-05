@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 //styling
 import { CreatePostComponent } from "./CreatePostStyles";
 //store
@@ -13,6 +13,8 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 //axios
 import axios from "axios";
 import YourSubamins from "../../components/YourSubamins";
+//interface
+import { Subamin } from "../../interfaces";
 
 const CreatePost = () => {
   //state
@@ -22,19 +24,72 @@ const CreatePost = () => {
   const darkmode: boolean = isLogged ? loggedUser.darkMode : darkmodeState;
   const [postTitle, setPostTitle] = useState("");
   const [postText, setPostText] = useState("");
+  const [postImg, setPostImg] = useState("");
   const [open, setOpen] = useState(false);
+  const fetchUser = userState((state) => state.fetchUser);
+  const [subamin, setSubamin] = useState<Subamin>();
+  //useEffect
+  useEffect(() => {
+    fetchUser(Number(localStorage.getItem("userId")));
+  }, [fetchUser]);
   //handlers
-  const addPost = () => {
-    console.log("kupa");
+  const addPost = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault();
+    const today = new Date();
+    const dd = String(today.getDate()).padStart(2, "0");
+    const mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
+    const yyyy = today.getFullYear();
+    const hour = today.getHours();
+    const minutes = today.getMinutes();
+    const seconds = today.getSeconds();
+    if (subamin && setPostTitle) {
+      axios
+        .post(`http://localhost:3000/posts`, {
+          subaminId: subamin!.id,
+          subaminName: subamin!.name,
+          subaminLogo: subamin!.logo,
+          date: `${mm}/${dd}/${yyyy}, ${hour}:${minutes}:${seconds}`,
+          title: postTitle,
+          description: postText ? postText : "",
+          author: loggedUser.username,
+          upvotes: 0,
+          upvotedBy: [],
+          downvotedBy: [],
+          image: postImg ? postImg : "",
+          comments: [],
+        })
+        .then(() => {
+          setPostImg("");
+          setPostText("");
+          setPostTitle("");
+        });
+    }
   };
   return (
-    <CreatePostComponent darkmode={darkmode}>
+    <CreatePostComponent
+      darkmode={darkmode}
+      ready={subamin && postTitle ? true : false}
+    >
       <div className="left">
         <h1>Create a Post</h1>
-        <div className="choose-community" onClick={() => setOpen(!open)}>
-          Choose a community
-          <MdArrowDropDown className="arrow-icon" />
-          <YourSubamins open={open} setOpen={setOpen} />
+        <div className="choose-community">
+          <div className="wrapper" onClick={() => setOpen(!open)}>
+            {subamin && (
+              <span>
+                {" "}
+                <img src={subamin.logo} alt="" />
+                {subamin.name}
+              </span>
+            )}
+            {!subamin && <span>Choose a community</span>}
+            <MdArrowDropDown className="arrow-icon" />
+          </div>
+          <YourSubamins
+            open={open}
+            setOpen={setOpen}
+            width={"20vw"}
+            setActiveCommunity={setSubamin}
+          />
         </div>
         <form className="form">
           <Input
@@ -42,15 +97,22 @@ const CreatePost = () => {
             placeholder="Title"
             value={postTitle}
             multiline
-            onChange={(e) =>
-              postTitle.length <= 299 ? setPostTitle(e.target.value) : ""
-            }
+            onChange={(e) => setPostTitle(e.target.value)}
             disableUnderline
             endAdornment={
               <InputAdornment position="end" className="text">
                 {postTitle.length}/300
               </InputAdornment>
             }
+            inputProps={{ maxLength: 300 }}
+          />
+          <Input
+            className="post-image"
+            placeholder="Image src (optional)"
+            value={postImg}
+            multiline
+            onChange={(e) => setPostImg(e.target.value)}
+            disableUnderline
           />
           <TextField
             className="text-field"
@@ -60,10 +122,24 @@ const CreatePost = () => {
             value={postText}
             onChange={(e) => setPostText(e.target.value)}
           />
-          <button type="submit" className="submit" onClick={() => addPost()}>
+          <button type="submit" className="submit" onClick={(e) => addPost(e)}>
             Post
           </button>
         </form>
+      </div>
+      <div className="right">
+        <div className="rules">
+          <div className="header">Posting to Amina</div>
+          <ul>
+            <li>Remember the human</li>
+            <li>Behave like you would in real life</li>
+            <li>Look for the original source of content</li>
+            <li>Search for duplicates before posting</li>
+            <li>Read the community's rules</li>
+          </ul>
+        </div>
+        <span>Please be mindful of amina's content policy</span>
+        <p> and practice good aminquette.</p>
       </div>
     </CreatePostComponent>
   );

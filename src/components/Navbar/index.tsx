@@ -68,7 +68,12 @@ const Navbar: React.FC = () => {
               <MdArrowDropDown className="arrow-icon" />
             </div>
           </div>
-          <YourSubamins open={openCommunity} setOpen={setOpenCommunity} />
+          <YourSubamins
+            open={openCommunity}
+            setOpen={setOpenCommunity}
+            width="15vw"
+            nav
+          />
         </div>
       )}
       {site === "s" && (
@@ -84,7 +89,12 @@ const Navbar: React.FC = () => {
               <MdArrowDropDown className="arrow-icon" />
             </div>
           </div>
-          <YourSubamins open={openCommunity} setOpen={setOpenCommunity} />
+          <YourSubamins
+            open={openCommunity}
+            setOpen={setOpenCommunity}
+            width="15vw"
+            nav
+          />
         </div>
       )}
       <TextInput $darkmode={darkMode}>

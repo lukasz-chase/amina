@@ -1,9 +1,12 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 
 type DropdownProps = {
   darkmode: boolean;
   open: boolean;
+  width: string;
+};
+type CommunityProps = {
+  darkmode: boolean;
 };
 
 export const SubaminsDropdown = styled.div<DropdownProps>`
@@ -15,10 +18,13 @@ export const SubaminsDropdown = styled.div<DropdownProps>`
   top: 0;
   margin-top: 46px;
   flex-direction: column;
-  width: 15vw;
+  width: ${({ width }) => width};
   left: 0;
   max-height: 15rem;
   overflow: auto;
+  @media screen and (max-width: 1000px) {
+    width: 100%;
+  }
   .text-input {
     align-self: center;
     margin: 0.5rem 0;
@@ -35,14 +41,15 @@ export const SubaminsDropdown = styled.div<DropdownProps>`
     padding: 0.2rem 1rem;
   }
 `;
-export const Community = styled(Link)<DropdownProps>`
+export const Community = styled.div<CommunityProps>`
   display: flex;
   align-items: center;
   padding: 0.4rem 1rem;
   text-decoration: none;
   color: ${({ darkmode }) => (darkmode ? "#D7DADC" : "black")};
   &:hover {
-    background-color: ${({ darkmode }) => (darkmode ? "#272729" : "black")};
+    cursor: pointer;
+    background-color: ${({ darkmode }) => (darkmode ? "#272729" : "#F6F7F8")};
   }
   .community-icon {
     margin-right: 0.3rem;

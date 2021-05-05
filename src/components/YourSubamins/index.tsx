@@ -9,12 +9,27 @@ import subaminsState from "../../state/subaminsState";
 import Input from "@material-ui/core/Input";
 //icons
 import { AiFillHome } from "react-icons/ai";
+//location
+import { useHistory } from "react-router-dom";
+//interface
+import { Subamin } from "../../interfaces";
 interface Props {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  width: string;
+  nav?: boolean;
+  setActiveCommunity?: React.Dispatch<
+    React.SetStateAction<Subamin | undefined>
+  >;
 }
 
-const YourSubamins: React.FC<Props> = ({ open, setOpen }) => {
+const YourSubamins: React.FC<Props> = ({
+  open,
+  setOpen,
+  width,
+  nav,
+  setActiveCommunity,
+}) => {
   //state
   const loggedUser = userState((state) => state.loggedUser);
   const isLogged = userState((state) => state.isLogged);
@@ -23,6 +38,7 @@ const YourSubamins: React.FC<Props> = ({ open, setOpen }) => {
   const fetchSubamins = subaminsState((state) => state.fetchUsersSubamins);
   const usersSubamins = subaminsState((s) => s.usersSubaminas);
   const [community, setCommunity] = useState("");
+  const history = useHistory();
   //useEffect
   useEffect(() => {
     if (isLogged) {
@@ -30,12 +46,18 @@ const YourSubamins: React.FC<Props> = ({ open, setOpen }) => {
     }
   }, [fetchSubamins, loggedUser.followedSubaminas, community, isLogged]);
   //handlers
-  const clickHandler = () => {
-    setOpen(!open);
-    window.scrollTo(0, 0);
+  const clickHandler = (path?: string, subamin?: Subamin) => {
+    if (nav) {
+      setOpen(!open);
+      window.scrollTo(0, 0);
+      history.push(path!);
+    } else {
+      setOpen(!open);
+      setActiveCommunity!(subamin);
+    }
   };
   return (
-    <SubaminsDropdown darkmode={darkMode} open={open}>
+    <SubaminsDropdown darkmode={darkMode} open={open} width={width}>
       <div className="text-input">
         <Input
           className="textField"
@@ -45,22 +67,19 @@ const YourSubamins: React.FC<Props> = ({ open, setOpen }) => {
           disableUnderline
         />
       </div>
-      <span> Amina feeds </span>
-      <Community
-        darkmode={darkMode}
-        open={open}
-        to="/"
-        onClick={() => clickHandler()}
-      >
-        <AiFillHome className="community-icon" /> Home
-      </Community>
+      {nav && <span> Amina feeds </span>}
+      {nav && (
+        <Community darkmode={darkMode} onClick={() => clickHandler("/")}>
+          <AiFillHome className="community-icon" /> Home
+        </Community>
+      )}
+
       <span>my communities</span>
       {usersSubamins.map((subamin) => (
         <Community
           darkmode={darkMode}
-          open={open}
-          to={`/s/${subamin.id}`}
-          onClick={() => clickHandler()}
+          onClick={() => clickHandler(`/s/${subamin.id}`, subamin)}
+          key={subamin.id}
         >
           <img src={subamin.logo} alt={subamin.name} /> {subamin.name}
         </Community>
