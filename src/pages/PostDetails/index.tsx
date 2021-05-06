@@ -31,25 +31,27 @@ import TimeAgo from "react-timeago";
 import Upvotes from "../../components/Upvotes";
 //axios
 import axios from "axios";
+//interface
+import { User, PostProperties } from "../../interfaces";
 
 const PostDetails: React.FC = () => {
   //state
-  const postDetails = postState((state) => state.postDetails);
+  const postDetails = postState<PostProperties>((state) => state.postDetails);
   const fetchPostDetails = postState((state) => state.fetchPostDetails);
   const collapseThread = postState((state) => state.collapseThread);
-  const loggedUser = userState((state) => state.loggedUser);
-  const isLogged = userState((state) => state.isLogged);
+  const loggedUser = userState<User>((state) => state.loggedUser);
+  const isLogged = userState<boolean>((state) => state.isLogged);
   const darkmodeState = viewState((state) => state.darkMode);
   const darkMode: boolean = isLogged ? loggedUser.darkMode : darkmodeState;
   const [sortNewComments, setSortNewComments] = useState<boolean>(false);
   const location = useLocation<Location>();
   const postId = location.pathname.split("/")[2];
-  const history = useHistory();
+  const history = useHistory<Location>();
   const textToCopy = useRef<HTMLDivElement>(null);
   const fetchUser = userState((state) => state.fetchUser);
-  const [comment, setComment] = useState("");
+  const [comment, setComment] = useState<string>("");
   const [upvoted, setUpvoted] = useState<boolean>(false);
-  const [downvoted, setDownvoted] = useState(false);
+  const [downvoted, setDownvoted] = useState<boolean>(false);
   //useEffect
   useEffect(() => {
     fetchPostDetails(Number(postId));
@@ -383,7 +385,7 @@ const PostDetails: React.FC = () => {
               </div>
             </div>
             <div className="post-details">
-              <span>{postDetails.title}</span>
+              <span className="post-title">{postDetails.title}</span>
               {postDetails.image && (
                 <img src={postDetails.image} alt={postDetails.title} />
               )}

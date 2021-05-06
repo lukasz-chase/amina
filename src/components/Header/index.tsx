@@ -8,6 +8,8 @@ import subaminsState from "../../state/subaminsState";
 //icons
 import { AiOutlineLineChart } from "react-icons/ai";
 import { MdNewReleases } from "react-icons/md";
+//interfaces
+import { User } from "../../interfaces";
 
 type HeaderProps = {
   topFunction?: (question?: string) => void;
@@ -33,9 +35,9 @@ const Header: React.FC<HeaderProps> = ({
   //state
   const setClassicView = viewState((state) => state.setClassicView);
   const setCompactView = viewState((state) => state.setCompactView);
-  const loggedUser = userState((state) => state.loggedUser);
-  const isLogged = userState((state) => state.isLogged);
-  const darkmodeState = viewState((state) => state.darkMode);
+  const loggedUser = userState<User>((state) => state.loggedUser);
+  const isLogged = userState<boolean>((state) => state.isLogged);
+  const darkmodeState = viewState<boolean>((state) => state.darkMode);
   const darkMode: boolean = isLogged ? loggedUser.darkMode : darkmodeState;
   const fetchTopFeed = subaminsState((state) => state.fetchTopSubaminByIds);
   const fetchNewFeed = subaminsState((state) => state.fetchNewSubaminByIds);
@@ -49,6 +51,7 @@ const Header: React.FC<HeaderProps> = ({
       topFunction!(question);
     }
   };
+
   const newFunctionHandler = () => {
     if (subamin) {
       newSubaminFunction!(id);

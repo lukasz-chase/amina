@@ -13,7 +13,7 @@ import userState from "../../state/userState";
 //components
 import Upvotes from "../Upvotes";
 //interfaces
-import { PostProperties } from "../../interfaces";
+import { PostProperties, User } from "../../interfaces";
 import JoinButton from "../JoinButton";
 //axios
 import axios from "axios";
@@ -24,15 +24,15 @@ interface PostProps {
 
 const Post: React.FC<PostProps> = ({ post }) => {
   //state
-  const loggedUser = userState((state) => state.loggedUser);
-  const isLogged = userState((state) => state.isLogged);
+  const loggedUser = userState<User>((state) => state.loggedUser);
+  const isLogged = userState<boolean>((state) => state.isLogged);
   const fetchUser = userState((state) => state.fetchUser);
-  const darkmodeState = viewState((state) => state.darkMode);
+  const darkmodeState = viewState<boolean>((state) => state.darkMode);
   const darkMode: boolean = isLogged ? loggedUser.darkMode : darkmodeState;
   const classicView: boolean = viewState((state) => state.classicView);
   const compactView: boolean = viewState((state) => state.compactView);
   const [upvoted, setUpvoted] = useState<boolean>(false);
-  const [downvoted, setDownvoted] = useState(false);
+  const [downvoted, setDownvoted] = useState<boolean>(false);
   //useEffect
   useEffect(() => {
     if (

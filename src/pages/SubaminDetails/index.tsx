@@ -12,24 +12,28 @@ import userState from "../../state/userState";
 import Header from "../../components/Header";
 import JoinButton from "../../components/JoinButton";
 import Post from "../../components/Post";
+//interface
+import { User, PostProperties, Subamin } from "../../interfaces";
 
-const SubaminDetails = () => {
+const SubaminDetails: React.FC = () => {
   //state
   const location = useLocation<Location>();
   const subaminId = location.pathname.split("/")[2];
   const fetchSubamin = subaminState((state) => state.fetchSubamin);
-  const subamin = subaminState((state) => state.subamin);
+  const subamin = subaminState<Subamin>((state) => state.subamin);
   const fetchSubaminTopPosts = subaminState(
     (state) => state.fetchSubaminTopPosts
   );
   const fetchSubaminNewPosts = subaminState(
     (state) => state.fetchSubaminNewPosts
   );
-  const subaminPosts = subaminState((state) => state.subaminPosts);
-  const loggedUser = userState((state) => state.loggedUser);
-  const isLogged = userState((state) => state.isLogged);
-  const darkmodeState = viewState((state) => state.darkMode);
-  const classicView = viewState((state) => state.classicView);
+  const subaminPosts = subaminState<PostProperties[]>(
+    (state) => state.subaminPosts
+  );
+  const loggedUser = userState<User>((state) => state.loggedUser);
+  const isLogged = userState<boolean>((state) => state.isLogged);
+  const darkmodeState = viewState<boolean>((state) => state.darkMode);
+  const classicView = viewState<boolean>((state) => state.classicView);
   const darkMode: boolean = isLogged ? loggedUser.darkMode : darkmodeState;
   const fetchUser = userState((state) => state.fetchUser);
   //useEffect

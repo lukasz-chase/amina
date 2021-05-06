@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import { SearchPageComponent, Wrapper } from "./SearchPageStyles";
 //router
 import { useLocation, Link } from "react-router-dom";
+import { Location } from "history";
 //store
 import searchState from "../../state/searchState";
 import viewState from "../../state/viewState";
@@ -12,19 +13,21 @@ import Post from "../../components/Post";
 import JoinButton from "../../components/JoinButton";
 import Header from "../../components/Header";
 import BackToTopButton from "../../components/BackToTopButton";
+//interface
+import { User, PostProperties, Subamin } from "../../interfaces";
 
-const SearchPage = () => {
+const SearchPage: React.FC = () => {
   //state
-  const location = useLocation();
+  const location = useLocation<Location>();
   const question = location.pathname.split("/")[3];
   const path = location.pathname.split("/")[2];
-  const subamins = searchState((state) => state.subaminasSearch);
-  const posts = searchState((state) => state.postSearch);
+  const subamins = searchState<Subamin[]>((state) => state.subaminasSearch);
+  const posts = searchState<PostProperties[]>((state) => state.postSearch);
   const fetchTopPosts = searchState((state) => state.fetchTopPostsSearch);
   const fetchNewPosts = searchState((state) => state.fetchNewPostsSearch);
-  const loggedUser = userState((state) => state.loggedUser);
-  const isLogged = userState((state) => state.isLogged);
-  const darkmodeState = viewState((state) => state.darkMode);
+  const loggedUser = userState<User>((state) => state.loggedUser);
+  const isLogged = userState<boolean>((state) => state.isLogged);
+  const darkmodeState = viewState<boolean>((state) => state.darkMode);
   const darkMode: boolean = isLogged ? loggedUser.darkMode : darkmodeState;
   const fetchUser = userState((state) => state.fetchUser);
   const fetchTopSubamins = searchState(

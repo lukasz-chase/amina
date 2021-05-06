@@ -4,7 +4,8 @@ import viewState from "../../state/viewState";
 import userState from "../../state/userState";
 //icons
 import { BiUpvote, BiDownvote } from "react-icons/bi";
-
+//interfaces
+import { User } from "../../interfaces";
 interface Props {
   upvotes: number;
   flexDirection: string;
@@ -27,11 +28,11 @@ const Upvotes: React.FC<Props> = ({
   downvoted,
   commentId,
 }) => {
-  const classicview = viewState((state) => state.classicView);
-  const compactview = viewState((state) => state.compactView);
-  const loggedUser = userState((state) => state.loggedUser);
-  const isLogged = userState((state) => state.isLogged);
-  const darkmodeState = viewState((state) => state.darkMode);
+  const classicview = viewState<boolean>((state) => state.classicView);
+  const compactview = viewState<boolean>((state) => state.compactView);
+  const loggedUser = userState<User>((state) => state.loggedUser);
+  const isLogged = userState<boolean>((state) => state.isLogged);
+  const darkmodeState = viewState<boolean>((state) => state.darkMode);
   const darkMode: boolean = isLogged ? loggedUser.darkMode : darkmodeState;
   //handlers
   const upvoteHandler = (

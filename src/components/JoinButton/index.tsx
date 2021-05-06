@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 //styles
 import { Button } from "./ButtonStyles";
 //store
 import viewState from "../../state/viewState";
 import userState from "../../state/userState";
 import axios from "axios";
+//interfaces
+import { User } from "../../interfaces";
 
 type joinProps = {
   id: number;
@@ -12,17 +14,27 @@ type joinProps = {
 
 const JoinButton: React.FC<joinProps> = ({ id }) => {
   //state
-  const loggedUser = userState((state) => state.loggedUser);
-  const isLoggedState = userState((state) => state.isLogged);
-  const [isJoined, setIsJoined] = useState(
+  const loggedUser = userState<User>((state) => state.loggedUser);
+  const isLoggedState = userState<boolean>((state) => state.isLogged);
+  const [isJoined, setIsJoined] = useState<boolean>(
     isLoggedState && loggedUser.followedSubaminas.find((a) => a === id)
       ? true
       : false
   );
-  const darkmodeState = viewState((state) => state.darkMode);
+  const darkmodeState = viewState<boolean>((state) => state.darkMode);
   const darkMode: boolean = isLoggedState ? loggedUser.darkMode : darkmodeState;
   const classicView: boolean = viewState((state) => state.classicView);
   const compactView: boolean = viewState((state) => state.compactView);
+  //useEffect
+  useEffect(() => {
+    if (isLoggedState) {
+      if (loggedUser.followedSubaminas.find((a) => a === id)) {
+        setIsJoined(true);
+      } else {
+        setIsJoined(false);
+      }
+    }
+  }, [isLoggedState, loggedUser.followedSubaminas, setIsJoined, id]);
   //handlers
   const joinHandler = () => {
     axios
@@ -36,6 +48,16 @@ const JoinButton: React.FC<joinProps> = ({ id }) => {
       })
       .then(() => {
         setIsJoined(true);
+        axios.get(`http://localhost:3000/subamins/${id}`).then((res) =>
+          axios.put(`http://localhost:3000/subamins/${id}`, {
+            id: res.data.id,
+            name: res.data.name,
+            desc: res.data.desc,
+            members: res.data.members + 1,
+            logo: res.data.logo,
+            background: res.data.background,
+          })
+        );
       });
   };
   const leaveHandler = () => {
@@ -50,6 +72,16 @@ const JoinButton: React.FC<joinProps> = ({ id }) => {
       })
       .then(() => {
         setIsJoined(false);
+        axios.get(`http://localhost:3000/subamins/${id}`).then((res) =>
+          axios.put(`http://localhost:3000/subamins/${id}`, {
+            id: res.data.id,
+            name: res.data.name,
+            desc: res.data.desc,
+            members: res.data.members - 1,
+            logo: res.data.logo,
+            background: res.data.background,
+          })
+        );
       });
   };
   return (
@@ -58,6 +90,7 @@ const JoinButton: React.FC<joinProps> = ({ id }) => {
       $classicview={classicView}
       $compactview={compactView}
       $islogged={isLoggedState}
+      $isjoined={isJoined}
       onClick={(e) => {
         e.stopPropagation();
         if (isJoined) {
@@ -66,11 +99,7 @@ const JoinButton: React.FC<joinProps> = ({ id }) => {
           joinHandler();
         }
       }}
-    >
-      <button className="join-button">
-        {isJoined ? "" : "+"} <span>{isJoined ? "Joined" : "Join"}</span>
-      </button>
-    </Button>
+    ></Button>
   );
 };
 

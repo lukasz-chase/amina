@@ -20,6 +20,8 @@ import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 //axios
 import axios from "axios";
+//interfaces
+import { User } from "../../../interfaces";
 interface Props {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -27,10 +29,10 @@ interface Props {
 
 const OptionsDropdown: React.FC<Props> = ({ open, setOpen }) => {
   //state
-  const loggedUser = userState((state) => state.loggedUser);
-  const isLogged = userState((state) => state.isLogged);
+  const loggedUser = userState<User>((state) => state.loggedUser);
+  const isLogged = userState<boolean>((state) => state.isLogged);
   const fetchUser = userState((state) => state.fetchUser);
-  const darkmodeState = viewState((state) => state.darkMode);
+  const darkmodeState = viewState<boolean>((state) => state.darkMode);
   const darkMode: boolean = isLogged ? loggedUser.darkMode : darkmodeState;
   const changeDarkModeState = viewState((state) => state.changeDarkMode);
   const logOut = userState((state) => state.logOut);

@@ -12,20 +12,21 @@ import Post from "../../components/Post";
 import BackToTopButton from "../../components/BackToTopButton";
 //router
 import { Link } from "react-router-dom";
-
+//interface
+import { User, Subamin, PostProperties } from "../../interfaces";
 const Home: React.FC = () => {
   //state
-  const loggedUser = userState((state) => state.loggedUser);
-  const isLogged = userState((state) => state.isLogged);
-  const darkmodeState = viewState((state) => state.darkMode);
+  const loggedUser = userState<User>((state) => state.loggedUser);
+  const isLogged = userState<boolean>((state) => state.isLogged);
+  const darkmodeState = viewState<boolean>((state) => state.darkMode);
   const darkmode: boolean = isLogged ? loggedUser.darkMode : darkmodeState;
   const fetchSubamins = subaminsState((state) => state.fetchSubamins);
   const fetchTopPosts = postState((state) => state.fetchTopPosts);
   const fetchNewPosts = postState((state) => state.fetchNewPosts);
   const posts = postState((state) => state.posts);
-  const classicview: boolean = viewState((state) => state.classicView);
-  const subamins = subaminsState((state) => state.subamins);
-  const usersFeed = subaminsState((state) => state.usersFeed);
+  const classicview = viewState<boolean>((state) => state.classicView);
+  const subamins = subaminsState<Subamin[]>((state) => state.subamins);
+  const usersFeed = subaminsState<PostProperties[]>((state) => state.usersFeed);
   const fetchNewSubaminByIds = subaminsState(
     (state) => state.fetchNewSubaminByIds
   );
@@ -67,7 +68,7 @@ const Home: React.FC = () => {
         <div className="trending">
           <h2>Most popular subaminas</h2>
           {subamins
-            .sort((a, b) => a.members - b.members)
+            .sort((a, b) => b.members - a.members)
             .slice(0, 5)
             .map((subamin, index) => (
               <Link className="subamina" key={index} to={`/s/${subamin.id}`}>

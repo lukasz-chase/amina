@@ -23,26 +23,28 @@ import Base64 from "crypto-js/enc-base64";
 
 const LoginPage: React.FC = () => {
   //login State
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordVisibility, setPassVisibility] = useState(false);
-  const [usernameErrorMsg, setUsernameErrorMsg] = useState("");
-  const [passwordErrorMsg, setPasswordErrorMsg] = useState("");
-  const [falseUsername, setFalseUsername] = useState(false);
-  const [falsePassword, setFalsePassword] = useState(false);
+  const [username, setUsername] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [passwordVisibility, setPassVisibility] = useState<boolean>(false);
+  const [usernameErrorMsg, setUsernameErrorMsg] = useState<string>("");
+  const [passwordErrorMsg, setPasswordErrorMsg] = useState<string>("");
+  const [falseUsername, setFalseUsername] = useState<boolean>(false);
+  const [falsePassword, setFalsePassword] = useState<boolean>(false);
   //register state
-  const [registerUsername, setRegisterUsername] = useState("");
-  const [registerEmail, setRegisterEmail] = useState("");
-  const [registerPassword, setRegisterPassword] = useState("");
-  const [registerPassVisibility, setRegPassVisibility] = useState(false);
-  const [registerSuccess, setRegisterSuccess] = useState(false);
-  const [registerError, setRegisterError] = useState(false);
-  const [registerErrorMsg, setRegisterErrorMsg] = useState("");
+  const [registerUsername, setRegisterUsername] = useState<string>("");
+  const [registerEmail, setRegisterEmail] = useState<string>("");
+  const [registerPassword, setRegisterPassword] = useState<string>("");
+  const [registerPassVisibility, setRegPassVisibility] = useState<boolean>(
+    false
+  );
+  const [registerSuccess, setRegisterSuccess] = useState<boolean>(false);
+  const [registerError, setRegisterError] = useState<boolean>(false);
+  const [registerErrorMsg, setRegisterErrorMsg] = useState<string>("");
   //state
-  const darkMode = viewState((state) => state.darkMode);
+  const darkMode = viewState<boolean>((state) => state.darkMode);
   const location = useLocation<Location>();
   const page = location.pathname.split("/")[1];
-  const history = useHistory();
+  const history = useHistory<Location>();
   const fetchUser = userState((state) => state.fetchUser);
 
   //handlers

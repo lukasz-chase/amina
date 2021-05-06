@@ -128,9 +128,14 @@ export const DetailsComponent = styled.div<PostProps>`
             margin: 1rem 0;
           }
         }
+        .post-title {
+          margin-bottom: 1rem;
+          font-size: 1.7rem;
+        }
         span {
           width: 40vw;
-          font-size: 2rem;
+          font-size: 1.5rem;
+          margin: 1rem 0;
           @media screen and (max-width: 1000px) {
             width: 100%;
             font-size: 1.5rem;

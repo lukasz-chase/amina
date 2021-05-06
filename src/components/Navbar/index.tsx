@@ -25,16 +25,18 @@ import viewState from "../../state/viewState";
 import userState from "../../state/userState";
 import subaminState from "../../state/subaminDetailsState";
 import YourSubamins from "../YourSubamins";
+//interfaces
+import { User } from "../../interfaces";
 
 const Navbar: React.FC = () => {
   //state
   const [open, setOpen] = useState<boolean>(false);
   const [openCommunity, setOpenCommunity] = useState<boolean>(false);
   const [question, setQuestion] = useState<string>("");
-  const history = useHistory();
-  const loggedUser = userState((state) => state.loggedUser);
-  const isLogged = userState((state) => state.isLogged);
-  const darkmodeState = viewState((state) => state.darkMode);
+  const history = useHistory<Location>();
+  const loggedUser = userState<User>((state) => state.loggedUser);
+  const isLogged = userState<boolean>((state) => state.isLogged);
+  const darkmodeState = viewState<boolean>((state) => state.darkMode);
   const darkMode: boolean = isLogged ? loggedUser.darkMode : darkmodeState;
   const location = useLocation<Location>();
   const site = location.pathname.split("/")[1];

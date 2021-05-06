@@ -12,7 +12,7 @@ import { AiFillHome } from "react-icons/ai";
 //location
 import { useHistory } from "react-router-dom";
 //interface
-import { Subamin } from "../../interfaces";
+import { Subamin, User } from "../../interfaces";
 interface Props {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -31,13 +31,13 @@ const YourSubamins: React.FC<Props> = ({
   setActiveCommunity,
 }) => {
   //state
-  const loggedUser = userState((state) => state.loggedUser);
-  const isLogged = userState((state) => state.isLogged);
-  const darkmodeState = viewState((state) => state.darkMode);
+  const loggedUser = userState<User>((state) => state.loggedUser);
+  const isLogged = userState<boolean>((state) => state.isLogged);
+  const darkmodeState = viewState<boolean>((state) => state.darkMode);
   const darkMode: boolean = isLogged ? loggedUser.darkMode : darkmodeState;
   const fetchSubamins = subaminsState((state) => state.fetchUsersSubamins);
   const usersSubamins = subaminsState((s) => s.usersSubaminas);
-  const [community, setCommunity] = useState("");
+  const [community, setCommunity] = useState<string>("");
   const history = useHistory();
   //useEffect
   useEffect(() => {

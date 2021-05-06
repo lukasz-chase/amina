@@ -14,18 +14,18 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import axios from "axios";
 import YourSubamins from "../../components/YourSubamins";
 //interface
-import { Subamin } from "../../interfaces";
+import { Subamin, User } from "../../interfaces";
 
-const CreatePost = () => {
+const CreatePost: React.FC = () => {
   //state
-  const loggedUser = userState((state) => state.loggedUser);
-  const isLogged = userState((state) => state.isLogged);
-  const darkmodeState = viewState((state) => state.darkMode);
+  const loggedUser = userState<User>((state) => state.loggedUser);
+  const isLogged = userState<boolean>((state) => state.isLogged);
+  const darkmodeState = viewState<boolean>((state) => state.darkMode);
   const darkmode: boolean = isLogged ? loggedUser.darkMode : darkmodeState;
-  const [postTitle, setPostTitle] = useState("");
-  const [postText, setPostText] = useState("");
-  const [postImg, setPostImg] = useState("");
-  const [open, setOpen] = useState(false);
+  const [postTitle, setPostTitle] = useState<string>("");
+  const [postText, setPostText] = useState<string>("");
+  const [postImg, setPostImg] = useState<string>("");
+  const [open, setOpen] = useState<boolean>(false);
   const fetchUser = userState((state) => state.fetchUser);
   const [subamin, setSubamin] = useState<Subamin>();
   //useEffect
@@ -42,7 +42,7 @@ const CreatePost = () => {
     const hour = today.getHours();
     const minutes = today.getMinutes();
     const seconds = today.getSeconds();
-    if (subamin && setPostTitle) {
+    if (subamin && postTitle) {
       axios
         .post(`http://localhost:3000/posts`, {
           subaminId: subamin!.id,
