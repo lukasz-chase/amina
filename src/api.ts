@@ -8,6 +8,9 @@ export const feed = (what: string, order: string) =>
 export const postsUrl = (what: string, order: string) =>
   `${mainUrl}posts?_sort=${what}&_order=${order}`;
 
+export const userPosts = (id: number, what: string, order: string) =>
+  `${mainUrl}posts?authorId=${id}&_sort=${what}&_order=${order}`;
+export const userSavedPosts = () => `${mainUrl}posts?id=`;
 export const postDetails = (id: number) => `${mainUrl}posts/${id}`;
 export const subaminDetails = (id: number) => `${mainUrl}subamins/${id}`;
 

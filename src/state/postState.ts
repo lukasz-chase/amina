@@ -10,7 +10,6 @@ type Store = {
   fetchNewPosts: () => void;
   postDetails: PostProperties;
   fetchPostDetails: (id: number) => Promise<void>;
-  collapseThread: (id: number) => void;
 };
 
 export const postState = create<Store>((set) => ({
@@ -20,7 +19,7 @@ export const postState = create<Store>((set) => ({
     set({ posts: await response.json() });
   },
   fetchNewPosts: async () => {
-    const response = await fetch(postsUrl("date", "desc"));
+    const response = await fetch(postsUrl("id", "desc"));
     set({ posts: await response.json() });
   },
   postDetails: {
@@ -31,6 +30,7 @@ export const postState = create<Store>((set) => ({
     title: "loading...",
     description: "loading...",
     author: "loading...",
+    authorId: 0,
     upvotes: 1,
     upvotedBy: [],
     downvotedBy: [],
@@ -40,27 +40,6 @@ export const postState = create<Store>((set) => ({
     const response = await fetch(postDetails(id));
 
     set({ postDetails: await response.json() });
-  },
-  collapseThread(id) {
-    set((state) => ({
-      postDetails: {
-        id: state.postDetails.id,
-        subaminId: state.postDetails.subaminId,
-        subaminLogo: state.postDetails.subaminLogo,
-        subaminName: state.postDetails.subaminName,
-        title: state.postDetails.title,
-        description: state.postDetails.description,
-        author: state.postDetails.author,
-        upvotes: state.postDetails.upvotes,
-        upvotedBy: state.postDetails.upvotedBy,
-        downvotedBy: state.postDetails.downvotedBy,
-        date: state.postDetails.date,
-        image: state.postDetails.image,
-        comments: state.postDetails.comments?.filter(
-          (comment) => comment.id !== id
-        ),
-      },
-    }));
   },
 }));
 

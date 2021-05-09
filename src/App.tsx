@@ -12,6 +12,7 @@ import SubaminDetails from "./pages/SubaminDetails";
 import LoginPage from "./pages/LoginPage";
 import CreatePost from "./pages/CreatePost";
 import CreateCommunity from "./pages/CreateCommunity";
+import UserDetails from "./pages/UserDetails";
 
 function App() {
   return (
@@ -26,6 +27,12 @@ function App() {
       </Route>
       <Route path="/s/:id" exact>
         <SubaminDetails />
+      </Route>
+      <Route
+        path={["/user/:id/settings", "/user/:id/saved", "/user/:id"]}
+        exact
+      >
+        <UserDetails />
       </Route>
       <Route path="/create/post" exact>
         <CreatePost />

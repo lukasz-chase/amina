@@ -12,10 +12,11 @@ interface Props {
   darkModeBg: string;
   whiteModebg: string;
   upvotePost?: (what: string) => void;
-  upvoteComment?: (id: number, what: string) => void;
+  upvoteComment?: (id: number, what: string, text: string) => void;
   upvoted: boolean;
   downvoted: boolean;
   commentId?: number;
+  commentText?: string;
 }
 const Upvotes: React.FC<Props> = ({
   upvotes,
@@ -27,6 +28,7 @@ const Upvotes: React.FC<Props> = ({
   upvoted,
   downvoted,
   commentId,
+  commentText,
 }) => {
   const classicview = viewState<boolean>((state) => state.classicView);
   const compactview = viewState<boolean>((state) => state.compactView);
@@ -40,10 +42,12 @@ const Upvotes: React.FC<Props> = ({
     what: string
   ) => {
     e.preventDefault();
-    if (upvotePost && isLogged) {
-      upvotePost(what);
-    } else {
-      upvoteComment!(commentId!, what);
+    if (isLogged) {
+      if (upvotePost) {
+        upvotePost(what);
+      } else {
+        upvoteComment!(commentId!, what, commentText!);
+      }
     }
   };
   return (

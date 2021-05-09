@@ -26,7 +26,7 @@ const CreatePost: React.FC = () => {
   const [postText, setPostText] = useState<string>("");
   const [postImg, setPostImg] = useState<string>("");
   const [open, setOpen] = useState<boolean>(false);
-  const fetchUser = userState((state) => state.fetchUser);
+  const fetchUser = userState((state) => state.fetchLoggedUser);
   const [subamin, setSubamin] = useState<Subamin>();
   //useEffect
   useEffect(() => {
@@ -52,6 +52,7 @@ const CreatePost: React.FC = () => {
           title: postTitle,
           description: postText ? postText : "",
           author: loggedUser.username,
+          authorId: loggedUser.id,
           upvotes: 0,
           upvotedBy: [],
           downvotedBy: [],

@@ -22,7 +22,7 @@ const CreateCommunity: React.FC = () => {
   const [desc, setDesc] = useState<string>("");
   const [backgImg, setBackgImg] = useState<string>("");
   const [logo, setLogo] = useState<string>("");
-  const fetchUser = userState((state) => state.fetchUser);
+  const fetchUser = userState((state) => state.fetchLoggedUser);
   //useEffect
   useEffect(() => {
     fetchUser(Number(localStorage.getItem("userId")));

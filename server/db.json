@@ -58,70 +58,12 @@
       "title": "cars are fast",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum malesuada, quam vitae imperdiet porttitor, ligula nunc malesuada metus, at consequat nibh nibh sit amet dolor.",
       "author": "luki",
+      "authorId": 1,
       "upvotes": 51,
       "upvotedBy": [],
       "downvotedBy": [],
       "image": "https://static.posters.cz/image/750/plakaty/auta-3-cars-3-mcqueen-race-i47515.jpg",
-      "comments": [
-        {
-          "id": 1,
-          "author": "luki",
-          "upvotes": 0,
-          "date": "05/02/2021, 8:48:9",
-          "text": "fajna bryka\n",
-          "upvotedBy": [],
-          "downvotedBy": []
-        }
-      ]
-    },
-    {
-      "id": 2,
-      "subaminId": 1,
-      "subaminName": "sports",
-      "subaminLogo": "https://media.npr.org/assets/img/2020/06/10/gettyimages-200199027-001-b5fb3d8d8469ab744d9e97706fa67bc5c0e4fa40.jpg",
-      "date": "05/01/2021, 21:20:11",
-      "title": "sports are cool",
-      "description": "because i like them",
-      "author": "asd",
-      "upvotes": 1149,
-      "upvotedBy": [],
-      "downvotedBy": [
-        1
-      ],
-      "image": "https://webunwto.s3.eu-west-1.amazonaws.com/2020-01/sport-congresse.jpg",
-      "comments": [
-        {
-          "id": 3,
-          "author": "luki",
-          "upvotes": -1,
-          "date": "05/04/2021, 20:18:31",
-          "text": "elo",
-          "upvotedBy": [],
-          "downvotedBy": [
-            1
-          ]
-        },
-        {
-          "id": 1,
-          "author": "luki",
-          "upvotes": 0,
-          "date": "05/04/2021, 20:9:26",
-          "text": "siema\n",
-          "upvotedBy": [
-            1
-          ],
-          "downvotedBy": []
-        },
-        {
-          "id": 2,
-          "author": "luki",
-          "upvotes": -6,
-          "date": "05/04/2021, 20:9:29",
-          "text": "byku",
-          "upvotedBy": [],
-          "downvotedBy": []
-        }
-      ]
+      "comments": []
     },
     {
       "id": 3,
@@ -132,8 +74,10 @@
       "title": "games are coolaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
       "description": "because i like them",
       "author": "xcv",
-      "upvotes": 150,
-      "upvotedBy": [],
+      "upvotes": 151,
+      "upvotedBy": [
+        1
+      ],
       "downvotedBy": [],
       "image": "https://alisale.pl/wp-content/uploads/2020/11/200124_Vignette_Web_Detail1.jpg",
       "comments": []
@@ -147,10 +91,8 @@
       "title": "games arent cool",
       "description": "because i dont like them",
       "author": "dfhfh",
-      "upvotes": 521,
-      "upvotedBy": [
-        1
-      ],
+      "upvotes": 520,
+      "upvotedBy": [],
       "downvotedBy": [],
       "comments": []
     },
@@ -167,19 +109,7 @@
       "upvotedBy": [],
       "downvotedBy": [],
       "image": "https://images.photowall.com/products/65791/world-of-animals-map.jpg?h=699&q=85",
-      "comments": [
-        {
-          "id": 1,
-          "author": "luki",
-          "upvotes": 1,
-          "date": "05/04/2021, 20:45:35",
-          "text": "elo\n",
-          "upvotedBy": [
-            1
-          ],
-          "downvotedBy": []
-        }
-      ]
+      "comments": []
     },
     {
       "id": 6,
@@ -190,8 +120,11 @@
       "title": "cats are the best",
       "description": "i really love cats",
       "author": "luki",
-      "upvotes": 343,
-      "upvotedBy": [],
+      "authorId": 1,
+      "upvotes": 344,
+      "upvotedBy": [
+        1
+      ],
       "downvotedBy": [],
       "image": "https://cdnuploads.aa.com.tr/uploads/Contents/2020/05/14/thumbs_b_c_88bedbc66bb57f0e884555e8250ae5f9.jpg?v=140708",
       "comments": []
@@ -205,10 +138,9 @@
       "title": "asd",
       "description": "siema",
       "author": "luki",
-      "upvotes": 1,
-      "upvotedBy": [
-        1
-      ],
+      "authorId": 1,
+      "upvotes": 0,
+      "upvotedBy": [],
       "downvotedBy": [],
       "image": "",
       "comments": []
@@ -222,6 +154,7 @@
       "title": "srajaca duka",
       "description": "",
       "author": "luki",
+      "authorId": 1,
       "upvotes": 1,
       "upvotedBy": [
         1
@@ -232,63 +165,36 @@
         {
           "id": 1,
           "author": "luki",
-          "upvotes": 1,
-          "date": "05/05/2021, 11:14:2",
-          "text": "fajna duka",
-          "upvotedBy": [
-            1
-          ],
+          "authorId": 1,
+          "upvotes": 0,
+          "date": "05/09/2021, 20:58:56",
+          "text": "to seter?",
+          "upvotedBy": [],
           "downvotedBy": []
         }
       ]
     },
     {
+      "id": 10,
       "subaminId": 1,
       "subaminName": "sports",
       "subaminLogo": "https://media.npr.org/assets/img/2020/06/10/gettyimages-200199027-001-b5fb3d8d8469ab744d9e97706fa67bc5c0e4fa40.jpg",
-      "date": "05/05/2021, 9:35:54",
-      "title": "s",
-      "description": "",
+      "date": "05/07/2021, 12:53:4",
+      "title": "sportowe swiry",
+      "description": "cho gramy w noge",
       "author": "luki",
+      "authorId": 1,
       "upvotes": 0,
       "upvotedBy": [],
       "downvotedBy": [],
       "image": "",
-      "comments": [],
-      "id": 10
-    },
-    {
-      "id": 11,
-      "subaminId": 6,
-      "subaminName": "byczki",
-      "subaminLogo": "https://yt3.ggpht.com/ytc/AAUvwnjqKuFjKNXcXCTv9X9bhLttPeJgla3eiBDTRBvR=s900-c-k-c0x00ffffff-no-rj",
-      "date": "05/06/2021, 10:27:3",
-      "title": "nowy koks",
-      "description": "siema byki jestem nowym koksem co polecacie?",
-      "author": "luki",
-      "upvotes": 0,
-      "upvotedBy": [],
-      "downvotedBy": [],
-      "image": "",
-      "comments": [
-        {
-          "id": 1,
-          "author": "luki",
-          "upvotes": 1,
-          "date": "05/06/2021, 10:27:15",
-          "text": "siema byku polecam cwiczyc",
-          "upvotedBy": [
-            1
-          ],
-          "downvotedBy": []
-        }
-      ]
+      "comments": []
     }
   ],
   "users": [
     {
       "username": "luki",
-      "email": "luki@email.com",
+      "email": "ukasz@email.com",
       "password": "jd4bukq/A3K8pr6Z08gdbPUZ790aie87UofsVskRYNJnEM3do2keivX9Plzi2HWkdcDO6nIWBd163cxeHrIb+w==",
       "followedSubaminas": [
         3,
@@ -298,6 +204,11 @@
         2,
         6
       ],
+      "savedPosts": [
+        9
+      ],
+      "logo": "https://market-rolniczy.pl/715-large_default/pasza-dla-kur-niosek-dj.jpg",
+      "birthday": "2000-02-15",
       "id": 1,
       "darkMode": true
     },
@@ -306,8 +217,18 @@
       "email": "luki2@email.com",
       "password": "jd4bukq/A3K8pr6Z08gdbPUZ790aie87UofsVskRYNJnEM3do2keivX9Plzi2HWkdcDO6nIWBd163cxeHrIb+w==",
       "followedSubaminas": [],
+      "savedPosts": [],
       "darkMode": false,
       "id": 2
+    },
+    {
+      "id": 3,
+      "username": "siema Eniu",
+      "email": "siema@email.com",
+      "password": "5aX3RJqnDxmFw5k1GJmh3IdjAGBTr0A8OiWa58rX34hrmsTzi9TMv9UO9Qb4iysiwfX3bNuZ/2IybJBYoLQSCQ==",
+      "followedSubaminas": [],
+      "savedPosts": [],
+      "darkMode": true
     }
   ]
 }

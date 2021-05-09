@@ -18,6 +18,7 @@ export const Dropdown = styled.div<DropdownProps>`
   position: absolute;
   top: 50px;
   right: 0;
+  z-index: 10;
   .options,
   .my-stuff {
     color: ${({ darkMode }) => (darkMode ? "#818384" : "black")};
@@ -45,7 +46,8 @@ export const Dropdown = styled.div<DropdownProps>`
       padding: 0.2rem 1rem;
     }
   }
-  .login {
+  .login,
+  .link {
     text-decoration: none;
   }
 `;
@@ -57,6 +59,7 @@ export const Option = styled.div<OptionProps>`
   padding: 0.6rem 1rem;
   width: 13rem;
   font-size: 1rem;
+  text-decoration: none;
   cursor: pointer;
   &:hover {
     background: #d7dadc;

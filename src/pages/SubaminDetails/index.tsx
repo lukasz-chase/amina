@@ -35,7 +35,7 @@ const SubaminDetails: React.FC = () => {
   const darkmodeState = viewState<boolean>((state) => state.darkMode);
   const classicView = viewState<boolean>((state) => state.classicView);
   const darkMode: boolean = isLogged ? loggedUser.darkMode : darkmodeState;
-  const fetchUser = userState((state) => state.fetchUser);
+  const fetchUser = userState((state) => state.fetchLoggedUser);
   //useEffect
   useEffect(() => {
     fetchSubamin(Number(subaminId));

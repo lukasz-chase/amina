@@ -10,6 +10,7 @@ export const PostComponent = styled.div<PostProps>`
   display: flex;
   position: relative;
   padding-left: 40px;
+  padding-bottom: 40px;
   border-radius: 4px;
   max-width: 100%;
   margin: ${({ $classicview: classicview }) => (classicview ? "0" : "1rem 0")};
@@ -20,6 +21,52 @@ export const PostComponent = styled.div<PostProps>`
     darkmode ? "#1A1A1B" : "#F3F3F3"};
   &:hover {
     border: 1px solid #9c9c9c;
+  }
+  @media screen and (max-width: 1000px) {
+    padding-left: ${({ $classicview: classicview }) =>
+      classicview ? "40px" : "10px"};
+  }
+  .upvotes {
+    @media screen and (max-width: 1000px) {
+      display: ${({ $classicview }) => ($classicview ? "flex" : "none")};
+    }
+  }
+  .post-tools {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    bottom: 0;
+    left: 0;
+    height: 40px;
+    padding-left: 40px;
+    @media screen and (max-width: 1000px) {
+      padding-left: 100px;
+    }
+    button {
+      outline: none;
+      border: none;
+      padding: ${({ $classicview: classicView }) =>
+        classicView ? "0.2rem" : "0.4rem"};
+      display: flex;
+      align-items: center;
+      color: ${({ $darkmode: darkMode }) => (darkMode ? "#818384" : "#878a8c")};
+      font-weight: bold;
+      cursor: pointer;
+      background: transparent;
+      &:hover {
+        background: ${({ $darkmode: darkMode }) =>
+          darkMode ? "#2D2D2E" : "#e8e8e8"};
+      }
+      .icon {
+        margin: 0 5px;
+      }
+    }
+    .upvotes {
+      display: none;
+      @media screen and (max-width: 1000px) {
+        display: ${({ $classicview }) => ($classicview ? "none" : "flex")};
+      }
+    }
   }
   .link {
     text-decoration: none;
@@ -110,48 +157,6 @@ export const PostComponent = styled.div<PostProps>`
               classicView ? "19vw" : "25vw"};
             max-height: ${({ $classicview: classicView }) =>
               classicView ? "19vw" : "35vw"};
-          }
-        }
-      }
-      .post-tools {
-        order: 3;
-        display: ${({ $classicview: classicView }) =>
-          classicView ? "none" : "flex"};
-        align-items: center;
-        button {
-          outline: none;
-          border: none;
-          padding: ${({ $classicview: classicView }) =>
-            classicView ? "0.2rem" : "0.4rem"};
-          display: flex;
-          align-items: center;
-          color: ${({ $darkmode: darkMode }) =>
-            darkMode ? "#818384" : "#878a8c"};
-          font-weight: bold;
-          cursor: pointer;
-          background: transparent;
-          &:hover {
-            background: ${({ $darkmode: darkMode }) =>
-              darkMode ? "#2D2D2E" : "#e8e8e8"};
-          }
-          .icon {
-            margin: 0 5px;
-          }
-        }
-        .upvotes {
-          color: ${({ $darkmode }) => ($darkmode ? "#d2d5d7" : "gray")};
-          display: none;
-          @media screen and (max-width: 1000px) {
-            display: flex;
-            flex-direction: row;
-            background: transparent;
-            span {
-              margin: 0 5px;
-            }
-            .downvote-button,
-            .upvote-button {
-              font-size: 1.3rem;
-            }
           }
         }
       }

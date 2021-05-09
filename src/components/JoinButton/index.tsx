@@ -43,6 +43,9 @@ const JoinButton: React.FC<joinProps> = ({ id }) => {
         email: loggedUser.email,
         password: loggedUser.password,
         followedSubaminas: [...loggedUser.followedSubaminas, id],
+        savedPosts: loggedUser.savedPosts,
+        logo: loggedUser.logo,
+        birthday: loggedUser.birthday,
         id: loggedUser.id,
         darkMode: loggedUser.darkMode,
       })
@@ -66,7 +69,10 @@ const JoinButton: React.FC<joinProps> = ({ id }) => {
         username: loggedUser.username,
         email: loggedUser.email,
         password: loggedUser.password,
+        logo: loggedUser.logo,
+        birthday: loggedUser.birthday,
         followedSubaminas: loggedUser.followedSubaminas.filter((a) => a !== id),
+        savedPosts: loggedUser.savedPosts,
         id: loggedUser.id,
         darkMode: loggedUser.darkMode,
       })

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 //styles
 import { PostComponent } from "./PostStyles";
 //icons
-import { BiUpvote, BiDownvote, BiBookmarkPlus } from "react-icons/bi";
+import { BsBookmarkCheck, BsBookmarkDash } from "react-icons/bs";
 import { FaRegCommentAlt } from "react-icons/fa";
 import { IoIosShareAlt } from "react-icons/io";
 //format time
@@ -26,13 +26,14 @@ const Post: React.FC<PostProps> = ({ post }) => {
   //state
   const loggedUser = userState<User>((state) => state.loggedUser);
   const isLogged = userState<boolean>((state) => state.isLogged);
-  const fetchUser = userState((state) => state.fetchUser);
+  const fetchUser = userState((state) => state.fetchLoggedUser);
   const darkmodeState = viewState<boolean>((state) => state.darkMode);
   const darkMode: boolean = isLogged ? loggedUser.darkMode : darkmodeState;
   const classicView: boolean = viewState((state) => state.classicView);
   const compactView: boolean = viewState((state) => state.compactView);
   const [upvoted, setUpvoted] = useState<boolean>(false);
   const [downvoted, setDownvoted] = useState<boolean>(false);
+  const [isSaved, setIsSaved] = useState<boolean>(false);
   //useEffect
   useEffect(() => {
     if (
@@ -48,6 +49,13 @@ const Post: React.FC<PostProps> = ({ post }) => {
       setDownvoted(true);
     }
   }, [isLogged, loggedUser.id, post.downvotedBy, post.upvotedBy]);
+  useEffect(() => {
+    if (isLogged) {
+      setIsSaved(
+        loggedUser.savedPosts.find((a) => a === post.id) ? true : false
+      );
+    }
+  }, [setIsSaved, loggedUser.savedPosts, post.id, isLogged]);
   //handlers
   const upvoteHandler = (what: string) => {
     if (post.upvotedBy && post.upvotedBy.find((a) => a === loggedUser.id)) {
@@ -61,6 +69,7 @@ const Post: React.FC<PostProps> = ({ post }) => {
           title: post.title,
           description: post.description,
           author: post.author,
+          authorId: post.authorId,
           upvotes: post.upvotes - 1,
           upvotedBy: post.upvotedBy.filter((a) => a !== loggedUser.id),
           downvotedBy: post.downvotedBy,
@@ -86,6 +95,7 @@ const Post: React.FC<PostProps> = ({ post }) => {
           title: post.title,
           description: post.description,
           author: post.author,
+          authorId: post.authorId,
           upvotes: post.upvotes + 1,
           upvotedBy: post.upvotedBy,
           downvotedBy: post.downvotedBy.filter((a) => a !== loggedUser.id),
@@ -108,6 +118,7 @@ const Post: React.FC<PostProps> = ({ post }) => {
           title: post.title,
           description: post.description,
           author: post.author,
+          authorId: post.authorId,
           upvotes: what === "upvote" ? post.upvotes + 1 : post.upvotes - 1,
           upvotedBy:
             what === "upvote"
@@ -130,21 +141,60 @@ const Post: React.FC<PostProps> = ({ post }) => {
         });
     }
   };
+  const addToSavedHandler = () => {
+    if (isSaved) {
+      axios
+        .put(`http://localhost:3000/users/${loggedUser.id}`, {
+          username: loggedUser.username,
+          email: loggedUser.email,
+          password: loggedUser.password,
+          followedSubaminas: loggedUser.followedSubaminas,
+          savedPosts: loggedUser.savedPosts.filter((a) => a !== post.id),
+          logo: loggedUser.logo,
+          birthday: loggedUser.birthday,
+          id: loggedUser.id,
+          darkMode: loggedUser.darkMode,
+        })
+        .then(() => {
+          setIsSaved(false);
+          fetchUser(Number(localStorage.getItem("userId")));
+        });
+    } else {
+      axios
+        .put(`http://localhost:3000/users/${loggedUser.id}`, {
+          username: loggedUser.username,
+          email: loggedUser.email,
+          password: loggedUser.password,
+          followedSubaminas: loggedUser.followedSubaminas,
+          savedPosts: [...loggedUser.savedPosts, post.id],
+          logo: loggedUser.logo,
+          birthday: loggedUser.birthday,
+          id: loggedUser.id,
+          darkMode: loggedUser.darkMode,
+        })
+        .then(() => {
+          setIsSaved(true);
+          fetchUser(Number(localStorage.getItem("userId")));
+        });
+    }
+  };
   return (
     <PostComponent
       $darkmode={darkMode}
       $classicview={classicView}
       $compactview={compactView}
     >
-      <Upvotes
-        upvotes={post.upvotes}
-        flexDirection="column"
-        darkModeBg="#1A1A1B"
-        whiteModebg="#F3F3F3"
-        upvotePost={upvoteHandler}
-        upvoted={upvoted}
-        downvoted={downvoted}
-      />
+      <div className="upvotes">
+        <Upvotes
+          upvotes={post.upvotes}
+          flexDirection="column"
+          darkModeBg="#1A1A1B"
+          whiteModebg="#F3F3F3"
+          upvotePost={upvoteHandler}
+          upvoted={upvoted}
+          downvoted={downvoted}
+        />
+      </div>
       <JoinButton id={post.subaminId} />
       <Link
         to={`/post/${post.id}`}
@@ -173,8 +223,13 @@ const Post: React.FC<PostProps> = ({ post }) => {
               <button className="share">
                 <IoIosShareAlt className="icon" /> Share
               </button>
-              <button className="save">
-                <BiBookmarkPlus className="icon" /> Save
+              <button className="save" onClick={() => addToSavedHandler()}>
+                {isSaved ? (
+                  <BsBookmarkDash className="icon" />
+                ) : (
+                  <BsBookmarkCheck className="icon" />
+                )}{" "}
+                {isSaved ? "Unsave" : "Save"}
               </button>
             </div>
           </div>
@@ -183,35 +238,35 @@ const Post: React.FC<PostProps> = ({ post }) => {
               <img src={post.image} alt={post.title} />
             </div>
           )}
-
-          <div className="post-tools">
-            <div className="upvotes">
-              <BiUpvote
-                className="upvote-button"
-                onClick={() => upvoteHandler("upvote")}
-              />
-              <span>
-                {post.upvotes > 1000
-                  ? (post.upvotes / 1000).toFixed(1) + "K"
-                  : post.upvotes}
-              </span>
-              <BiDownvote
-                className="downvote-button"
-                onClick={() => upvoteHandler("downvote")}
-              />
-            </div>
-            <button className="comment">
-              <FaRegCommentAlt className="icon" /> Comments
-            </button>
-            <button className="share">
-              <IoIosShareAlt className="icon" /> Share
-            </button>
-            <button className="save">
-              <BiBookmarkPlus className="icon" /> Save
-            </button>
-          </div>
         </div>
       </Link>
+      <div className="post-tools">
+        <div className="upvotes">
+          <Upvotes
+            upvotes={post.upvotes}
+            flexDirection="row"
+            darkModeBg="#1A1A1B"
+            whiteModebg="#F3F3F3"
+            upvotePost={upvoteHandler}
+            upvoted={upvoted}
+            downvoted={downvoted}
+          />
+        </div>
+        <button className="comment">
+          <FaRegCommentAlt className="icon" /> Comments
+        </button>
+        <button className="share">
+          <IoIosShareAlt className="icon" /> Share
+        </button>
+        <button className="save" onClick={() => addToSavedHandler()}>
+          {isSaved ? (
+            <BsBookmarkDash className="icon" />
+          ) : (
+            <BsBookmarkCheck className="icon" />
+          )}{" "}
+          {isSaved ? "Unsave" : "Save"}
+        </button>
+      </div>
     </PostComponent>
   );
 };

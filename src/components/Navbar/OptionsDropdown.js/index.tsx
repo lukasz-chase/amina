@@ -31,7 +31,7 @@ const OptionsDropdown: React.FC<Props> = ({ open, setOpen }) => {
   //state
   const loggedUser = userState<User>((state) => state.loggedUser);
   const isLogged = userState<boolean>((state) => state.isLogged);
-  const fetchUser = userState((state) => state.fetchUser);
+  const fetchUser = userState((state) => state.fetchLoggedUser);
   const darkmodeState = viewState<boolean>((state) => state.darkMode);
   const darkMode: boolean = isLogged ? loggedUser.darkMode : darkmodeState;
   const changeDarkModeState = viewState((state) => state.changeDarkMode);
@@ -53,7 +53,10 @@ const OptionsDropdown: React.FC<Props> = ({ open, setOpen }) => {
         email: loggedUser.email,
         password: loggedUser.password,
         followedSubaminas: loggedUser.followedSubaminas,
+        savedPosts: loggedUser.savedPosts,
         darkMode: !loggedUser.darkMode,
+        logo: loggedUser.logo,
+        birthday: loggedUser.birthday,
       })
       .then(() => {
         fetchUser(loggedUser.id);
@@ -63,20 +66,31 @@ const OptionsDropdown: React.FC<Props> = ({ open, setOpen }) => {
     isLogged ? darkModeHandler() : changeDarkModeState();
     setOpen(!open);
   };
-
   return (
     <Dropdown open={open} darkMode={darkMode}>
       {isLogged && (
         <div className="my-stuff">
           <div className="header">MY STUFF</div>
-          <Option darkMode={darkMode}>
-            <CgProfile className="option-icon" />
-            Profile
-          </Option>
-          <Option darkMode={darkMode}>
-            <MdSettings className="option-icon" />
-            User Setting
-          </Option>
+          <Link
+            to={`/user/${loggedUser.id}`}
+            className="link"
+            onClick={() => window.scrollTo(0, 0)}
+          >
+            <Option darkMode={darkMode}>
+              <CgProfile className="option-icon" />
+              Profile
+            </Option>
+          </Link>
+          <Link
+            to={`/user/${loggedUser.id}/settings`}
+            className="link"
+            onClick={() => window.scrollTo(0, 0)}
+          >
+            <Option darkMode={darkMode}>
+              <MdSettings className="option-icon" />
+              User Setting
+            </Option>
+          </Link>
         </div>
       )}
       <div className="options">
@@ -108,7 +122,11 @@ const OptionsDropdown: React.FC<Props> = ({ open, setOpen }) => {
           Log Out
         </Option>
       ) : (
-        <Link to="/login" className="login">
+        <Link
+          to="/login"
+          className="login"
+          onClick={() => window.scrollTo(0, 0)}
+        >
           <Option onClick={() => setOpen(!open)} darkMode={darkMode}>
             <BiDoorOpen className="option-icon" />
             Log In / Sign Up

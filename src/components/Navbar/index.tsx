@@ -56,7 +56,7 @@ const Navbar: React.FC = () => {
           am<span>i</span>na
         </h1>
       </Logo>
-      {!site && (
+      {!site && isLogged && (
         <div className="wrapper">
           <div
             className="community"
@@ -78,7 +78,7 @@ const Navbar: React.FC = () => {
           />
         </div>
       )}
-      {site === "s" && (
+      {site === "s" && isLogged && (
         <div className="wrapper">
           <div
             className="community"

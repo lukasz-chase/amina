@@ -29,7 +29,7 @@ const SearchPage: React.FC = () => {
   const isLogged = userState<boolean>((state) => state.isLogged);
   const darkmodeState = viewState<boolean>((state) => state.darkMode);
   const darkMode: boolean = isLogged ? loggedUser.darkMode : darkmodeState;
-  const fetchUser = userState((state) => state.fetchUser);
+  const fetchUser = userState((state) => state.fetchLoggedUser);
   const fetchTopSubamins = searchState(
     (state) => state.fetchTopSubaminasSearch
   );

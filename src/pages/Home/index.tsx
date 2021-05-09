@@ -30,7 +30,7 @@ const Home: React.FC = () => {
   const fetchNewSubaminByIds = subaminsState(
     (state) => state.fetchNewSubaminByIds
   );
-  const fetchUser = userState((state) => state.fetchUser);
+  const fetchUser = userState((state) => state.fetchLoggedUser);
   //useEffect
   useEffect(() => {
     fetchUser(Number(localStorage.getItem("userId")));

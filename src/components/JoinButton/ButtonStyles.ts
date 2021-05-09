@@ -15,7 +15,7 @@ export const Button = styled.button<ButtonProps>`
   margin: 1rem;
   display: ${({ $islogged }) => ($islogged ? "flex" : "none")};
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: center;
   outline: none;
   border: none;
   z-index: 5;
@@ -27,7 +27,7 @@ export const Button = styled.button<ButtonProps>`
   padding: ${({ $classicview: classicView }) =>
     classicView ? "0.1rem" : "0.2rem"};
   font-weight: bold;
-  width: ${({ $classicview: classicView }) => (classicView ? "1rem" : "4rem")};
+  width: 4rem;
   cursor: pointer;
   span {
     font-weight: bold;

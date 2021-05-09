@@ -6,16 +6,27 @@ interface PostProps {
 interface CommentProps {
   darkmode: boolean;
   comment: boolean;
+  ready: boolean;
 }
 export const Wrapper = styled.div<PostProps>`
   background-color: ${({ darkmode }) => (darkmode ? "black" : "#dae0e6")};
   min-height: 93vh;
+  .save {
+    display: flex;
+    align-items: center;
+    margin: 1rem;
+    cursor: pointer;
+  }
+  .icon {
+    margin: 1rem;
+  }
+  padding-bottom: 2rem;
 `;
 export const Header = styled.div<PostProps>`
   display: flex;
   justify-content: center;
   width: 100%;
-  font-size: 3rem;
+  font-size: 2.5rem;
   padding-top: 2rem;
   background-color: ${({ darkmode }) => (darkmode ? "black" : "#dae0e6")};
   color: ${({ darkmode }) => (darkmode ? "#CDD0D2" : "black")};
@@ -51,23 +62,20 @@ export const DetailsComponent = styled.div<PostProps>`
     color: ${({ darkmode }) => (darkmode ? "#CDD0D2" : "black")};
     @media screen and (max-width: 1000px) {
       width: 100%;
+      padding-left: 0;
+    }
+    .upvotes {
+      @media screen and (max-width: 1000px) {
+        display: none;
+      }
     }
     .post {
       .upvotes-sm {
-        color: ${({ darkmode }) => (darkmode ? "#636366" : "black")};
+        height: 2rem;
+        position: relative;
         display: none;
-        padding: 0.5rem;
         @media screen and (max-width: 1000px) {
           display: flex;
-          flex-direction: row;
-          background: transparent;
-          span {
-            margin: 0 5px;
-          }
-          .downvote-button,
-          .upvote-button {
-            font-size: 1.5rem;
-          }
         }
       }
       .post-info {
@@ -93,6 +101,8 @@ export const DetailsComponent = styled.div<PostProps>`
           color: #a6a9aa;
           span {
             .user {
+              text-decoration: none;
+              color: ${({ darkmode }) => (darkmode ? "#CDD0D2" : "black")};
               &:hover {
                 cursor: pointer;
                 text-decoration: underline;
@@ -103,6 +113,9 @@ export const DetailsComponent = styled.div<PostProps>`
             color: gray;
             padding: 0 0.5rem;
             text-decoration: none;
+            @media screen and (max-width: 1000px) {
+              padding: 0;
+            }
             &:hover {
               cursor: pointer;
               text-decoration: underline;
@@ -117,6 +130,7 @@ export const DetailsComponent = styled.div<PostProps>`
         @media screen and (max-width: 1000px) {
           justify-content: center;
           align-items: center;
+          padding: 0.5rem;
         }
         img {
           height: 30vw;
@@ -140,6 +154,10 @@ export const DetailsComponent = styled.div<PostProps>`
             width: 100%;
             font-size: 1.5rem;
           }
+        }
+        .delete-button {
+          font-size: 1rem;
+          cursor: pointer;
         }
       }
     }
@@ -194,6 +212,9 @@ export const CommentsComponent = styled.div<CommentProps>`
         border-radius: 5rem;
         margin: 0.5rem 0;
         align-self: flex-end;
+        @media screen and (max-width: 1000px) {
+          width: 60%;
+        }
       }
     }
   }
@@ -225,6 +246,29 @@ export const CommentsComponent = styled.div<CommentProps>`
     @media screen and (max-width: 1000px) {
       width: 100%;
     }
+    .edit-comment {
+      display: flex;
+      flex-direction: column;
+      .edit-comment-field {
+      }
+      .MuiInputBase-input {
+        padding: 0.5rem;
+        background-color: ${({ darkmode }) => (darkmode ? "black" : "white")};
+        color: ${({ darkmode }) => (darkmode ? "#CDD0D2" : "black")};
+      }
+      .edit-comment-button {
+        padding: 0.5rem;
+        cursor: ${({ ready }) => (ready ? "pointer" : "no-drop")};
+        width: 20%;
+        background: ${({ darkmode }) => (darkmode ? "#C8CBCD" : "#1484D6")};
+        color: ${({ darkmode }) => (darkmode ? "black" : "white")};
+        outline: none;
+        border: none;
+        border-radius: 5rem;
+        margin: 0.5rem 0;
+        align-self: flex-end;
+      }
+    }
     .header {
       font-size: 1rem;
       display: flex;
@@ -252,12 +296,17 @@ export const CommentsComponent = styled.div<CommentProps>`
       color: #878a8c;
       font-weight: bold;
       position: relative;
-      span {
-        font-size: 0.8rem;
-        padding: 0.2rem;
-      }
+      height: 2rem;
       .button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 2rem;
         cursor: pointer;
+        margin: 0 0.5rem;
+        padding: 0.2rem;
+        font-size: 0.8rem;
+        text-align: center;
         &:hover {
           background-color: ${({ darkmode }) =>
             darkmode ? "#2D2D2E" : "#E8E8E8"};

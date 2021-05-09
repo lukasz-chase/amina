@@ -1,6 +1,7 @@
 interface CommentProperties {
   id: number;
   author: string;
+  authorId: number;
   upvotes: number;
   date: string;
   text: string;
@@ -15,6 +16,7 @@ export interface PostProperties {
   title: string;
   description: string;
   author: string;
+  authorId: number;
   upvotes: number;
   upvotedBy: number[];
   downvotedBy: number[];
@@ -37,5 +39,8 @@ export interface User {
   email: string;
   password: string;
   followedSubaminas: number[];
+  birthday?: string;
   darkMode: boolean;
+  logo?: string;
+  savedPosts: number[];
 }

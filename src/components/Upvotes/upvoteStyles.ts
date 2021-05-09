@@ -25,9 +25,7 @@ export const UpvoteComponent = styled.div<upvoteProps>`
   background: ${({ darkmode, darkmodebg, whitemodebg }) =>
     darkmode ? darkmodebg : whitemodebg};
   color: ${({ darkmode }) => (darkmode ? "#d2d5d7" : "gray")};
-  @media screen and (max-width: 1000px) {
-    display: ${({ classicview }) => (classicview ? "flex" : "none")};
-  }
+
   span {
     font-weight: bold;
     font-size: ${({ compactview }) => (compactview ? "0.8rem" : "1rem")};

@@ -45,7 +45,7 @@ const LoginPage: React.FC = () => {
   const location = useLocation<Location>();
   const page = location.pathname.split("/")[1];
   const history = useHistory<Location>();
-  const fetchUser = userState((state) => state.fetchUser);
+  const fetchUser = userState((state) => state.fetchLoggedUser);
 
   //handlers
   const loginHandler = (e: React.FormEvent<HTMLButtonElement>) => {
@@ -102,6 +102,7 @@ const LoginPage: React.FC = () => {
                           email: registerEmail,
                           password: sha512(registerPassword).toString(Base64),
                           followedSubaminas: [],
+                          savedPosts: [],
                           darkMode: false,
                         })
                         .then(() => {
