@@ -67,6 +67,10 @@ const OptionsDropdown: React.FC<Props> = ({ open, setOpen }) => {
     isLogged ? darkModeHandler() : changeDarkModeState();
     setOpen(!open);
   };
+  const linkHandler = () => {
+    setOpen(!open);
+    window.scrollTo(0, 0);
+  };
   return (
     <Dropdown open={open} darkMode={darkMode}>
       {isLogged && (
@@ -75,7 +79,7 @@ const OptionsDropdown: React.FC<Props> = ({ open, setOpen }) => {
           <Link
             to={`/user/${loggedUser.id}`}
             className="link"
-            onClick={() => window.scrollTo(0, 0)}
+            onClick={() => linkHandler()}
           >
             <Option darkMode={darkMode}>
               <CgProfile className="option-icon" />
@@ -85,7 +89,7 @@ const OptionsDropdown: React.FC<Props> = ({ open, setOpen }) => {
           <Link
             to={`/user/${loggedUser.id}/settings`}
             className="link"
-            onClick={() => window.scrollTo(0, 0)}
+            onClick={() => linkHandler()}
           >
             <Option darkMode={darkMode}>
               <MdSettings className="option-icon" />
@@ -95,7 +99,7 @@ const OptionsDropdown: React.FC<Props> = ({ open, setOpen }) => {
           <Link
             to={`/create/post`}
             className="link sm"
-            onClick={() => window.scrollTo(0, 0)}
+            onClick={() => linkHandler()}
           >
             <Option darkMode={darkMode}>
               <MdCreate className="option-icon" />
@@ -105,7 +109,7 @@ const OptionsDropdown: React.FC<Props> = ({ open, setOpen }) => {
           <Link
             to={`/create/subamin`}
             className="link sm"
-            onClick={() => window.scrollTo(0, 0)}
+            onClick={() => linkHandler()}
           >
             <Option darkMode={darkMode}>
               <AiOutlineUsergroupAdd className="option-icon" />

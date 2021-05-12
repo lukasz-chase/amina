@@ -42,9 +42,9 @@ const SearchPage: React.FC = () => {
   );
   //useEffects
   useEffect(() => {
-    fetchTopPosts(limit, question);
-    fetchTopSubamins(limit, question);
-  }, [fetchTopPosts, fetchTopSubamins, question, limit]);
+    fetchNewPosts(limit, question);
+    fetchNewSubamins(limit, question);
+  }, [fetchNewPosts, fetchNewSubamins, question, limit]);
 
   useEffect(() => {
     fetchUser(Number(localStorage.getItem("userId")));
