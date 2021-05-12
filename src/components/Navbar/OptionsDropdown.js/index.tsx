@@ -5,12 +5,13 @@ import { Dropdown, Option } from "./DropdownStyles";
 import Switch from "@material-ui/core/Switch";
 //icons
 import { BsMoon } from "react-icons/bs";
+import { AiOutlineUsergroupAdd } from "react-icons/ai";
 import { BiCoinStack, BiDoorOpen } from "react-icons/bi";
 import { GiCheckedShield } from "react-icons/gi";
 import { HiOutlineQuestionMarkCircle } from "react-icons/hi";
 import { RiLogoutBoxRFill } from "react-icons/ri";
 import { CgProfile } from "react-icons/cg";
-import { MdSettings } from "react-icons/md";
+import { MdSettings, MdCreate } from "react-icons/md";
 //state
 import viewState from "../../../state/viewState";
 import userState from "../../../state/userState";
@@ -89,6 +90,26 @@ const OptionsDropdown: React.FC<Props> = ({ open, setOpen }) => {
             <Option darkMode={darkMode}>
               <MdSettings className="option-icon" />
               User Setting
+            </Option>
+          </Link>
+          <Link
+            to={`/create/post`}
+            className="link sm"
+            onClick={() => window.scrollTo(0, 0)}
+          >
+            <Option darkMode={darkMode}>
+              <MdCreate className="option-icon" />
+              Create Post
+            </Option>
+          </Link>
+          <Link
+            to={`/create/subamin`}
+            className="link sm"
+            onClick={() => window.scrollTo(0, 0)}
+          >
+            <Option darkMode={darkMode}>
+              <AiOutlineUsergroupAdd className="option-icon" />
+              Create Subamin
             </Option>
           </Link>
         </div>

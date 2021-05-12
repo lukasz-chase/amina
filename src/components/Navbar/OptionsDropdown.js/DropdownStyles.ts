@@ -50,6 +50,12 @@ export const Dropdown = styled.div<DropdownProps>`
   .link {
     text-decoration: none;
   }
+  .sm {
+    display: none;
+    @media screen and (max-width: 1000px) {
+      display: flex;
+    }
+  }
 `;
 export const Option = styled.div<OptionProps>`
   display: flex;
