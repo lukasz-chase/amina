@@ -88,7 +88,7 @@ const SubaminDetails: React.FC = () => {
     e.preventDefault();
     if (desc) {
       axios
-        .put(`http://localhost:3000/subamins/${subamin.id}`, {
+        .put(`https://amina-server.herokuapp.com/subamins/${subamin.id}`, {
           id: subamin.id,
           name: subamin.name,
           desc: desc,
@@ -110,7 +110,7 @@ const SubaminDetails: React.FC = () => {
     e.preventDefault();
     if (desc) {
       axios
-        .put(`http://localhost:3000/subamins/${subamin.id}`, {
+        .put(`https://amina-server.herokuapp.com/subamins/${subamin.id}`, {
           id: subamin.id,
           name: subamin.name,
           desc: subamin.desc,
@@ -132,7 +132,7 @@ const SubaminDetails: React.FC = () => {
     e.preventDefault();
     if (desc) {
       axios
-        .put(`http://localhost:3000/subamins/${subamin.id}`, {
+        .put(`https://amina-server.herokuapp.com/subamins/${subamin.id}`, {
           id: subamin.id,
           name: subamin.name,
           desc: subamin.desc,
@@ -150,7 +150,7 @@ const SubaminDetails: React.FC = () => {
   };
   const deleteSubaminHandler = () => {
     axios
-      .delete(`http://localhost:3000/subamins/${subamin.id}`)
+      .delete(`https://amina-server.herokuapp.com/subamins/${subamin.id}`)
       .then(() => history.push(`/`));
   };
   return (

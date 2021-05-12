@@ -99,7 +99,7 @@ const PostDetails: React.FC = () => {
     e.preventDefault();
     if (comment) {
       axios
-        .put(`http://localhost:3000/posts/${postDetails.id}`, {
+        .put(`https://amina-server.herokuapp.com/posts/${postDetails.id}`, {
           id: postDetails.id,
           subaminId: postDetails.subaminId,
           subaminName: postDetails.subaminName,
@@ -139,7 +139,7 @@ const PostDetails: React.FC = () => {
       postDetails.upvotedBy.find((a) => a === loggedUser.id)
     ) {
       axios
-        .put(`http://localhost:3000/posts/${postDetails.id}`, {
+        .put(`https://amina-server.herokuapp.com/posts/${postDetails.id}`, {
           id: postDetails.id,
           subaminId: postDetails.subaminId,
           subaminName: postDetails.subaminName,
@@ -165,7 +165,7 @@ const PostDetails: React.FC = () => {
       postDetails.downvotedBy.find((a) => a === loggedUser.id)
     ) {
       axios
-        .put(`http://localhost:3000/posts/${postDetails.id}`, {
+        .put(`https://amina-server.herokuapp.com/posts/${postDetails.id}`, {
           id: postDetails.id,
           subaminId: postDetails.subaminId,
           subaminName: postDetails.subaminName,
@@ -190,7 +190,7 @@ const PostDetails: React.FC = () => {
         });
     } else {
       axios
-        .put(`http://localhost:3000/posts/${postDetails.id}`, {
+        .put(`https://amina-server.herokuapp.com/posts/${postDetails.id}`, {
           id: postDetails.id,
           subaminId: postDetails.subaminId,
           subaminName: postDetails.subaminName,
@@ -253,7 +253,7 @@ const PostDetails: React.FC = () => {
   const upvoteCommentHandler = (id: number, what: string, text: string) => {
     if (postDetails.comments && checkIfCommentIsUpvoted(id)) {
       axios
-        .put(`http://localhost:3000/posts/${postDetails.id}`, {
+        .put(`https://amina-server.herokuapp.com/posts/${postDetails.id}`, {
           id: postDetails.id,
           subaminId: postDetails.subaminId,
           subaminName: postDetails.subaminName,
@@ -284,7 +284,7 @@ const PostDetails: React.FC = () => {
         });
     } else if (postDetails.comments && checkIfCommentIsDownvoted(id)) {
       axios
-        .put(`http://localhost:3000/posts/${postDetails.id}`, {
+        .put(`https://amina-server.herokuapp.com/posts/${postDetails.id}`, {
           id: postDetails.id,
           subaminId: postDetails.subaminId,
           subaminName: postDetails.subaminName,
@@ -315,7 +315,7 @@ const PostDetails: React.FC = () => {
         });
     } else {
       axios
-        .put(`http://localhost:3000/posts/${postDetails.id}`, {
+        .put(`https://amina-server.herokuapp.com/posts/${postDetails.id}`, {
           id: postDetails.id,
           subaminId: postDetails.subaminId,
           subaminName: postDetails.subaminName,
@@ -361,7 +361,7 @@ const PostDetails: React.FC = () => {
     if (editCommentText) {
       e.preventDefault();
       axios
-        .put(`http://localhost:3000/posts/${postDetails.id}`, {
+        .put(`https://amina-server.herokuapp.com/posts/${postDetails.id}`, {
           id: postDetails.id,
           subaminId: postDetails.subaminId,
           subaminName: postDetails.subaminName,
@@ -391,7 +391,7 @@ const PostDetails: React.FC = () => {
   };
   const deleteCommentHandler = (id: number) => {
     axios
-      .put(`http://localhost:3000/posts/${postDetails.id}`, {
+      .put(`https://amina-server.herokuapp.com/posts/${postDetails.id}`, {
         id: postDetails.id,
         subaminId: postDetails.subaminId,
         subaminName: postDetails.subaminName,
@@ -413,14 +413,14 @@ const PostDetails: React.FC = () => {
   };
   const deletePostHandler = () => {
     axios
-      .delete(`http://localhost:3000/posts/${postDetails.id}`)
+      .delete(`https://amina-server.herokuapp.com/posts/${postDetails.id}`)
       .then(() => history.push(`/`));
   };
   const addToSavedHandler = () => {
     if (isLogged) {
       if (isSaved) {
         axios
-          .put(`http://localhost:3000/users/${loggedUser.id}`, {
+          .put(`https://amina-server.herokuapp.com/users/${loggedUser.id}`, {
             username: loggedUser.username,
             email: loggedUser.email,
             password: loggedUser.password,
@@ -439,7 +439,7 @@ const PostDetails: React.FC = () => {
           });
       } else {
         axios
-          .put(`http://localhost:3000/users/${loggedUser.id}`, {
+          .put(`https://amina-server.herokuapp.com/users/${loggedUser.id}`, {
             username: loggedUser.username,
             email: loggedUser.email,
             password: loggedUser.password,

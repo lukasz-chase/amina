@@ -93,7 +93,7 @@ const UserDetails = () => {
   //handlers
   const simpleInfoHandler = () => {
     axios
-      .put(`http://localhost:3000/users/${loggedUser.id}`, {
+      .put(`https://amina-server.herokuapp.com/users/${loggedUser.id}`, {
         username: loggedUser.username,
         email: loggedUser.email,
         password: loggedUser.password,
@@ -119,7 +119,7 @@ const UserDetails = () => {
     ) {
       if (sha512(passwordCheck).toString(Base64) === loggedUser.password) {
         axios
-          .put(`http://localhost:3000/users/${loggedUser.id}`, {
+          .put(`https://amina-server.herokuapp.com/users/${loggedUser.id}`, {
             username: loggedUser.username,
             email: email,
             password: loggedUser.password,
@@ -146,7 +146,7 @@ const UserDetails = () => {
     if (sha512(oldPassword).toString(Base64) === loggedUser.password) {
       if (newPassword === checkNewPassword) {
         axios
-          .put(`http://localhost:3000/users/${loggedUser.id}`, {
+          .put(`https://amina-server.herokuapp.com/users/${loggedUser.id}`, {
             username: loggedUser.username,
             email: loggedUser.email,
             password: sha512(newPassword).toString(Base64),

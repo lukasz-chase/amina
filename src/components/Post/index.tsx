@@ -64,7 +64,7 @@ const Post: React.FC<PostProps> = ({ post }) => {
   const upvoteHandler = (what: string) => {
     if (post.upvotedBy && post.upvotedBy.find((a) => a === loggedUser.id)) {
       axios
-        .put(`http://localhost:3000/posts/${post.id}`, {
+        .put(`https://amina-server.herokuapp.com/posts/${post.id}`, {
           id: post.id,
           subaminId: post.subaminId,
           subaminName: post.subaminName,
@@ -90,7 +90,7 @@ const Post: React.FC<PostProps> = ({ post }) => {
       post.downvotedBy.find((a) => a === loggedUser.id)
     ) {
       axios
-        .put(`http://localhost:3000/posts/${post.id}`, {
+        .put(`https://amina-server.herokuapp.com/posts/${post.id}`, {
           id: post.id,
           subaminId: post.subaminId,
           subaminName: post.subaminName,
@@ -113,7 +113,7 @@ const Post: React.FC<PostProps> = ({ post }) => {
         });
     } else {
       axios
-        .put(`http://localhost:3000/posts/${post.id}`, {
+        .put(`https://amina-server.herokuapp.com/posts/${post.id}`, {
           id: post.id,
           subaminId: post.subaminId,
           subaminName: post.subaminName,
@@ -149,7 +149,7 @@ const Post: React.FC<PostProps> = ({ post }) => {
     if (isLogged) {
       if (isSaved) {
         axios
-          .put(`http://localhost:3000/users/${loggedUser.id}`, {
+          .put(`https://amina-server.herokuapp.com/users/${loggedUser.id}`, {
             username: loggedUser.username,
             email: loggedUser.email,
             password: loggedUser.password,
@@ -166,7 +166,7 @@ const Post: React.FC<PostProps> = ({ post }) => {
           });
       } else {
         axios
-          .put(`http://localhost:3000/users/${loggedUser.id}`, {
+          .put(`https://amina-server.herokuapp.com/users/${loggedUser.id}`, {
             username: loggedUser.username,
             email: loggedUser.email,
             password: loggedUser.password,

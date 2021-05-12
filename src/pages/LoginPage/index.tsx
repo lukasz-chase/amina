@@ -75,7 +75,7 @@ const LoginPage: React.FC = () => {
   const registerHandler = (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
     axios
-      .get(`http://localhost:3000/users?email=${registerEmail}`)
+      .get(`https://amina-server.herokuapp.com/users?email=${registerEmail}`)
       .then((res) => {
         if (res.data[0]) {
           setRegisterSuccess(false);
@@ -83,7 +83,9 @@ const LoginPage: React.FC = () => {
           setRegisterErrorMsg("Theres already an account with that email");
         } else {
           axios
-            .get(`http://localhost:3000/users?username=${registerUsername}`)
+            .get(
+              `https://amina-server.herokuapp.com/users?username=${registerUsername}`
+            )
             .then((res) => {
               if (res.data[0]) {
                 setRegisterSuccess(false);
@@ -100,7 +102,7 @@ const LoginPage: React.FC = () => {
                   if (registerPassword.length >= 6) {
                     if (registerUsername !== "") {
                       axios
-                        .post(`http://localhost:3000/users`, {
+                        .post(`https://amina-server.herokuapp.com`, {
                           username: registerUsername,
                           email: registerEmail,
                           password: sha512(registerPassword).toString(Base64),

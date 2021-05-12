@@ -39,7 +39,7 @@ const JoinButton: React.FC<joinProps> = ({ id }) => {
   //handlers
   const joinHandler = () => {
     axios
-      .put(`http://localhost:3000/users/${loggedUser.id}`, {
+      .put(`https://amina-server.herokuapp.com/users/${loggedUser.id}`, {
         username: loggedUser.username,
         email: loggedUser.email,
         password: loggedUser.password,
@@ -52,25 +52,27 @@ const JoinButton: React.FC<joinProps> = ({ id }) => {
       })
       .then(() => {
         setIsJoined(true);
-        axios.get(`http://localhost:3000/subamins/${id}`).then((res) =>
-          axios
-            .put(`http://localhost:3000/subamins/${id}`, {
-              id: res.data.id,
-              name: res.data.name,
-              desc: res.data.desc,
-              members: res.data.members + 1,
-              logo: res.data.logo,
-              background: res.data.background,
-              authorId: res.data.authorId,
-              birthday: res.data.birthday,
-            })
-            .then(() => fetchUser(Number(localStorage.getItem("userId"))))
-        );
+        axios
+          .get(`https://amina-server.herokuapp.com/subamins/${id}`)
+          .then((res) =>
+            axios
+              .put(`https://amina-server.herokuapp.com/subamins/${id}`, {
+                id: res.data.id,
+                name: res.data.name,
+                desc: res.data.desc,
+                members: res.data.members + 1,
+                logo: res.data.logo,
+                background: res.data.background,
+                authorId: res.data.authorId,
+                birthday: res.data.birthday,
+              })
+              .then(() => fetchUser(Number(localStorage.getItem("userId"))))
+          );
       });
   };
   const leaveHandler = () => {
     axios
-      .put(`http://localhost:3000/users/${loggedUser.id}`, {
+      .put(`https://amina-server.herokuapp.com/users/${loggedUser.id}`, {
         username: loggedUser.username,
         email: loggedUser.email,
         password: loggedUser.password,
@@ -83,20 +85,22 @@ const JoinButton: React.FC<joinProps> = ({ id }) => {
       })
       .then(() => {
         setIsJoined(false);
-        axios.get(`http://localhost:3000/subamins/${id}`).then((res) =>
-          axios
-            .put(`http://localhost:3000/subamins/${id}`, {
-              id: res.data.id,
-              name: res.data.name,
-              desc: res.data.desc,
-              members: res.data.members - 1,
-              logo: res.data.logo,
-              background: res.data.background,
-              authorId: res.data.authorId,
-              birthday: res.data.birthday,
-            })
-            .then(() => fetchUser(Number(localStorage.getItem("userId"))))
-        );
+        axios
+          .get(`https://amina-server.herokuapp.com/subamins/${id}`)
+          .then((res) =>
+            axios
+              .put(`https://amina-server.herokuapp.com/subamins/${id}`, {
+                id: res.data.id,
+                name: res.data.name,
+                desc: res.data.desc,
+                members: res.data.members - 1,
+                logo: res.data.logo,
+                background: res.data.background,
+                authorId: res.data.authorId,
+                birthday: res.data.birthday,
+              })
+              .then(() => fetchUser(Number(localStorage.getItem("userId"))))
+          );
       });
   };
   return (

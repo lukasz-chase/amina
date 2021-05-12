@@ -1,4 +1,4 @@
-const mainUrl = "http://localhost:3000/";
+const mainUrl = "https://amina-server.herokuapp.com/";
 
 export const subaminsUrl = `${mainUrl}subamins`;
 export const usersSubamins = (name: string, limit: number) =>

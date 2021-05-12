@@ -47,7 +47,7 @@ const OptionsDropdown: React.FC<Props> = ({ open, setOpen }) => {
   };
   const darkModeHandler = () => {
     axios
-      .put(`http://localhost:3000/users/${loggedUser.id}`, {
+      .put(`https://amina-server.herokuapp.com/users/${loggedUser.id}`, {
         id: loggedUser.id,
         username: loggedUser.username,
         email: loggedUser.email,

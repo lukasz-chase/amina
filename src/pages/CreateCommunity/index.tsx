@@ -49,30 +49,32 @@ const CreateCommunity: React.FC = () => {
     const minutes = today.getMinutes();
     const seconds = today.getSeconds();
     if (name && desc && logo) {
-      axios.get(`http://localhost:3000/subamins?name=${name}`).then((res) => {
-        if (res.data[0]) {
-          setMessage("theres already a community with that name");
-        } else {
-          axios
-            .post(`http://localhost:3000/subamins`, {
-              name: name,
-              members: 0,
-              desc: desc,
-              logo: logo,
-              background: backgImg,
-              birthday: `${mm}/${dd}/${yyyy}, ${hour}:${minutes}:${seconds}`,
-              authorId: loggedUser.id,
-            })
-            .then(() => {
-              setName("");
-              setDesc("");
-              setBackgImg("");
-              setLogo("");
-              setMessage("");
-              history.push(`/s/${allSubamins[0].id + 1}`);
-            });
-        }
-      });
+      axios
+        .get(`https://amina-server.herokuapp.com/subamins?name=${name}`)
+        .then((res) => {
+          if (res.data[0]) {
+            setMessage("theres already a community with that name");
+          } else {
+            axios
+              .post(`https://amina-server.herokuapp.com/subamins`, {
+                name: name,
+                members: 0,
+                desc: desc,
+                logo: logo,
+                background: backgImg,
+                birthday: `${mm}/${dd}/${yyyy}, ${hour}:${minutes}:${seconds}`,
+                authorId: loggedUser.id,
+              })
+              .then(() => {
+                setName("");
+                setDesc("");
+                setBackgImg("");
+                setLogo("");
+                setMessage("");
+                history.push(`/s/${allSubamins[0].id + 1}`);
+              });
+          }
+        });
     }
   };
   return (
