@@ -43,44 +43,13 @@ export const Wrapper = styled.div<SearchProps>`
   min-height: 80vh;
   padding: 1rem;
   font-size: 0.8rem;
+  @media screen and (max-width: 1000px) {
+    padding: 0;
+  }
   .subamins {
     width: 80%;
     @media screen and (max-width: 1000px) {
       width: 100%;
-    }
-    .community {
-      display: flex;
-      position: relative;
-      justify-content: space-between;
-      background-color: ${({ darkmode }) => (darkmode ? "#1A1A1B" : "white")};
-      align-items: center;
-      padding: 5px;
-      border-radius: 10px;
-      text-decoration: none;
-      .left {
-        display: flex;
-        align-items: center;
-
-        img {
-          height: 3rem;
-          width: 3rem;
-          border-radius: 3rem;
-          object-fit: cover;
-        }
-        .name-members {
-          padding: 1rem;
-          display: flex;
-          flex-direction: column;
-          color: #8c8f90;
-
-          .name {
-            color: ${({ darkmode }) => (darkmode ? "#C0C3C5" : "black")};
-          }
-        }
-      }
-      .info {
-        color: #8c8f90;
-      }
     }
   }
   .posts {

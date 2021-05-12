@@ -10,10 +10,15 @@ import userState from "../../state/userState";
 import Header from "../../components/Header";
 import Post from "../../components/Post";
 import BackToTopButton from "../../components/BackToTopButton";
+import CreatePostHeader from "../../components/CreatePostHeader";
+import Community from "../../components/Community";
 //router
 import { Link } from "react-router-dom";
 //interface
 import { User, Subamin, PostProperties } from "../../interfaces";
+//scroll bottom
+import { BottomScrollListener } from "react-bottom-scroll-listener";
+
 const Home: React.FC = () => {
   //state
   const loggedUser = userState<User>((state) => state.loggedUser);
@@ -31,32 +36,45 @@ const Home: React.FC = () => {
     (state) => state.fetchNewSubaminByIds
   );
   const fetchUser = userState((state) => state.fetchLoggedUser);
+  const limit = postState((s) => s.limit);
+  const changeLimit = postState((s) => s.changeLimit);
   //useEffect
   useEffect(() => {
     fetchUser(Number(localStorage.getItem("userId")));
     fetchSubamins();
-    fetchTopPosts();
-  }, [fetchSubamins, fetchTopPosts, fetchUser]);
+    fetchTopPosts(limit);
+  }, [fetchSubamins, fetchTopPosts, fetchUser, limit]);
   useEffect(() => {
     if (isLogged) {
-      fetchNewSubaminByIds(loggedUser.followedSubaminas);
+      fetchNewSubaminByIds(loggedUser.followedSubaminas, limit);
     }
-  }, [loggedUser.followedSubaminas, fetchNewSubaminByIds, isLogged]);
+  }, [loggedUser.followedSubaminas, fetchNewSubaminByIds, isLogged, limit]);
+  //handlers
+  const handleLimit = () => {
+    changeLimit(20);
+  };
+
   return (
     <HomeComponent darkmode={darkmode} classicview={classicview}>
+      <BottomScrollListener onBottom={handleLimit} />
       <BackToTopButton />
       <Posts darkmode={darkmode} classicview={classicview}>
         <div className="post-wrapper">
+          {isLogged && <CreatePostHeader />}
           {isLogged && usersFeed ? (
             <>
-              <Header feed />
+              <Header feed limit={limit} />
               {usersFeed.map((post) => (
                 <Post post={post} key={post.id} />
               ))}
             </>
           ) : (
             <>
-              <Header topFunction={fetchTopPosts} newFunction={fetchNewPosts} />
+              <Header
+                topFunction={fetchTopPosts}
+                newFunction={fetchNewPosts}
+                limit={limit}
+              />
               {posts.map((post) => (
                 <Post post={post} key={post.id} />
               ))}
@@ -71,13 +89,25 @@ const Home: React.FC = () => {
             .sort((a, b) => b.members - a.members)
             .slice(0, 5)
             .map((subamin, index) => (
-              <Link className="subamina" key={index} to={`/s/${subamin.id}`}>
-                <span>{index + 1}</span>
-                <img src={subamin.logo} alt={subamin.name} className="logo" />
-                <span>{subamin.name}</span>
-              </Link>
+              <Community subamin={subamin} key={index} />
             ))}
         </div>
+        {isLogged && (
+          <div className="create">
+            <div className="bg"></div>
+            <h1>Home</h1>
+            <span>
+              Your personal Amina frontpage. Come here to check in with your
+              favorite communities.
+            </span>
+            <Link to="/create/post" className="link">
+              <div className="post">Create Post</div>
+            </Link>
+            <Link to="/create/subamin" className="link">
+              <div className="subamin">Create Subreddit</div>
+            </Link>
+          </div>
+        )}
       </Info>
     </HomeComponent>
   );

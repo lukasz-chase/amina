@@ -34,28 +34,31 @@ const LoginPage: React.FC = () => {
   const [registerUsername, setRegisterUsername] = useState<string>("");
   const [registerEmail, setRegisterEmail] = useState<string>("");
   const [registerPassword, setRegisterPassword] = useState<string>("");
-  const [registerPassVisibility, setRegPassVisibility] = useState<boolean>(
-    false
-  );
+  const [registerPassVisibility, setRegPassVisibility] =
+    useState<boolean>(false);
   const [registerSuccess, setRegisterSuccess] = useState<boolean>(false);
   const [registerError, setRegisterError] = useState<boolean>(false);
   const [registerErrorMsg, setRegisterErrorMsg] = useState<string>("");
   //state
   const darkMode = viewState<boolean>((state) => state.darkMode);
   const location = useLocation<Location>();
-  const page = location.pathname.split("/")[1];
+  const fromUpvote = location.pathname.split("/")[1];
   const history = useHistory<Location>();
+  const page = location.pathname.split("/")[1];
   const fetchUser = userState((state) => state.fetchLoggedUser);
-
   //handlers
   const loginHandler = (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
     axios.get(loginUrl(username)).then((res) => {
       if (res.data[0]) {
         if (res.data[0].password === sha512(password).toString(Base64)) {
-          history.push("/");
           localStorage.setItem("userId", res.data[0].id);
           fetchUser(res.data[0].id);
+          if (fromUpvote === "upvote") {
+            history.goBack();
+          } else {
+            history.push("/");
+          }
         } else {
           setPasswordErrorMsg("incorrect password");
           setFalsePassword(true);

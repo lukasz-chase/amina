@@ -147,8 +147,21 @@ const Navbar: React.FC = () => {
           </>
         )}
         <Account onClick={() => setOpen(!open)} $darkmode={darkMode}>
-          {isLogged && <span className="name">{loggedUser.username}</span>}
-          <MdAccountCircle className="account-icon" />
+          <div className="info">
+            {isLogged && (
+              <img
+                src={
+                  loggedUser.logo
+                    ? loggedUser.logo
+                    : "https://assets.faceit-cdn.net/organizer_avatar/7a6cd9b4-aec0-4191-8c00-5ae5144aa58c_1574641946899.jpg"
+                }
+                alt={loggedUser.logo}
+                className="logo"
+              />
+            )}
+            {isLogged && <span className="name">{loggedUser.username}</span>}
+          </div>
+          {!isLogged && <MdAccountCircle className="account-icon" />}
           <RiArrowDownSFill className="account-icon" />
         </Account>
       </Buttons>

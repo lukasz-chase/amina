@@ -417,40 +417,46 @@ const PostDetails: React.FC = () => {
       .then(() => history.push(`/`));
   };
   const addToSavedHandler = () => {
-    if (isSaved) {
-      axios
-        .put(`http://localhost:3000/users/${loggedUser.id}`, {
-          username: loggedUser.username,
-          email: loggedUser.email,
-          password: loggedUser.password,
-          followedSubaminas: loggedUser.followedSubaminas,
-          savedPosts: loggedUser.savedPosts.filter((a) => a !== postDetails.id),
-          logo: loggedUser.logo,
-          birthday: loggedUser.birthday,
-          id: loggedUser.id,
-          darkMode: loggedUser.darkMode,
-        })
-        .then(() => {
-          setIsSaved(false);
-          fetchPostDetails(Number(postId));
-        });
+    if (isLogged) {
+      if (isSaved) {
+        axios
+          .put(`http://localhost:3000/users/${loggedUser.id}`, {
+            username: loggedUser.username,
+            email: loggedUser.email,
+            password: loggedUser.password,
+            followedSubaminas: loggedUser.followedSubaminas,
+            savedPosts: loggedUser.savedPosts.filter(
+              (a) => a !== postDetails.id
+            ),
+            logo: loggedUser.logo,
+            birthday: loggedUser.birthday,
+            id: loggedUser.id,
+            darkMode: loggedUser.darkMode,
+          })
+          .then(() => {
+            setIsSaved(false);
+            fetchPostDetails(Number(postId));
+          });
+      } else {
+        axios
+          .put(`http://localhost:3000/users/${loggedUser.id}`, {
+            username: loggedUser.username,
+            email: loggedUser.email,
+            password: loggedUser.password,
+            followedSubaminas: loggedUser.followedSubaminas,
+            savedPosts: [...loggedUser.savedPosts, postDetails.id],
+            logo: loggedUser.logo,
+            birthday: loggedUser.birthday,
+            id: loggedUser.id,
+            darkMode: loggedUser.darkMode,
+          })
+          .then(() => {
+            setIsSaved(true);
+            fetchPostDetails(Number(postId));
+          });
+      }
     } else {
-      axios
-        .put(`http://localhost:3000/users/${loggedUser.id}`, {
-          username: loggedUser.username,
-          email: loggedUser.email,
-          password: loggedUser.password,
-          followedSubaminas: loggedUser.followedSubaminas,
-          savedPosts: [...loggedUser.savedPosts, postDetails.id],
-          logo: loggedUser.logo,
-          birthday: loggedUser.birthday,
-          id: loggedUser.id,
-          darkMode: loggedUser.darkMode,
-        })
-        .then(() => {
-          setIsSaved(true);
-          fetchPostDetails(Number(postId));
-        });
+      history.push("/login/upvote");
     }
   };
   return (
@@ -509,6 +515,7 @@ const PostDetails: React.FC = () => {
               {postDetails.image && (
                 <img src={postDetails.image} alt={postDetails.title} />
               )}
+
               <span>{postDetails.description}</span>
               {postDetails.authorId === loggedUser.id && (
                 <span
@@ -573,7 +580,7 @@ const PostDetails: React.FC = () => {
           </div>
           {postDetails
             .comments!.sort((a: any, b: any) =>
-              sortNewComments ? a.id - b.id : b.upvotes - a.upvotes
+              sortNewComments ? b.id - a.id : b.upvotes - a.upvotes
             )
             .map((comment, index) => (
               <div className="comment" key={index}>

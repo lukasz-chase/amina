@@ -25,6 +25,7 @@ const JoinButton: React.FC<joinProps> = ({ id }) => {
   const darkMode: boolean = isLoggedState ? loggedUser.darkMode : darkmodeState;
   const classicView: boolean = viewState((state) => state.classicView);
   const compactView: boolean = viewState((state) => state.compactView);
+  const fetchUser = userState((state) => state.fetchLoggedUser);
   //useEffect
   useEffect(() => {
     if (isLoggedState) {
@@ -52,14 +53,18 @@ const JoinButton: React.FC<joinProps> = ({ id }) => {
       .then(() => {
         setIsJoined(true);
         axios.get(`http://localhost:3000/subamins/${id}`).then((res) =>
-          axios.put(`http://localhost:3000/subamins/${id}`, {
-            id: res.data.id,
-            name: res.data.name,
-            desc: res.data.desc,
-            members: res.data.members + 1,
-            logo: res.data.logo,
-            background: res.data.background,
-          })
+          axios
+            .put(`http://localhost:3000/subamins/${id}`, {
+              id: res.data.id,
+              name: res.data.name,
+              desc: res.data.desc,
+              members: res.data.members + 1,
+              logo: res.data.logo,
+              background: res.data.background,
+              authorId: res.data.authorId,
+              birthday: res.data.birthday,
+            })
+            .then(() => fetchUser(Number(localStorage.getItem("userId"))))
         );
       });
   };
@@ -79,14 +84,18 @@ const JoinButton: React.FC<joinProps> = ({ id }) => {
       .then(() => {
         setIsJoined(false);
         axios.get(`http://localhost:3000/subamins/${id}`).then((res) =>
-          axios.put(`http://localhost:3000/subamins/${id}`, {
-            id: res.data.id,
-            name: res.data.name,
-            desc: res.data.desc,
-            members: res.data.members - 1,
-            logo: res.data.logo,
-            background: res.data.background,
-          })
+          axios
+            .put(`http://localhost:3000/subamins/${id}`, {
+              id: res.data.id,
+              name: res.data.name,
+              desc: res.data.desc,
+              members: res.data.members - 1,
+              logo: res.data.logo,
+              background: res.data.background,
+              authorId: res.data.authorId,
+              birthday: res.data.birthday,
+            })
+            .then(() => fetchUser(Number(localStorage.getItem("userId"))))
         );
       });
   };

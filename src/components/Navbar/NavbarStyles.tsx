@@ -140,15 +140,24 @@ export const Buttons = styled.div<NavProps>`
 export const Account = styled.div<NavProps>`
   padding: 0 1rem;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   height: 35px;
+  width: 12rem;
   margin-right: 1rem;
   border: ${({ $darkmode: darkMode }) =>
     darkMode ? "1px solid #1a1a1b" : "1px solid white"};
   cursor: pointer;
+  @media screen and (max-width: 1000px) {
+    width: 6rem;
+    padding: 0.5rem;
+  }
   &:hover {
     border: 1px solid #636366;
+  }
+  .info {
+    display: flex;
+    align-items: center;
   }
   .account-icon {
     font-size: 1.5rem;
@@ -157,5 +166,9 @@ export const Account = styled.div<NavProps>`
   .name {
     color: #636366;
     padding: 0 0.5rem;
+  }
+  .logo {
+    height: 1.5rem;
+    width: 1.5rem;
   }
 `;

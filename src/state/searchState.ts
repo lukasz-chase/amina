@@ -8,29 +8,33 @@ import { Subamin } from "../interfaces";
 type Props = {
   subaminasSearch: Subamin[];
   postSearch: PostProperties[];
-  fetchTopSubaminasSearch: (question?: string) => void;
-  fetchNewSubaminasSearch: (question?: string) => void;
-  fetchTopPostsSearch: (question?: string) => void;
-  fetchNewPostsSearch: (question?: string) => void;
+  fetchTopSubaminasSearch: (limit: number, question?: string) => void;
+  fetchNewSubaminasSearch: (limit: number, question?: string) => void;
+  fetchTopPostsSearch: (limit: number, question?: string) => void;
+  fetchNewPostsSearch: (limit: number, question?: string) => void;
+  limit: number;
+  changeLimit: (by: number) => void;
 };
 
 const searchState = create<Props>((set) => ({
   subaminasSearch: [],
   postSearch: [],
-  fetchTopSubaminasSearch: async (q) => {
-    const response = await fetch(subaminsSearch(q!, "upvotes", "desc"));
+  limit: 20,
+  changeLimit: (by: number) => set((state) => ({ limit: state.limit + by })),
+  fetchTopSubaminasSearch: async (limit, q) => {
+    const response = await fetch(subaminsSearch(q!, "members", "desc", limit));
     set({ subaminasSearch: await response.json() });
   },
-  fetchNewSubaminasSearch: async (q) => {
-    const response = await fetch(subaminsSearch(q!, "id", "asc"));
+  fetchNewSubaminasSearch: async (limit, q) => {
+    const response = await fetch(subaminsSearch(q!, "id", "desc", limit));
     set({ subaminasSearch: await response.json() });
   },
-  fetchTopPostsSearch: async (q) => {
-    const response = await fetch(postSearch(q!, "upvotes", "desc"));
+  fetchTopPostsSearch: async (limit, q) => {
+    const response = await fetch(postSearch(q!, "upvotes", "desc", limit));
     set({ postSearch: await response.json() });
   },
-  fetchNewPostsSearch: async (q) => {
-    const response = await fetch(postSearch(q!, "id", "asc"));
+  fetchNewPostsSearch: async (limit, q) => {
+    const response = await fetch(postSearch(q!, "id", "desc", limit));
     set({ postSearch: await response.json() });
   },
 }));

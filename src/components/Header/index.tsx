@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 //styling
 import { HeaderComponent, Button, ViewOption } from "./HeaderStyles";
 //store
@@ -8,18 +8,20 @@ import subaminsState from "../../state/subaminsState";
 //icons
 import { AiOutlineLineChart } from "react-icons/ai";
 import { MdNewReleases } from "react-icons/md";
+import { RiArrowDownSFill } from "react-icons/ri";
 //interfaces
 import { User } from "../../interfaces";
 
 type HeaderProps = {
-  topFunction?: (question?: string) => void;
-  newFunction?: (question?: string) => void;
+  topFunction?: (limit: number, question?: string) => void;
+  newFunction?: (limit: number, question?: string) => void;
   question?: string;
   id?: number;
   subamin?: boolean;
   feed?: boolean;
-  topSubaminFunction?: (id?: number) => void;
-  newSubaminFunction?: (id?: number) => void;
+  limit: number;
+  topSubaminFunction?: (limit: number, id?: number) => void;
+  newSubaminFunction?: (limit: number, id?: number) => void;
 };
 
 const Header: React.FC<HeaderProps> = ({
@@ -31,34 +33,38 @@ const Header: React.FC<HeaderProps> = ({
   id,
   subamin,
   feed,
+  limit,
 }) => {
   //state
   const setClassicView = viewState((state) => state.setClassicView);
   const setCompactView = viewState((state) => state.setCompactView);
+  const compactView = viewState((state) => state.compactView);
+  const classicView = viewState((state) => state.classicView);
   const loggedUser = userState<User>((state) => state.loggedUser);
   const isLogged = userState<boolean>((state) => state.isLogged);
   const darkmodeState = viewState<boolean>((state) => state.darkMode);
   const darkMode: boolean = isLogged ? loggedUser.darkMode : darkmodeState;
   const fetchTopFeed = subaminsState((state) => state.fetchTopSubaminByIds);
   const fetchNewFeed = subaminsState((state) => state.fetchNewSubaminByIds);
+  const [showOptions, setShowOptions] = useState<boolean>(false);
   //handlers
   const topFunctionHandler = () => {
     if (subamin) {
-      topSubaminFunction!(id);
+      topSubaminFunction!(limit, id);
     } else if (feed) {
-      fetchTopFeed(loggedUser.followedSubaminas);
+      fetchTopFeed(loggedUser.followedSubaminas, limit);
     } else {
-      topFunction!(question);
+      topFunction!(limit, question);
     }
   };
 
   const newFunctionHandler = () => {
     if (subamin) {
-      newSubaminFunction!(id);
+      newSubaminFunction!(limit, id);
     } else if (feed) {
-      fetchNewFeed(loggedUser.followedSubaminas);
+      fetchNewFeed(loggedUser.followedSubaminas, limit);
     } else {
-      newFunction!(question);
+      newFunction!(limit, question);
     }
   };
   return (
@@ -73,46 +79,106 @@ const Header: React.FC<HeaderProps> = ({
           New
         </Button>
       </div>
+
       <div className="view">
-        <ViewOption
-          darkMode={darkMode}
-          height="12px"
-          mobileHeight="9px"
-          onClick={() => setClassicView(false)}
-        >
-          <div className="lines">
-            <div className="line"></div>
-            <div className="line"></div>
+        {!classicView && !compactView && (
+          <ViewOption
+            darkMode={darkMode}
+            height="8px"
+            mobileHeight="9px"
+            onClick={() => setShowOptions(!showOptions)}
+          >
+            <div className="lines">
+              <div className="line"></div>
+              <div className="line"></div>
+            </div>
+            <RiArrowDownSFill />
+          </ViewOption>
+        )}
+        {classicView && !compactView && (
+          <ViewOption
+            darkMode={darkMode}
+            height="5px"
+            mobileHeight="6px"
+            onClick={() => setShowOptions(!showOptions)}
+          >
+            <div className="lines">
+              <div className="line"></div>
+              <div className="line"></div>
+              <div className="line"></div>
+            </div>
+            <RiArrowDownSFill />
+          </ViewOption>
+        )}
+        {classicView && compactView && (
+          <ViewOption
+            darkMode={darkMode}
+            height="3px"
+            mobileHeight="3px"
+            onClick={() => setShowOptions(!showOptions)}
+          >
+            <div className="lines">
+              <div className="line"></div>
+              <div className="line"></div>
+              <div className="line"></div>
+              <div className="line"></div>
+            </div>
+            <RiArrowDownSFill />
+          </ViewOption>
+        )}
+
+        {showOptions && (
+          <div className="options">
+            <ViewOption
+              darkMode={darkMode}
+              height="8px"
+              mobileHeight="9px"
+              onClick={() => {
+                setShowOptions(false);
+                setClassicView(false);
+              }}
+            >
+              <div className="lines">
+                <div className="line"></div>
+                <div className="line"></div>
+              </div>
+              <span>Card</span>
+            </ViewOption>
+            <ViewOption
+              darkMode={darkMode}
+              height="5px"
+              mobileHeight="6px"
+              onClick={() => {
+                setShowOptions(false);
+                setClassicView(true);
+              }}
+            >
+              <div className="lines">
+                <div className="line"></div>
+                <div className="line"></div>
+                <div className="line"></div>
+              </div>
+              <span>Classic</span>
+            </ViewOption>
+            <ViewOption
+              darkMode={darkMode}
+              height="3px"
+              mobileHeight="3px"
+              onClick={() => {
+                setShowOptions(false);
+                setCompactView(true);
+              }}
+            >
+              <div className="lines">
+                <div className="line"></div>
+                <div className="line"></div>
+                <div className="line"></div>
+                <div className="line"></div>
+              </div>
+              <span>Compact</span>
+            </ViewOption>
           </div>
-          <span>Card</span>
-        </ViewOption>
-        <ViewOption
-          darkMode={darkMode}
-          height="7px"
-          mobileHeight="6px"
-          onClick={() => setClassicView(true)}
-        >
-          <div className="lines">
-            <div className="line"></div>
-            <div className="line"></div>
-            <div className="line"></div>
-          </div>
-          <span>Classic</span>
-        </ViewOption>
-        <ViewOption
-          darkMode={darkMode}
-          height="5px"
-          mobileHeight="3px"
-          onClick={() => setCompactView(true)}
-        >
-          <div className="lines">
-            <div className="line"></div>
-            <div className="line"></div>
-            <div className="line"></div>
-            <div className="line"></div>
-          </div>
-          <span>Compact</span>
-        </ViewOption>
+        )}
       </div>
     </HeaderComponent>
   );

@@ -10,21 +10,21 @@ export const UserDetailsComponent = styled.div<Props>`
   display: flex;
   justify-content: space-evenly;
   min-height: 93vh;
-  @media screen and (max-width: 1000px) {
+  @media screen and (max-width: 1100px) {
     flex-direction: column;
   }
   .left {
     width: ${({ classicview }) => (classicview ? "62vw" : "50vw")};
     display: flex;
     flex-direction: column;
-    @media screen and (max-width: 1000px) {
+    @media screen and (max-width: 1100px) {
       width: 100%;
       order: 2;
     }
     .posts {
       width: ${({ classicview }) => (classicview ? "62vw" : "50vw")};
       align-self: flex-end;
-      @media screen and (max-width: 1000px) {
+      @media screen and (max-width: 1100px) {
         width: 100%;
       }
     }
@@ -34,7 +34,7 @@ export const UserDetailsComponent = styled.div<Props>`
       justify-content: center;
       align-items: center;
       color: ${({ darkmode }) => (darkmode ? "#D7DADC" : "black")};
-      @media screen and (max-width: 1000px) {
+      @media screen and (max-width: 1100px) {
         width: 100%;
         order: 2;
       }
@@ -46,7 +46,7 @@ export const UserDetailsComponent = styled.div<Props>`
       display: flex;
       flex-direction: column;
       padding: 0.5rem;
-      @media screen and (max-width: 1000px) {
+      @media screen and (max-width: 1100px) {
         width: 100%;
         order: 2;
       }
@@ -85,7 +85,7 @@ export const UserDetailsComponent = styled.div<Props>`
   }
   .right {
     width: 30vw;
-    @media screen and (max-width: 1000px) {
+    @media screen and (max-width: 1100px) {
       width: 100%;
       order: 1;
     }
@@ -93,13 +93,13 @@ export const UserDetailsComponent = styled.div<Props>`
       position: relative;
       margin-top: 3rem;
       background-color: ${({ darkmode }) => (darkmode ? "#1A1A1B" : "white")};
-      width: 40vh;
-      border-radius: 10px;
-      @media screen and (max-width: 1000px) {
+      width: 50vh;
+      border-radius: 5px;
+      @media screen and (max-width: 1100px) {
         width: 100%;
       }
       .header {
-        border-radius: 10px 0 10px 0;
+        border-radius: 5px 5px 0px 0px;
         background-color: ${({ darkmode }) =>
           darkmode ? "#C8CBCD" : "#33A8FF"};
         height: 4rem;
@@ -161,6 +161,20 @@ export const UserDetailsComponent = styled.div<Props>`
         height: 5rem;
         width: 5rem;
         object-fit: cover;
+      }
+    }
+    .user-subamins {
+      display: flex;
+      flex-direction: column;
+      background-color: ${({ darkmode }) => (darkmode ? "#1A1A1B" : "white")};
+      width: 50vh;
+      border-radius: 5px;
+      margin: 1rem 0;
+      span {
+        color: ${({ darkmode }) => (darkmode ? "#7C7E7F" : "black")};
+      }
+      .moderator {
+        padding: 1rem;
       }
     }
   }

@@ -22,12 +22,23 @@ import axios from "axios";
 //encrypting password
 import sha512 from "crypto-js/sha512";
 import Base64 from "crypto-js/enc-base64";
+//scroll bottom
+import { BottomScrollListener } from "react-bottom-scroll-listener";
+import Community from "../../components/Community";
+//components
+
 const UserDetails = () => {
   //state
   const location = useLocation<Location>();
   const userId = location.pathname.split("/")[2];
   const pathname = location.pathname.split("/")[3];
   const loggedUser = userState<User>((state) => state.loggedUser);
+  const userCreatedSubamins = userState((state) => state.userCreatedSubamins);
+  const fetchUserCreatedSubamins = userState(
+    (state) => state.fetchUserCreatedSubamins
+  );
+  const limit = userState<number>((state) => state.limit);
+  const changeLimit = userState((state) => state.changeLimit);
   const isLogged = userState<boolean>((state) => state.isLogged);
   const darkmodeState = viewState<boolean>((state) => state.darkMode);
   const classicView = viewState<boolean>((state) => state.classicView);
@@ -57,8 +68,13 @@ const UserDetails = () => {
   }, [fetchLoggedUser, userId, fetchUser]);
   useEffect(() => {
     if (isLogged) {
-      fetchUserSavedPosts(loggedUser.savedPosts);
-      fetchNewUserPosts(user.id);
+      fetchUserCreatedSubamins(loggedUser.id);
+    }
+  }, [isLogged, fetchUserCreatedSubamins, loggedUser.id]);
+  useEffect(() => {
+    fetchNewUserPosts(limit, user.id);
+    if (isLogged) {
+      fetchUserSavedPosts(loggedUser.savedPosts, limit);
     }
   }, [
     fetchUserSavedPosts,
@@ -66,6 +82,7 @@ const UserDetails = () => {
     isLogged,
     fetchNewUserPosts,
     user.id,
+    limit,
   ]);
   useEffect(() => {
     if (isLogged) {
@@ -152,8 +169,12 @@ const UserDetails = () => {
       setPasswordError("incorrect old password");
     }
   };
+  const handleLimit = () => {
+    changeLimit(20);
+  };
   return (
     <UserDetailsComponent darkmode={darkMode} classicview={classicView}>
+      <BottomScrollListener onBottom={handleLimit} offset={500} />
       <div className="left">
         {!pathname && (
           <Header
@@ -161,6 +182,7 @@ const UserDetails = () => {
             newSubaminFunction={fetchNewUserPosts}
             id={user.id}
             subamin
+            limit={limit}
           />
         )}
         {!pathname && (
@@ -312,6 +334,18 @@ const UserDetails = () => {
             className="logo"
           />
         </div>
+        {isLogged &&
+          loggedUser.id === Number(userId) &&
+          userCreatedSubamins.length > 0 && (
+            <div className="user-subamins">
+              <span className="moderator">
+                You/re moderator of these communities
+              </span>
+              {userCreatedSubamins.map((subamin) => (
+                <Community subamin={subamin} />
+              ))}
+            </div>
+          )}
       </div>
     </UserDetailsComponent>
   );

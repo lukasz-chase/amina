@@ -16,6 +16,7 @@
     "axios": "^0.21.1",
     "crypto-js": "^4.0.0",
     "react": "^17.0.1",
+    "react-bottom-scroll-listener": "^5.0.0",
     "react-dom": "^17.0.1",
     "react-icons": "^4.2.0",
     "react-router-dom": "^5.2.0",

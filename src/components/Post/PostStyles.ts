@@ -10,13 +10,14 @@ export const PostComponent = styled.div<PostProps>`
   display: flex;
   position: relative;
   padding-left: 40px;
-  padding-bottom: 40px;
+  padding-bottom: ${({ $compactview }) => ($compactview ? "13px" : "40px")};
   border-radius: 4px;
   max-width: 100%;
   margin: ${({ $classicview: classicview }) => (classicview ? "0" : "1rem 0")};
   cursor: pointer;
   border: 1px solid transparent;
   transition: all 0.2s ease-in-out;
+  border: 1px solid #474748;
   background: ${({ $darkmode: darkmode }) =>
     darkmode ? "#1A1A1B" : "#F3F3F3"};
   &:hover {
@@ -33,7 +34,7 @@ export const PostComponent = styled.div<PostProps>`
   }
   .post-tools {
     position: absolute;
-    display: flex;
+    display: ${({ $classicview }) => ($classicview ? "none" : "flex")};
     align-items: center;
     bottom: 0;
     left: 0;
@@ -41,6 +42,12 @@ export const PostComponent = styled.div<PostProps>`
     padding-left: 40px;
     @media screen and (max-width: 1000px) {
       padding-left: 100px;
+    }
+    .upvotes {
+      display: none;
+      @media screen and (max-width: 1000px) {
+        display: ${({ $classicview }) => (!$classicview ? "flex" : "none")};
+      }
     }
     button {
       outline: none;
@@ -59,12 +66,6 @@ export const PostComponent = styled.div<PostProps>`
       }
       .icon {
         margin: 0 5px;
-      }
-    }
-    .upvotes {
-      display: none;
-      @media screen and (max-width: 1000px) {
-        display: ${({ $classicview }) => ($classicview ? "none" : "flex")};
       }
     }
   }
@@ -106,6 +107,8 @@ export const PostComponent = styled.div<PostProps>`
               width: 1.5rem;
               border-radius: 1.5rem;
               margin-right: 5px;
+              display: ${({ $classicview: classicView }) =>
+                classicView ? "none" : "flex"};
             }
           }
           .name {
@@ -127,7 +130,7 @@ export const PostComponent = styled.div<PostProps>`
       }
       .post-title {
         width: ${({ $classicview: classicView }) =>
-          classicView ? "50rem" : "30rem"};
+          classicView ? "40vw" : "30vw"};
         word-wrap: break-word;
         order: ${({ $classicview: classicView }) => (classicView ? "1" : "2")};
         font-size: ${({ $classicview: classicView }) =>
@@ -135,24 +138,31 @@ export const PostComponent = styled.div<PostProps>`
         padding: 4px 4px;
         color: ${({ $darkmode: darkMode }) => (darkMode ? "#D4D7D9" : "black")};
         @media screen and (max-width: 1000px) {
-          width: 16rem;
+          width: ${({ $classicview: classicView }) =>
+            classicView ? "60vw" : "80vw"};
         }
       }
       .post-image {
         order: ${({ $classicview: classicView }) => (classicView ? "1" : "2")};
         width: ${({ $classicview: classicView }) =>
-          classicView ? "5vw" : "100%"};
+          classicView ? "10rem" : "100%"};
         display: ${({ $compactview: compactView }) =>
           compactView ? "none" : "flex"};
+        @media screen and (max-width: 1000px) {
+          width: ${({ $classicview: classicView }) =>
+            classicView ? "5rem" : "100%"};
+        }
         img {
           width: ${({ $classicview: classicView }) =>
-            classicView ? "5vw" : "100%"};
+            classicView ? "10rem" : "100%"};
           min-height: ${({ $classicview: classicView }) =>
             classicView ? "5vw" : "25vw"};
           max-height: ${({ $classicview: classicView }) =>
             classicView ? "5vw" : "35vw"};
           object-fit: cover;
           @media screen and (max-width: 1000px) {
+            width: ${({ $classicview: classicView }) =>
+              classicView ? "5rem" : "100%"};
             min-height: ${({ $classicview: classicView }) =>
               classicView ? "19vw" : "25vw"};
             max-height: ${({ $classicview: classicView }) =>

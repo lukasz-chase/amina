@@ -6,6 +6,10 @@ import userState from "../../state/userState";
 import { BiUpvote, BiDownvote } from "react-icons/bi";
 //interfaces
 import { User } from "../../interfaces";
+//location
+import { useHistory } from "react-router-dom";
+import { Location } from "history";
+
 interface Props {
   upvotes: number;
   flexDirection: string;
@@ -36,6 +40,7 @@ const Upvotes: React.FC<Props> = ({
   const isLogged = userState<boolean>((state) => state.isLogged);
   const darkmodeState = viewState<boolean>((state) => state.darkMode);
   const darkMode: boolean = isLogged ? loggedUser.darkMode : darkmodeState;
+  const history = useHistory<Location>();
   //handlers
   const upvoteHandler = (
     e: React.MouseEvent<SVGElement, MouseEvent>,
@@ -48,6 +53,8 @@ const Upvotes: React.FC<Props> = ({
       } else {
         upvoteComment!(commentId!, what, commentText!);
       }
+    } else {
+      history.push(`/login/upvote`);
     }
   };
   return (

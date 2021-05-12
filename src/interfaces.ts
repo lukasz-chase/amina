@@ -31,6 +31,8 @@ export interface Subamin {
   logo: string;
   desc: string;
   background?: string;
+  birthday: string;
+  authorId: number;
 }
 
 export interface User {

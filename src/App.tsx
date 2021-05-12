@@ -40,7 +40,7 @@ function App() {
       <Route path="/create/subamin" exact>
         <CreateCommunity />
       </Route>
-      <Route path={["/login", "/register"]} exact>
+      <Route path={["/login", "/login/upvote", "/register"]} exact>
         <LoginPage />
       </Route>
       <Route path={["/search/posts/:id", "/search/subaminas/:id"]} exact>

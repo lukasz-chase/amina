@@ -9,11 +9,16 @@ export const LoginComponent = styled.div<LoginProps>`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  min-height: 93vh;
+  min-height: 94vh;
   color: #d7dadc;
-  background-color: ${({ darkmode }) => (darkmode ? "#030303" : "white")};
+  background: ${({ darkmode }) => (darkmode ? "#030303" : "#DAE0E6")};
+  h1 {
+    color: ${({ darkmode }) => (darkmode ? "#B4B7B9" : "black")};
+  }
   h2 {
     font-size: 1rem;
+    text-align: center;
+    color: ${({ darkmode }) => (darkmode ? "#B4B7B9" : "black")};
   }
   .form {
     display: flex;

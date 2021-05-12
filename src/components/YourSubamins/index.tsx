@@ -13,23 +13,17 @@ import { AiFillHome } from "react-icons/ai";
 import { useHistory } from "react-router-dom";
 //interface
 import { Subamin, User } from "../../interfaces";
+//scroll bottom
+import { BottomScrollListener } from "react-bottom-scroll-listener";
+
 interface Props {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   width: string;
   nav?: boolean;
-  setActiveCommunity?: React.Dispatch<
-    React.SetStateAction<Subamin | undefined>
-  >;
 }
 
-const YourSubamins: React.FC<Props> = ({
-  open,
-  setOpen,
-  width,
-  nav,
-  setActiveCommunity,
-}) => {
+const YourSubamins: React.FC<Props> = ({ open, setOpen, width, nav }) => {
   //state
   const loggedUser = userState<User>((state) => state.loggedUser);
   const isLogged = userState<boolean>((state) => state.isLogged);
@@ -37,14 +31,18 @@ const YourSubamins: React.FC<Props> = ({
   const darkMode: boolean = isLogged ? loggedUser.darkMode : darkmodeState;
   const fetchSubamins = subaminsState((state) => state.fetchUsersSubamins);
   const usersSubamins = subaminsState((s) => s.usersSubaminas);
+  const setSubamin = subaminsState((s) => s.setCommunity);
+  const limit = subaminsState((s) => s.limit);
+  const changeLimit = subaminsState((s) => s.changeLimit);
   const [community, setCommunity] = useState<string>("");
   const history = useHistory();
+
   //useEffect
   useEffect(() => {
     if (isLogged) {
-      fetchSubamins(loggedUser.followedSubaminas, community);
+      fetchSubamins(loggedUser.followedSubaminas, community, limit);
     }
-  }, [fetchSubamins, loggedUser.followedSubaminas, community, isLogged]);
+  }, [fetchSubamins, loggedUser.followedSubaminas, community, isLogged, limit]);
   //handlers
   const clickHandler = (path?: string, subamin?: Subamin) => {
     if (nav) {
@@ -53,11 +51,15 @@ const YourSubamins: React.FC<Props> = ({
       history.push(path!);
     } else {
       setOpen(!open);
-      setActiveCommunity!(subamin);
+      setSubamin(subamin);
     }
+  };
+  const handleLimit = () => {
+    changeLimit(20);
   };
   return (
     <SubaminsDropdown darkmode={darkMode} open={open} width={width}>
+      <BottomScrollListener onBottom={handleLimit} offset={500} />
       <div className="text-input">
         <Input
           className="textField"

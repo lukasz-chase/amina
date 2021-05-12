@@ -10,7 +10,7 @@ interface CommentProps {
 }
 export const Wrapper = styled.div<PostProps>`
   background-color: ${({ darkmode }) => (darkmode ? "black" : "#dae0e6")};
-  min-height: 93vh;
+  min-height: 95vh;
   .save {
     display: flex;
     align-items: center;
@@ -70,6 +70,7 @@ export const DetailsComponent = styled.div<PostProps>`
       }
     }
     .post {
+      width: 100%;
       .upvotes-sm {
         height: 2rem;
         position: relative;

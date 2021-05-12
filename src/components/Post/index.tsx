@@ -18,6 +18,9 @@ import JoinButton from "../JoinButton";
 //axios
 import axios from "axios";
 import { Link } from "react-router-dom";
+//location
+import { useHistory } from "react-router-dom";
+import { Location } from "history";
 interface PostProps {
   post: PostProperties;
 }
@@ -34,6 +37,7 @@ const Post: React.FC<PostProps> = ({ post }) => {
   const [upvoted, setUpvoted] = useState<boolean>(false);
   const [downvoted, setDownvoted] = useState<boolean>(false);
   const [isSaved, setIsSaved] = useState<boolean>(false);
+  const history = useHistory<Location>();
   //useEffect
   useEffect(() => {
     if (
@@ -142,41 +146,50 @@ const Post: React.FC<PostProps> = ({ post }) => {
     }
   };
   const addToSavedHandler = () => {
-    if (isSaved) {
-      axios
-        .put(`http://localhost:3000/users/${loggedUser.id}`, {
-          username: loggedUser.username,
-          email: loggedUser.email,
-          password: loggedUser.password,
-          followedSubaminas: loggedUser.followedSubaminas,
-          savedPosts: loggedUser.savedPosts.filter((a) => a !== post.id),
-          logo: loggedUser.logo,
-          birthday: loggedUser.birthday,
-          id: loggedUser.id,
-          darkMode: loggedUser.darkMode,
-        })
-        .then(() => {
-          setIsSaved(false);
-          fetchUser(Number(localStorage.getItem("userId")));
-        });
+    if (isLogged) {
+      if (isSaved) {
+        axios
+          .put(`http://localhost:3000/users/${loggedUser.id}`, {
+            username: loggedUser.username,
+            email: loggedUser.email,
+            password: loggedUser.password,
+            followedSubaminas: loggedUser.followedSubaminas,
+            savedPosts: loggedUser.savedPosts.filter((a) => a !== post.id),
+            logo: loggedUser.logo,
+            birthday: loggedUser.birthday,
+            id: loggedUser.id,
+            darkMode: loggedUser.darkMode,
+          })
+          .then(() => {
+            setIsSaved(false);
+            fetchUser(Number(localStorage.getItem("userId")));
+          });
+      } else {
+        axios
+          .put(`http://localhost:3000/users/${loggedUser.id}`, {
+            username: loggedUser.username,
+            email: loggedUser.email,
+            password: loggedUser.password,
+            followedSubaminas: loggedUser.followedSubaminas,
+            savedPosts: [...loggedUser.savedPosts, post.id],
+            logo: loggedUser.logo,
+            birthday: loggedUser.birthday,
+            id: loggedUser.id,
+            darkMode: loggedUser.darkMode,
+          })
+          .then(() => {
+            setIsSaved(true);
+            fetchUser(Number(localStorage.getItem("userId")));
+          });
+      }
     } else {
-      axios
-        .put(`http://localhost:3000/users/${loggedUser.id}`, {
-          username: loggedUser.username,
-          email: loggedUser.email,
-          password: loggedUser.password,
-          followedSubaminas: loggedUser.followedSubaminas,
-          savedPosts: [...loggedUser.savedPosts, post.id],
-          logo: loggedUser.logo,
-          birthday: loggedUser.birthday,
-          id: loggedUser.id,
-          darkMode: loggedUser.darkMode,
-        })
-        .then(() => {
-          setIsSaved(true);
-          fetchUser(Number(localStorage.getItem("userId")));
-        });
+      history.push("/login/upvote");
     }
+  };
+  const shareData = {
+    title: "Amina",
+    text: post.title,
+    url: `/post/${post.id}`,
   };
   return (
     <PostComponent
@@ -216,23 +229,8 @@ const Post: React.FC<PostProps> = ({ post }) => {
               </span>
             </div>
             <div className="post-title">{post.title}</div>
-            <div className="post-tools">
-              <button className="comment">
-                <FaRegCommentAlt className="icon" /> Comments
-              </button>
-              <button className="share">
-                <IoIosShareAlt className="icon" /> Share
-              </button>
-              <button className="save" onClick={() => addToSavedHandler()}>
-                {isSaved ? (
-                  <BsBookmarkDash className="icon" />
-                ) : (
-                  <BsBookmarkCheck className="icon" />
-                )}{" "}
-                {isSaved ? "Unsave" : "Save"}
-              </button>
-            </div>
           </div>
+
           {post.image && (
             <div className="post-image">
               <img src={post.image} alt={post.title} />
@@ -255,7 +253,7 @@ const Post: React.FC<PostProps> = ({ post }) => {
         <button className="comment">
           <FaRegCommentAlt className="icon" /> Comments
         </button>
-        <button className="share">
+        <button className="share" onClick={() => navigator.share(shareData)}>
           <IoIosShareAlt className="icon" /> Share
         </button>
         <button className="save" onClick={() => addToSavedHandler()}>

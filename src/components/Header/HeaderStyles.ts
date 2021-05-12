@@ -8,12 +8,26 @@ export const HeaderComponent = styled.div<headerProps>`
   background: ${({ darkmode: darkMode }) => (darkMode ? "#1A1A1B" : "white")};
   display: flex;
   justify-content: space-between;
-  margin: 2rem 0;
+  margin: 1rem 0;
   height: 4rem;
   align-items: center;
   border-radius: 10px;
+  border: 1px solid #474748;
   .view {
     display: flex;
+    position: relative;
+    .options {
+      background: ${({ darkmode: darkMode }) =>
+        darkMode ? "#1A1A1B" : "white"};
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      z-index: 20;
+      margin-top: 2rem;
+      @media screen and (max-width: 1000px) {
+        transform: translate(-50%, 0%);
+      }
+    }
   }
   .buttons {
     display: flex;
@@ -60,7 +74,6 @@ export const ViewOption = styled.div<viewHeight>`
   align-items: center;
   border-radius: 1rem;
   cursor: pointer;
-  font-size: 1rem;
   @media screen and (max-width: 1260px) {
     font-size: 0.8rem;
     flex-direction: column;
@@ -73,7 +86,7 @@ export const ViewOption = styled.div<viewHeight>`
     .line {
       height: ${({ height }) => height};
       margin: 2px 0;
-      width: 40px;
+      width: 20px;
       background: ${({ darkMode }) => (darkMode ? "#888A8B" : "#7E8183")};
       display: flex;
       flex-direction: column;

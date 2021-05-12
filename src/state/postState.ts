@@ -1,26 +1,37 @@
 import create from "zustand";
 //api
-import { postsUrl, postDetails } from "../api";
+import { postsUrl, postDetails, allPostsUrl } from "../api";
 //interfaces
 import { PostProperties } from "../interfaces";
 
 type Store = {
   posts: PostProperties[];
-  fetchTopPosts: () => void;
-  fetchNewPosts: () => void;
+  fetchTopPosts: (limit: number) => void;
+  fetchNewPosts: (limit: number) => void;
   postDetails: PostProperties;
   fetchPostDetails: (id: number) => Promise<void>;
+  limit: number;
+  changeLimit: (by: number) => void;
+  fetchAllPosts: () => void;
+  allPosts: PostProperties[];
 };
 
 export const postState = create<Store>((set) => ({
   posts: [],
-  fetchTopPosts: async () => {
-    const response = await fetch(postsUrl("upvotes", "desc"));
+  allPosts: [],
+  limit: 20,
+  changeLimit: (by: number) => set((state) => ({ limit: state.limit + by })),
+  fetchTopPosts: async (limit: number) => {
+    const response = await fetch(postsUrl("upvotes", "desc", limit));
     set({ posts: await response.json() });
   },
-  fetchNewPosts: async () => {
-    const response = await fetch(postsUrl("id", "desc"));
+  fetchNewPosts: async (limit: number) => {
+    const response = await fetch(postsUrl("id", "desc", limit));
     set({ posts: await response.json() });
+  },
+  fetchAllPosts: async () => {
+    const response = await fetch(allPostsUrl("id", "desc"));
+    set({ allPosts: await response.json() });
   },
   postDetails: {
     id: 1,
@@ -38,7 +49,6 @@ export const postState = create<Store>((set) => ({
   },
   fetchPostDetails: async (id) => {
     const response = await fetch(postDetails(id));
-
     set({ postDetails: await response.json() });
   },
 }));

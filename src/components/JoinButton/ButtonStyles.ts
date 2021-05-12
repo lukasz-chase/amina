@@ -29,6 +29,9 @@ export const Button = styled.button<ButtonProps>`
   font-weight: bold;
   width: 4rem;
   cursor: pointer;
+  @media screen and (max-width: 1000px) {
+    margin: 0.2rem;
+  }
   span {
     font-weight: bold;
     color: ${({ $darkmode: darkMode }) => (darkMode ? "black" : "white")};

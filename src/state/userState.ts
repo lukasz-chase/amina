@@ -1,8 +1,13 @@
 import create from "zustand";
 //api
-import { userDetails, userPosts, userSavedPosts } from "../api";
+import {
+  userDetails,
+  userPosts,
+  userSavedPosts,
+  userCreatedSubamins,
+} from "../api";
 //interfaces
-import { User, PostProperties } from "../interfaces";
+import { User, PostProperties, Subamin } from "../interfaces";
 
 type Store = {
   loggedUser: User;
@@ -10,12 +15,16 @@ type Store = {
   isLogged: boolean;
   fetchUser: (id: number) => void;
   fetchLoggedUser: (id: number) => void;
-  fetchNewUserPosts: (id?: number) => void;
-  fetchTopUserPosts: (id?: number) => void;
-  fetchUserSavedPosts: (ids: number[]) => void;
+  fetchNewUserPosts: (limit: number, id?: number) => void;
+  fetchTopUserPosts: (limit: number, id?: number) => void;
+  fetchUserSavedPosts: (ids: number[], limit: number) => void;
   logOut: () => void;
   userPosts: PostProperties[];
   userSavedPosts: PostProperties[];
+  limit: number;
+  changeLimit: (by: number) => void;
+  userCreatedSubamins: Subamin[];
+  fetchUserCreatedSubamins: (id: number) => void;
 };
 
 const userState = create<Store>((set) => ({
@@ -37,6 +46,9 @@ const userState = create<Store>((set) => ({
     savedPosts: [],
     darkMode: false,
   },
+  userCreatedSubamins: [],
+  limit: 20,
+  changeLimit: (by: number) => set((state) => ({ limit: state.limit + by })),
   isLogged: false,
   userPosts: [],
   userSavedPosts: [],
@@ -44,21 +56,27 @@ const userState = create<Store>((set) => ({
     const response = await fetch(userDetails(id));
     set({ loggedUser: await response.json(), isLogged: response.ok });
   },
+  fetchUserCreatedSubamins: async (id) => {
+    const response = await fetch(userCreatedSubamins(id));
+    set({ userCreatedSubamins: await response.json() });
+  },
   logOut: () => set({ isLogged: false }),
-  fetchNewUserPosts: async (id) => {
-    const response = await fetch(userPosts(id!, "id", "desc"));
+  fetchNewUserPosts: async (limit, id) => {
+    const response = await fetch(userPosts(id!, "id", "desc", limit));
     set({ userPosts: await response.json() });
   },
-  fetchTopUserPosts: async (id) => {
-    const response = await fetch(userPosts(id!, "upvotes", "desc"));
+  fetchTopUserPosts: async (limit, id) => {
+    const response = await fetch(userPosts(id!, "upvotes", "desc", limit));
     set({ userPosts: await response.json() });
   },
   fetchUser: async (id) => {
     const response = await fetch(userDetails(id));
     set({ user: await response.json() });
   },
-  fetchUserSavedPosts: async (ids: number[]) => {
-    const url = `${userSavedPosts()}${ids.map((id) => `&id=${id}`).join("")}`;
+  fetchUserSavedPosts: async (ids: number[], limit) => {
+    const url = `${userSavedPosts(limit)}${ids
+      .map((id) => `&id=${id}`)
+      .join("")}`;
     const response = await fetch(url);
     set({ userSavedPosts: await response.json() });
   },

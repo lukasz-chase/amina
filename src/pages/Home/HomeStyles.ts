@@ -14,17 +14,17 @@ export const HomeComponent = styled.div<homeProps>`
 
 export const Posts = styled.div<homeProps>`
   min-height: 100vh;
-  width: ${({ classicview }) => (classicview ? "70%" : "60%")};
-  @media screen and (max-width: 1300px) {
+  width: ${({ classicview }) => (classicview ? "70vw" : "65vw")};
+  @media screen and (max-width: 1100px) {
     width: 100%;
   }
   display: flex;
   flex-direction: column;
   .post-wrapper {
-    width: ${({ classicview }) => (classicview ? "130vh" : "80vh")};
+    width: ${({ classicview }) => (classicview ? "130vh" : "90vh")};
     justify-self: flex-end;
     align-self: flex-end;
-    @media screen and (max-width: 1300px) {
+    @media screen and (max-width: 1100px) {
       width: 100%;
     }
   }
@@ -37,8 +37,9 @@ export const Info = styled.div<homeProps>`
   height: fit-content;
   border-radius: 5px;
   .trending {
+    border: 1px solid #474748;
     background: ${({ darkmode }) => (darkmode ? "#1A1A1B" : "white")};
-    width: 30vh;
+    width: 20vw;
     h2 {
       color: ${({ darkmode }) => (darkmode ? "white" : "black")};
       font-size: 1rem;
@@ -65,7 +66,54 @@ export const Info = styled.div<homeProps>`
       }
     }
   }
-  @media screen and (max-width: 1300px) {
+  .create {
+    display: flex;
+    flex-direction: column;
+    width: 20vw;
+    margin: 1rem 0;
+    border: 1px solid #474748;
+    background: ${({ darkmode }) => (darkmode ? "#1A1A1B" : "white")};
+    color: ${({ darkmode }) => (darkmode ? "#B3B5B7" : "black")};
+    border-radius: 5px;
+    .bg {
+      border-radius: 5px 5px 0 0;
+      background-color: ${({ darkmode }) => (darkmode ? "#C8CBCD" : "#33A8FF")};
+      height: 2rem;
+    }
+    h1 {
+      font-size: 1rem;
+      padding: 0.5rem;
+    }
+    span {
+      font-size: 1rem;
+      padding: 0 0.5rem;
+    }
+    .link {
+      align-self: center;
+      text-decoration: none;
+      width: 90%;
+      .post,
+      .subamin {
+        cursor: pointer;
+        background: ${({ darkmode }) => (darkmode ? "#C8CBCD" : "#1484D6")};
+        color: ${({ darkmode }) => (darkmode ? "black" : "white")};
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        padding: 0.3rem 0.5rem;
+        border-radius: 5rem;
+        margin: 0.5rem 0;
+      }
+      .subamin {
+        background: ${({ darkmode }) => (darkmode ? "#1A1A1B" : "white")};
+        color: ${({ darkmode }) => (darkmode ? "#D7DADC" : "#1484D6")};
+        border: ${({ darkmode }) =>
+          darkmode ? "1px solid #d7dadc" : "1px solid #1484D6"};
+      }
+    }
+  }
+  @media screen and (max-width: 1100px) {
     display: none;
   }
 `;

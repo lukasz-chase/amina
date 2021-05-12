@@ -10,11 +10,13 @@ import viewState from "../../state/viewState";
 import userState from "../../state/userState";
 //components
 import Post from "../../components/Post";
-import JoinButton from "../../components/JoinButton";
 import Header from "../../components/Header";
 import BackToTopButton from "../../components/BackToTopButton";
 //interface
 import { User, PostProperties, Subamin } from "../../interfaces";
+//scroll bottom
+import { BottomScrollListener } from "react-bottom-scroll-listener";
+import Community from "../../components/Community";
 
 const SearchPage: React.FC = () => {
   //state
@@ -25,6 +27,8 @@ const SearchPage: React.FC = () => {
   const posts = searchState<PostProperties[]>((state) => state.postSearch);
   const fetchTopPosts = searchState((state) => state.fetchTopPostsSearch);
   const fetchNewPosts = searchState((state) => state.fetchNewPostsSearch);
+  const limit = searchState((state) => state.limit);
+  const changeLimit = searchState((state) => state.changeLimit);
   const loggedUser = userState<User>((state) => state.loggedUser);
   const isLogged = userState<boolean>((state) => state.isLogged);
   const darkmodeState = viewState<boolean>((state) => state.darkMode);
@@ -38,16 +42,20 @@ const SearchPage: React.FC = () => {
   );
   //useEffects
   useEffect(() => {
-    fetchTopPosts(question);
-    fetchTopSubamins(question);
-  }, [fetchTopPosts, fetchTopSubamins, question]);
+    fetchTopPosts(limit, question);
+    fetchTopSubamins(limit, question);
+  }, [fetchTopPosts, fetchTopSubamins, question, limit]);
 
   useEffect(() => {
     fetchUser(Number(localStorage.getItem("userId")));
   }, [fetchUser]);
-
+  //handlers
+  const handleLimit = () => {
+    changeLimit(20);
+  };
   return (
     <SearchPageComponent darkmode={darkMode}>
+      <BottomScrollListener onBottom={handleLimit} offset={500} />
       <div className="header">
         <div className="text">
           <h1>{question}</h1>
@@ -78,23 +86,10 @@ const SearchPage: React.FC = () => {
               topFunction={fetchTopSubamins}
               newFunction={fetchNewSubamins}
               question={question}
+              limit={limit}
             />
             {subamins.map((subamin) => (
-              <Link
-                className="community"
-                key={subamin.id}
-                to={`/s/${subamin.id}`}
-              >
-                <div className="left">
-                  <img src={subamin.logo} alt={subamin.name} />
-                  <div className="name-members">
-                    <span className="name"> {subamin.name}</span>
-                    <span> {subamin.members}</span>
-                  </div>
-                </div>
-                <span className="info">{subamin.desc}</span>
-                <JoinButton id={subamin.id} />
-              </Link>
+              <Community subamin={subamin} key={subamin.id} search />
             ))}
           </div>
         ) : (
@@ -104,6 +99,7 @@ const SearchPage: React.FC = () => {
               topFunction={fetchTopPosts}
               newFunction={fetchNewPosts}
               question={question}
+              limit={limit}
             />
             {posts.map((post) => (
               <Post post={post} key={post.id} />

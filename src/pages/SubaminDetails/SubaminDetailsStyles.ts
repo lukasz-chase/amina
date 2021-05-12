@@ -5,6 +5,10 @@ interface DetailsProps {
   darkmode: boolean;
   classicview: boolean;
 }
+interface FormProps {
+  darkmode: boolean;
+  ready: boolean;
+}
 
 export const DetailsComponent = styled.div<DetailsProps>`
   .header {
@@ -29,11 +33,16 @@ export const DetailsComponent = styled.div<DetailsProps>`
         padding: 1rem 0;
       }
       .logo {
+        display: flex;
+        flex-direction: column;
+        .change-icon {
+          cursor: pointer;
+        }
         img {
           margin-top: -2rem;
-          height: 8rem;
-          width: 8rem;
-          border-radius: 8rem;
+          height: 6rem;
+          width: 6rem;
+          border-radius: 6rem;
           object-fit: cover;
           @media screen and (max-width: 1000px) {
             height: 4rem;
@@ -89,18 +98,105 @@ export const DetailsComponent = styled.div<DetailsProps>`
         background-color: ${({ darkmode }) => (darkmode ? "#1A1A1B" : "white")};
         color: ${({ darkmode }) => (darkmode ? "#D7DADC" : "black")};
         margin-top: 1rem;
+        border: 1px solid #474748;
+        display: flex;
+        flex-direction: column;
+        .edit-desc,
+        .delete-subamin {
+          cursor: pointer;
+        }
+        .delete {
+          display: flex;
+          align-items: center;
+          padding: 1rem;
+          p {
+            cursor: pointer;
+          }
+        }
+        .edit-desc {
+          margin: 0 0.5rem;
+        }
         @media screen and (max-width: 1000px) {
           width: 100%;
         }
         h1 {
+          color: ${({ darkmode }) => (darkmode ? "#818384" : "black")};
           padding: 1rem;
           background-color: ${({ darkmode }) =>
             darkmode ? "#1A1A1B" : "#1484D6"};
+          font-size: 1rem;
         }
         p {
-          padding: 1rem;
+          padding: 0.5rem 1rem;
+        }
+        .new-post {
+          background: ${({ darkmode }) => (darkmode ? "#C8CBCD" : "#1484D6")};
+          color: ${({ darkmode }) => (darkmode ? "black" : "white")};
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          text-decoration: none;
+          padding: 0.3rem 0.5rem;
+          border-radius: 5rem;
+          margin: 0.5rem 0.5rem;
+        }
+        .line {
+          align-self: center;
+          height: 1px;
+          margin: 0.5rem 0;
+          width: 90%;
+          background-color: ${({ darkmode }) =>
+            darkmode ? "#343536" : "black"};
         }
       }
     }
+  }
+`;
+export const Form = styled.form<FormProps>`
+  display: flex;
+  flex-direction: column;
+  background-color: ${({ darkmode }) => (darkmode ? "#1A1A1B" : "white")};
+  padding: 0.5rem;
+  @media screen and (max-width: 1000px) {
+    width: 100%;
+  }
+  .MuiInputBase-input {
+    padding: 0.5rem;
+    background-color: ${({ darkmode }) => (darkmode ? "#1A1A1B" : "white")};
+    color: ${({ darkmode }) => (darkmode ? "#CDD0D2" : "black")};
+  }
+  .community-logo {
+    border: ${({ darkmode }) =>
+      darkmode ? "1px solid #343536" : "1px solid black"};
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+    @media screen and (max-width: 1000px) {
+      width: 100%;
+    }
+  }
+  .community-desc {
+    padding: 0.5rem;
+    border: ${({ darkmode }) =>
+      darkmode ? "1px solid #343536" : "1px solid black"};
+    font-family: "Noto Sans", sans-serif;
+    @media screen and (max-width: 1000px) {
+      width: 100%;
+    }
+  }
+  .submit,
+  .cancel {
+    padding: 0.5rem;
+    width: 50%;
+    cursor: ${({ ready }) => (ready ? "pointer" : "no-drop")};
+    background: ${({ darkmode }) => (darkmode ? "#C8CBCD" : "#1484D6")};
+    color: ${({ darkmode }) => (darkmode ? "black" : "white")};
+    outline: none;
+    border: none;
+    border-radius: 5rem;
+    margin: 0.5rem 0;
+    align-self: flex-end;
+  }
+  .cancel {
+    cursor: pointer;
   }
 `;
