@@ -31,7 +31,7 @@ export const CreatePostComponent = styled.div<Props>`
       border-radius: 5px;
       font-family: "Noto Sans", sans-serif;
       @media screen and (max-width: 1000px) {
-        width: 50vw;
+        width: 80vw;
       }
       &:hover {
         border: 1px solid #d7dadc;

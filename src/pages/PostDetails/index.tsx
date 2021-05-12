@@ -18,7 +18,7 @@ import { useLocation, useHistory, Link } from "react-router-dom";
 import { Location } from "history";
 //icons
 import { AiOutlineArrowLeft } from "react-icons/ai";
-import { BsGraphUp, BsBookmarkCheck, BsBookmarkDash } from "react-icons/bs";
+import { BsGraphUp, BsBookmark, BsFillBookmarkFill } from "react-icons/bs";
 import { MdNewReleases } from "react-icons/md";
 import { GoTrashcan } from "react-icons/go";
 //format time
@@ -29,6 +29,8 @@ import Upvotes from "../../components/Upvotes";
 import axios from "axios";
 //interface
 import { User, PostProperties } from "../../interfaces";
+//notistack
+import { useSnackbar } from "notistack";
 
 const PostDetails: React.FC = () => {
   //state
@@ -51,6 +53,7 @@ const PostDetails: React.FC = () => {
   const [editCommentText, setEditCommentText] = useState<string>("");
   const [commentId, setCommentId] = useState<number>(0);
   const [isSaved, setIsSaved] = useState<boolean>(false);
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   //useEffect
   useEffect(() => {
     fetchPostDetails(Number(postId));
@@ -80,6 +83,10 @@ const PostDetails: React.FC = () => {
     }
   }, [setIsSaved, loggedUser.savedPosts, postDetails.id, isLogged]);
   //handlers
+  const snackbarHandler = (snackbarMessage: string) => {
+    enqueueSnackbar(snackbarMessage);
+    closeSnackbar(0);
+  };
   const copyToClipboard = (str: string) => {
     const el = document.createElement("textarea");
     el.value = str;
@@ -436,6 +443,7 @@ const PostDetails: React.FC = () => {
           .then(() => {
             setIsSaved(false);
             fetchPostDetails(Number(postId));
+            snackbarHandler("Post unsaved!");
           });
       } else {
         axios
@@ -453,6 +461,7 @@ const PostDetails: React.FC = () => {
           .then(() => {
             setIsSaved(true);
             fetchPostDetails(Number(postId));
+            snackbarHandler("Post saved!");
           });
       }
     } else {
@@ -469,7 +478,7 @@ const PostDetails: React.FC = () => {
           />
           <span>{postDetails.subaminName}</span>
           <div className="save" onClick={() => addToSavedHandler()}>
-            {isSaved ? <BsBookmarkDash /> : <BsBookmarkCheck />}
+            {isSaved ? <BsFillBookmarkFill /> : <BsBookmark />}
           </div>
         </div>
       </Header>

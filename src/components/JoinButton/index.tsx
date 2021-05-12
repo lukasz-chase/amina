@@ -7,6 +7,8 @@ import userState from "../../state/userState";
 import axios from "axios";
 //interfaces
 import { User } from "../../interfaces";
+//notistack
+import { useSnackbar } from "notistack";
 
 type joinProps = {
   id: number;
@@ -26,6 +28,7 @@ const JoinButton: React.FC<joinProps> = ({ id }) => {
   const classicView: boolean = viewState((state) => state.classicView);
   const compactView: boolean = viewState((state) => state.compactView);
   const fetchUser = userState((state) => state.fetchLoggedUser);
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   //useEffect
   useEffect(() => {
     if (isLoggedState) {
@@ -37,6 +40,10 @@ const JoinButton: React.FC<joinProps> = ({ id }) => {
     }
   }, [isLoggedState, loggedUser.followedSubaminas, setIsJoined, id]);
   //handlers
+  const snackbarHandler = (snackbarMessage: string) => {
+    enqueueSnackbar(snackbarMessage);
+    closeSnackbar(0);
+  };
   const joinHandler = () => {
     axios
       .put(`https://amina-server.herokuapp.com/users/${loggedUser.id}`, {
@@ -66,7 +73,10 @@ const JoinButton: React.FC<joinProps> = ({ id }) => {
                 authorId: res.data.authorId,
                 birthday: res.data.birthday,
               })
-              .then(() => fetchUser(Number(localStorage.getItem("userId"))))
+              .then(() => {
+                fetchUser(Number(localStorage.getItem("userId")));
+                snackbarHandler("Subamin joined successfully");
+              })
           );
       });
   };
@@ -99,7 +109,10 @@ const JoinButton: React.FC<joinProps> = ({ id }) => {
                 authorId: res.data.authorId,
                 birthday: res.data.birthday,
               })
-              .then(() => fetchUser(Number(localStorage.getItem("userId"))))
+              .then(() => {
+                snackbarHandler("Subamin left successfully");
+                fetchUser(Number(localStorage.getItem("userId")));
+              })
           );
       });
   };

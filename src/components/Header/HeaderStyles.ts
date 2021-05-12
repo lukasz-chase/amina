@@ -3,6 +3,11 @@ import styled from "styled-components";
 type headerProps = {
   darkmode: boolean;
 };
+type viewHeight = {
+  darkMode: boolean;
+  height: string;
+  mobileHeight: string;
+};
 
 export const HeaderComponent = styled.div<headerProps>`
   background: ${({ darkmode: darkMode }) => (darkMode ? "#1A1A1B" : "white")};
@@ -52,20 +57,22 @@ export const Button = styled.button<headerProps>`
       darkMode ? "#29292a" : "#EDEDED"};
   }
   @media screen and (max-width: 1200px) {
-    width: 4rem;
+    width: 5rem;
     margin: 0 0rem;
-    font-size: 0.8rem;
+    font-size: 1rem;
   }
-  .button-icon {
-    margin-right: 10px;
+  .wrapper {
+    display: flex;
+    align-items: center;
+
+    .button-icon {
+      margin-right: 10px;
+    }
+  }
+  .active {
+    color: ${({ darkmode }) => (darkmode ? "#D7DADC" : "#0079D3")}!important;
   }
 `;
-
-type viewHeight = {
-  darkMode: boolean;
-  height: string;
-  mobileHeight: string;
-};
 
 export const ViewOption = styled.div<viewHeight>`
   color: ${({ darkMode }) => (darkMode ? "#888A8B" : "#7E8183")};
@@ -81,8 +88,13 @@ export const ViewOption = styled.div<viewHeight>`
   &:hover {
     background: ${({ darkMode }) => (darkMode ? "#29292a" : "#EDEDED")};
   }
+
   .lines {
     margin-right: 5px;
+    .active {
+      background: ${({ darkMode }) =>
+        darkMode ? "#D7DADC" : "#0079D3"}!important;
+    }
     .line {
       height: ${({ height }) => height};
       margin: 2px 0;

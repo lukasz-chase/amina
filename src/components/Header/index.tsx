@@ -47,8 +47,10 @@ const Header: React.FC<HeaderProps> = ({
   const fetchTopFeed = subaminsState((state) => state.fetchTopSubaminByIds);
   const fetchNewFeed = subaminsState((state) => state.fetchNewSubaminByIds);
   const [showOptions, setShowOptions] = useState<boolean>(false);
+  const [active, setActive] = useState<boolean>(false);
   //handlers
   const topFunctionHandler = () => {
+    setActive(true);
     if (subamin) {
       topSubaminFunction!(limit, id);
     } else if (feed) {
@@ -59,6 +61,7 @@ const Header: React.FC<HeaderProps> = ({
   };
 
   const newFunctionHandler = () => {
+    setActive(false);
     if (subamin) {
       newSubaminFunction!(limit, id);
     } else if (feed) {
@@ -71,12 +74,16 @@ const Header: React.FC<HeaderProps> = ({
     <HeaderComponent darkmode={darkMode}>
       <div className="buttons">
         <Button darkmode={darkMode} onClick={() => topFunctionHandler()}>
-          <AiOutlineLineChart className="button-icon" />
-          Top
+          <div className={active ? "active wrapper" : "wrapper"}>
+            <AiOutlineLineChart className="button-icon" />
+            Top
+          </div>
         </Button>
         <Button darkmode={darkMode} onClick={() => newFunctionHandler()}>
-          <MdNewReleases className="button-icon" />
-          New
+          <div className={active ? "wrapper" : "active wrapper"}>
+            <MdNewReleases className="button-icon" />
+            New
+          </div>
         </Button>
       </div>
 
@@ -89,8 +96,16 @@ const Header: React.FC<HeaderProps> = ({
             onClick={() => setShowOptions(!showOptions)}
           >
             <div className="lines">
-              <div className="line"></div>
-              <div className="line"></div>
+              <div
+                className={
+                  !classicView && !compactView ? "line active" : "line"
+                }
+              ></div>
+              <div
+                className={
+                  !classicView && !compactView ? "line active" : "line"
+                }
+              ></div>
             </div>
             <RiArrowDownSFill />
           </ViewOption>
@@ -103,9 +118,15 @@ const Header: React.FC<HeaderProps> = ({
             onClick={() => setShowOptions(!showOptions)}
           >
             <div className="lines">
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
+              <div
+                className={classicView && !compactView ? "line active" : "line"}
+              ></div>
+              <div
+                className={classicView && !compactView ? "line active" : "line"}
+              ></div>
+              <div
+                className={classicView && !compactView ? "line active" : "line"}
+              ></div>
             </div>
             <RiArrowDownSFill />
           </ViewOption>
@@ -118,10 +139,18 @@ const Header: React.FC<HeaderProps> = ({
             onClick={() => setShowOptions(!showOptions)}
           >
             <div className="lines">
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
+              <div
+                className={classicView && compactView ? "line active" : "line"}
+              ></div>
+              <div
+                className={classicView && compactView ? "line active" : "line"}
+              ></div>
+              <div
+                className={classicView && compactView ? "line active" : "line"}
+              ></div>
+              <div
+                className={classicView && compactView ? "line active" : "line"}
+              ></div>
             </div>
             <RiArrowDownSFill />
           </ViewOption>
@@ -139,8 +168,16 @@ const Header: React.FC<HeaderProps> = ({
               }}
             >
               <div className="lines">
-                <div className="line"></div>
-                <div className="line"></div>
+                <div
+                  className={
+                    !classicView && !compactView ? "line active" : "line"
+                  }
+                ></div>
+                <div
+                  className={
+                    !classicView && !compactView ? "line active" : "line"
+                  }
+                ></div>
               </div>
               <span>Card</span>
             </ViewOption>
@@ -154,9 +191,21 @@ const Header: React.FC<HeaderProps> = ({
               }}
             >
               <div className="lines">
-                <div className="line"></div>
-                <div className="line"></div>
-                <div className="line"></div>
+                <div
+                  className={
+                    classicView && !compactView ? "line active" : "line"
+                  }
+                ></div>
+                <div
+                  className={
+                    classicView && !compactView ? "line active" : "line"
+                  }
+                ></div>
+                <div
+                  className={
+                    classicView && !compactView ? "line active" : "line"
+                  }
+                ></div>
               </div>
               <span>Classic</span>
             </ViewOption>
@@ -170,10 +219,26 @@ const Header: React.FC<HeaderProps> = ({
               }}
             >
               <div className="lines">
-                <div className="line"></div>
-                <div className="line"></div>
-                <div className="line"></div>
-                <div className="line"></div>
+                <div
+                  className={
+                    classicView && compactView ? "line active" : "line"
+                  }
+                ></div>
+                <div
+                  className={
+                    classicView && compactView ? "line active" : "line"
+                  }
+                ></div>
+                <div
+                  className={
+                    classicView && compactView ? "line active" : "line"
+                  }
+                ></div>
+                <div
+                  className={
+                    classicView && compactView ? "line active" : "line"
+                  }
+                ></div>
               </div>
               <span>Compact</span>
             </ViewOption>

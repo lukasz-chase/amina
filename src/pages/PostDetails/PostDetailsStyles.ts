@@ -21,6 +21,9 @@ export const Wrapper = styled.div<PostProps>`
     margin: 1rem;
   }
   padding-bottom: 2rem;
+  span {
+    font-size: 1rem;
+  }
 `;
 export const Header = styled.div<PostProps>`
   display: flex;

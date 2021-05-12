@@ -3,11 +3,31 @@ import ReactDOM from "react-dom";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
+//notistack
+import { SnackbarProvider, SnackbarKey } from "notistack";
+//icon
+import { AiFillCloseCircle } from "react-icons/ai";
+
+const notistackRef = React.createRef<SnackbarProvider>();
+
+const onClickDismiss = (key: SnackbarKey) => () => {
+  notistackRef.current!.closeSnackbar(key);
+};
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      <App />
+      <SnackbarProvider
+        ref={notistackRef}
+        maxSnack={1}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "center",
+        }}
+        action={(key) => <AiFillCloseCircle onClick={onClickDismiss(key)} />}
+      >
+        <App />
+      </SnackbarProvider>
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")

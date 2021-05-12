@@ -84,7 +84,7 @@ export const TextInput = styled.div<NavProps>`
     border-radius: 5px;
     font-family: "Noto Sans", sans-serif;
     @media screen and (max-width: 1000px) {
-      width: 50vw;
+      width: 55vw;
     }
     &:hover {
       border: 1px solid #d7dadc;
@@ -149,7 +149,7 @@ export const Account = styled.div<NavProps>`
     darkMode ? "1px solid #1a1a1b" : "1px solid white"};
   cursor: pointer;
   @media screen and (max-width: 1000px) {
-    width: 6rem;
+    width: 4rem;
     padding: 0.5rem;
   }
   &:hover {
@@ -166,6 +166,9 @@ export const Account = styled.div<NavProps>`
   .name {
     color: #636366;
     padding: 0 0.5rem;
+    @media screen and (max-width: 1000px) {
+      display: none;
+    }
   }
   .logo {
     height: 1.5rem;
