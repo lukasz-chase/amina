@@ -102,7 +102,7 @@ const LoginPage: React.FC = () => {
                   if (registerPassword.length >= 6) {
                     if (registerUsername !== "") {
                       axios
-                        .post(`https://amina-server.herokuapp.com`, {
+                        .post(`https://amina-server.herokuapp.com/users`, {
                           username: registerUsername,
                           email: registerEmail,
                           password: sha512(registerPassword).toString(Base64),
