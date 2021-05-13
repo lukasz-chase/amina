@@ -49,6 +49,9 @@ export const PostComponent = styled.div<PostProps>`
         display: ${({ $classicview }) => (!$classicview ? "flex" : "none")};
       }
     }
+    .comment-link {
+      text-decoration: none;
+    }
     button {
       outline: none;
       border: none;

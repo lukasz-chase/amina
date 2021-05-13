@@ -250,7 +250,11 @@ const Post: React.FC<PostProps> = ({ post }) => {
             downvoted={downvoted}
           />
         </div>
-        <Link to={`/post/${post.id}`} onClick={() => window.scrollTo(0, 0)}>
+        <Link
+          to={`/post/${post.id}`}
+          onClick={() => window.scrollTo(0, 0)}
+          className="comment-link"
+        >
           <button className="comment">
             <FaRegCommentAlt className="icon" /> Comments
           </button>
