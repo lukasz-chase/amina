@@ -250,9 +250,11 @@ const Post: React.FC<PostProps> = ({ post }) => {
             downvoted={downvoted}
           />
         </div>
-        <button className="comment">
-          <FaRegCommentAlt className="icon" /> Comments
-        </button>
+        <Link to={`/post/${post.id}`} onClick={() => window.scrollTo(0, 0)}>
+          <button className="comment">
+            <FaRegCommentAlt className="icon" /> Comments
+          </button>
+        </Link>
         <button className="share" onClick={() => navigator.share(shareData)}>
           <IoIosShareAlt className="icon" /> Share
         </button>

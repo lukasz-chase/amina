@@ -43,6 +43,7 @@ export const CreatePostComponent = styled.div<Props>`
         @media screen and (max-width: 1000px) {
           width: 100%;
           padding: 0.5rem;
+          height: 4rem;
         }
       }
       span {

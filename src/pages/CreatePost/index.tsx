@@ -54,7 +54,7 @@ const CreatePost: React.FC = () => {
     const hour = today.getHours();
     const minutes = today.getMinutes();
     const seconds = today.getSeconds();
-    if (subamin && postTitle) {
+    if (subamin.birthday !== "loading" && postTitle) {
       axios
         .post(`https://amina-server.herokuapp.com/posts`, {
           subaminId: subamin!.id,
