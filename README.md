@@ -1,46 +1,37 @@
-# Getting Started with Create React App
+you can check it live on: https://amina-one.vercel.app/
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+To run this app on your computer follow these steps:
 
-## Available Scripts
+1.run in your cmd - git clone https://github.com/luki752/amina.git
 
-In the project directory, you can run:
+2.when its cloned run in your cmd - npm install
 
-### `npm start`
+3.after everything is installed you can run the project - npm start
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Amina is a project that I created to learn TypeScript and to master my skills with react and styled-components.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+![Amina](https://user-images.githubusercontent.com/58302409/118174479-2a3c7580-b42f-11eb-9410-401c41faa8e6.PNG)
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+This page is a reddit clone, where you can look through your feed, and if you see something you enjoy you can like and comment it. if you are logged in of course.
+![2](https://user-images.githubusercontent.com/58302409/118244784-3b719a80-b4a0-11eb-88dd-c66080c557f7.PNG)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+![Przechwytywanie](https://user-images.githubusercontent.com/58302409/118244790-3c0a3100-b4a0-11eb-9139-2c2feb096a03.PNG)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+You can change posts view and switch between darkmode and lightmode.
+![Przechwytywanie](https://user-images.githubusercontent.com/58302409/118245287-e71aea80-b4a0-11eb-8a24-79c97f45734d.PNG)
+You can join a subamin and post to it.
+![Przechwytywanie](https://user-images.githubusercontent.com/58302409/118245418-103b7b00-b4a1-11eb-84b5-3f0fc03318e9.PNG)
+You can create your own subamin.
+![Przechwytywanie](https://user-images.githubusercontent.com/58302409/118245571-47aa2780-b4a1-11eb-924c-9415cf129a13.PNG)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+On your profile you can see posts created by you, saved by you. You can change your avatar, email, password.
+![1](https://user-images.githubusercontent.com/58302409/118245886-98ba1b80-b4a1-11eb-876c-ebf85cf701a0.PNG)
+![Przechwytywanie](https://user-images.githubusercontent.com/58302409/118245890-9952b200-b4a1-11eb-8129-8dc64abf8e5c.PNG)
+You can also search for subamins and posts that interest you.
+![1](https://user-images.githubusercontent.com/58302409/118246116-ddde4d80-b4a1-11eb-95f9-d86c43b44f55.PNG)
+![Przechwytywanie](https://user-images.githubusercontent.com/58302409/118246119-de76e400-b4a1-11eb-9f52-e090f75b15f0.PNG)
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
