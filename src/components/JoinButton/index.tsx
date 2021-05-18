@@ -116,6 +116,7 @@ const JoinButton: React.FC<joinProps> = ({ id }) => {
           );
       });
   };
+
   return (
     <Button
       $darkmode={darkMode}

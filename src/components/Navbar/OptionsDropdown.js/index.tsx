@@ -71,6 +71,7 @@ const OptionsDropdown: React.FC<Props> = ({ open, setOpen }) => {
     setOpen(!open);
     window.scrollTo(0, 0);
   };
+
   return (
     <Dropdown open={open} darkMode={darkMode}>
       {isLogged && (

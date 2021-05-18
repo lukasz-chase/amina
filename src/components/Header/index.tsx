@@ -70,6 +70,7 @@ const Header: React.FC<HeaderProps> = ({
       newFunction!(limit, question);
     }
   };
+
   return (
     <HeaderComponent darkmode={darkMode}>
       <div className="buttons">

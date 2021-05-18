@@ -68,9 +68,9 @@ const UserDetails = () => {
   }, [fetchLoggedUser, userId, fetchUser]);
   useEffect(() => {
     if (isLogged) {
-      fetchUserCreatedSubamins(loggedUser.id);
+      fetchUserCreatedSubamins(user.id);
     }
-  }, [isLogged, fetchUserCreatedSubamins, loggedUser.id]);
+  }, [isLogged, fetchUserCreatedSubamins, user.id]);
   useEffect(() => {
     fetchNewUserPosts(limit, user.id);
     if (isLogged) {
@@ -334,18 +334,19 @@ const UserDetails = () => {
             className="logo"
           />
         </div>
-        {isLogged &&
-          loggedUser.id === Number(userId) &&
-          userCreatedSubamins.length > 0 && (
-            <div className="user-subamins">
-              <span className="moderator">
-                You/re moderator of these communities
-              </span>
-              {userCreatedSubamins.map((subamin) => (
-                <Community subamin={subamin} />
-              ))}
-            </div>
-          )}
+        {isLogged && userCreatedSubamins.length > 0 && (
+          <div className="user-subamins">
+            <span className="moderator">
+              {loggedUser.id === Number(userId)
+                ? "You/re moderator"
+                : "Moderator"}{" "}
+              of these communities
+            </span>
+            {userCreatedSubamins.map((subamin) => (
+              <Community subamin={subamin} />
+            ))}
+          </div>
+        )}
       </div>
     </UserDetailsComponent>
   );

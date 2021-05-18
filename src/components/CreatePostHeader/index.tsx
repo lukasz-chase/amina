@@ -14,6 +14,7 @@ import { Link } from "react-router-dom";
 import { Location } from "history";
 
 const CreatePostHeader = () => {
+  //state
   const loggedUser = userState<User>((state) => state.loggedUser);
   const isLogged = userState<boolean>((state) => state.isLogged);
   const darkmodeState = viewState<boolean>((state) => state.darkMode);

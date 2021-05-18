@@ -32,6 +32,7 @@ export const CreatePostComponent = styled.div<Props>`
 
     .choose-community {
       position: relative;
+      cursor: pointer;
       .wrapper {
         width: 20vw;
         background-color: ${({ darkmode }) => (darkmode ? "#1A1A1B" : "white")};

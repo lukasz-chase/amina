@@ -1,4 +1,3 @@
-import React from "react";
 //components
 import GlobalStyles from "./components/GlobalStyles";
 import Navbar from "./components/Navbar";

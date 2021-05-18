@@ -21,6 +21,7 @@ const Community: React.FC<Props> = ({ subamin, search }) => {
   const isLogged = userState<boolean>((state) => state.isLogged);
   const darkmodeState = viewState<boolean>((state) => state.darkMode);
   const darkmode: boolean = isLogged ? loggedUser.darkMode : darkmodeState;
+
   return (
     <CommunityComponent darkmode={darkmode}>
       <img src={subamin.logo} alt={subamin.name} />

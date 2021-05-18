@@ -48,6 +48,7 @@ const Navbar: React.FC = () => {
       setQuestion("");
     }
   };
+
   return (
     <Nav $darkmode={darkMode}>
       <Logo $darkmode={darkMode} to="/">
