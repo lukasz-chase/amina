@@ -256,7 +256,8 @@ const Post: React.FC<PostProps> = ({ post }) => {
           className="comment-link"
         >
           <button className="comment">
-            <FaRegCommentAlt className="icon" /> Comments
+            <FaRegCommentAlt className="icon" />{" "}
+            {post.comments!.length >= 100 ? "" : post.comments!.length} Comments
           </button>
         </Link>
         <button className="share" onClick={() => navigator.share(shareData)}>

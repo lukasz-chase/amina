@@ -18,6 +18,7 @@ import { Link } from "react-router-dom";
 import { User, Subamin, PostProperties } from "../../interfaces";
 //scroll bottom
 import { BottomScrollListener } from "react-bottom-scroll-listener";
+import HelpComponent from "../../components/HelpComponent";
 
 const Home: React.FC = () => {
   //state
@@ -108,6 +109,7 @@ const Home: React.FC = () => {
             </Link>
           </div>
         )}
+        <HelpComponent />
       </Info>
     </HomeComponent>
   );

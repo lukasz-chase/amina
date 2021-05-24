@@ -21,6 +21,7 @@ import { User } from "../../interfaces";
 //location
 import { useHistory } from "react-router-dom";
 import { Location } from "history";
+import HelpComponent from "../../components/HelpComponent";
 
 const CreatePost: React.FC = () => {
   //state
@@ -157,6 +158,7 @@ const CreatePost: React.FC = () => {
             </div>
             <span>Please be mindful of amina's content policy</span>
             <p> and practice good aminquette.</p>
+            <HelpComponent />
           </div>
         </CreatePostComponent>
       )}
