@@ -93,7 +93,7 @@ export const UserDetailsComponent = styled.div<Props>`
       position: relative;
       margin-top: 3rem;
       background-color: ${({ darkmode }) => (darkmode ? "#1A1A1B" : "white")};
-      width: 50vh;
+      width: 20vw;
       border-radius: 5px;
       @media screen and (max-width: 1100px) {
         width: 100%;
@@ -167,7 +167,7 @@ export const UserDetailsComponent = styled.div<Props>`
       display: flex;
       flex-direction: column;
       background-color: ${({ darkmode }) => (darkmode ? "#1A1A1B" : "white")};
-      width: 50vh;
+      width: 20vw;
       border-radius: 5px;
       margin: 1rem 0;
       span {

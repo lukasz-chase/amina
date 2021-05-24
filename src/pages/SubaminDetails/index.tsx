@@ -26,6 +26,7 @@ import TextField from "@material-ui/core/TextField";
 import Input from "@material-ui/core/Input";
 //axios
 import axios from "axios";
+import HelpComponent from "../../components/HelpComponent";
 
 const SubaminDetails: React.FC = () => {
   //state
@@ -336,6 +337,7 @@ const SubaminDetails: React.FC = () => {
               </div>
             )}
           </div>
+          <HelpComponent />
         </div>
       </div>
     </DetailsComponent>

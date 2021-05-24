@@ -25,6 +25,7 @@ import Base64 from "crypto-js/enc-base64";
 //scroll bottom
 import { BottomScrollListener } from "react-bottom-scroll-listener";
 import Community from "../../components/Community";
+import HelpComponent from "../../components/HelpComponent";
 //components
 
 const UserDetails = () => {
@@ -347,6 +348,7 @@ const UserDetails = () => {
             ))}
           </div>
         )}
+        <HelpComponent />
       </div>
     </UserDetailsComponent>
   );

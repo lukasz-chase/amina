@@ -94,7 +94,7 @@ export const DetailsComponent = styled.div<DetailsProps>`
         order: 1;
       }
       .about {
-        width: 20rem;
+        width: 20vw;
         background-color: ${({ darkmode }) => (darkmode ? "#1A1A1B" : "white")};
         color: ${({ darkmode }) => (darkmode ? "#D7DADC" : "black")};
         margin-top: 1rem;
