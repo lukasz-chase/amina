@@ -109,6 +109,28 @@ const Home: React.FC = () => {
             </Link>
           </div>
         )}
+        <div className="popular">
+          <h2>Popular posts</h2>
+          {posts
+            .sort((a, b) => b.comments!.length - a.comments!.length)
+            .slice(0, 5)
+            .sort((a, b) => b.upvotes - a.upvotes)
+            .map((post) => (
+              <Link
+                to={`/post/${post.id}`}
+                className="post"
+                onClick={() => window.scrollTo(0, 0)}
+              >
+                {post.image && (
+                  <img src={post.image} alt={post.title} className="image" />
+                )}
+                <div className="info">
+                  <span className="title">{post.title}</span>
+                  <span className="upvotes">{post.upvotes} upvotes</span>
+                </div>
+              </Link>
+            ))}
+        </div>
         <HelpComponent />
       </Info>
     </HomeComponent>

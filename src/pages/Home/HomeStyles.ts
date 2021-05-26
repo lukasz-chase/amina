@@ -66,6 +66,43 @@ export const Info = styled.div<homeProps>`
       }
     }
   }
+  .popular {
+    width: 20vw;
+    background: ${({ darkmode }) => (darkmode ? "#1A1A1B" : "white")};
+    display: flex;
+    flex-direction: column;
+    h2 {
+      color: ${({ darkmode }) => (darkmode ? "white" : "black")};
+      font-size: 1rem;
+      text-align: center;
+      padding: 1rem;
+    }
+    .post {
+      width: 20vw;
+      display: flex;
+      font-size: 0.8rem;
+      padding: 0.5rem;
+      text-decoration: none;
+      img {
+        height: 7vh;
+        width: 5vw;
+        object-fit: cover;
+      }
+      .info {
+        color: ${({ darkmode }) => (darkmode ? "white" : "black")};
+        display: flex;
+        flex-direction: column;
+        width: 20vw;
+        margin-left: 1vw;
+        .title {
+          width: 13vw;
+          word-wrap: break-word;
+        }
+        .upvotes {
+        }
+      }
+    }
+  }
   .create {
     display: flex;
     flex-direction: column;
