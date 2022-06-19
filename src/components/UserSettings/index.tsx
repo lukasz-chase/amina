@@ -60,6 +60,7 @@ const UserSettings: React.FC<SettingsProperties> = ({
         birthday: loggedUser.birthday!,
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loggedUser]);
   //handlers
   const snackbarHandler = (snackbarMessage: any, snackVariant: any) => {

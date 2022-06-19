@@ -56,6 +56,7 @@ const CreateCommunity: React.FC = () => {
         desc: subamin.desc,
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [subamin, subaminId]);
   //handlers
   const emptyForm = () => {

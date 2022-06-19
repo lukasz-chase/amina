@@ -42,7 +42,7 @@ const Navbar: React.FC = () => {
   const subamin = subaminState((state) => state.subamin);
   useEffect(() => {
     if (isLogged) fetchLoggedUser();
-  }, [isLogged]);
+  }, [isLogged, fetchLoggedUser]);
   //handlers
   const searchHandler = (text: string) => {
     if (question !== "") {
