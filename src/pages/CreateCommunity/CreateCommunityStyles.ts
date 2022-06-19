@@ -6,7 +6,7 @@ type Props = {
 };
 
 export const CreateCommunityComponent = styled.div<Props>`
-  min-height: 93vh;
+  min-height: calc(100vh - 50px);
   background-color: ${({ darkmode }) => (darkmode ? "#030303" : "#DAE0E6")};
   color: ${({ darkmode }) => (darkmode ? "#D2D5D7" : "black")};
   display: flex;
@@ -24,35 +24,6 @@ export const CreateCommunityComponent = styled.div<Props>`
     padding: 0.5rem;
     @media screen and (max-width: 1000px) {
       width: 100%;
-    }
-    .MuiInputBase-input {
-      padding: 0.5rem;
-      background-color: ${({ darkmode }) => (darkmode ? "#1A1A1B" : "white")};
-      color: ${({ darkmode }) => (darkmode ? "#CDD0D2" : "black")};
-    }
-    .community-name,
-    .community-backg,
-    .community-logo {
-      border: ${({ darkmode }) =>
-        darkmode ? "1px solid #343536" : "1px solid black"};
-      padding: 0.5rem;
-      margin-bottom: 0.5rem;
-      @media screen and (max-width: 1000px) {
-        width: 100%;
-      }
-      .text {
-        color: ${({ darkmode }) => (darkmode ? "#CDD0D2" : "black")};
-      }
-    }
-    .community-desc {
-      padding: 0.5rem;
-      border: ${({ darkmode }) =>
-        darkmode ? "1px solid #343536" : "1px solid black"};
-      width: 51vw;
-      font-family: "Noto Sans", sans-serif;
-      @media screen and (max-width: 1000px) {
-        width: 100%;
-      }
     }
     .submit {
       padding: 0.5rem;

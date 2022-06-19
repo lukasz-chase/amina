@@ -1,43 +1,46 @@
 import create from "zustand";
 //api
-import { subaminDetails, subaminsPosts } from "../api";
+import * as api from "../api";
 //interfaces
 import { Subamin, PostProperties } from "../interfaces";
 
 type Store = {
   subamin: Subamin;
-  fetchSubamin: (id: number) => void;
+  fetchSubamin: (id: String) => void;
   subaminPosts: PostProperties[];
-  fetchSubaminTopPosts: (limit: number, id?: number) => void;
-  fetchSubaminNewPosts: (limit: number, id?: number) => void;
+  fetchSubaminPosts: (limit: number, order: string, id?: String) => void;
   limit: number;
   changeLimit: (by: number) => void;
 };
 
 const subaminState = create<Store>((set) => ({
   subamin: {
-    id: 0,
+    _id: "0",
     name: "loading",
     members: 1,
     logo: "loading",
     desc: "loading",
-    birthday: "loading",
-    authorId: 1,
+    createdAt: "loading",
+    authorId: "1",
   },
   limit: 20,
   changeLimit: (by: number) => set((state) => ({ limit: state.limit + by })),
   fetchSubamin: async (id) => {
-    const response = await fetch(subaminDetails(id));
-    set({ subamin: await response.json() });
+    try {
+      const { data } = await api.getSubaminDetails(id);
+      set({ subamin: data });
+    } catch (error) {
+      console.log(error);
+    }
   },
   subaminPosts: [],
-  fetchSubaminTopPosts: async (limit, id) => {
-    const response = await fetch(subaminsPosts(id!, "upvotes", "desc", limit));
-    set({ subaminPosts: await response.json() });
-  },
-  fetchSubaminNewPosts: async (limit, id) => {
-    const response = await fetch(subaminsPosts(id!, "id", "desc", limit));
-    set({ subaminPosts: await response.json() });
+  fetchSubaminPosts: async (limit, order, id) => {
+    try {
+      const { data } = await api.getSubaminPosts(limit, order, id);
+      set({ subaminPosts: data });
+    } catch (error) {
+      console.log(error);
+    }
   },
 }));
 

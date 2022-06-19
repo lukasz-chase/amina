@@ -26,14 +26,7 @@ export const SubaminsDropdown = styled.div<DropdownProps>`
     width: 100%;
   }
   .text-input {
-    align-self: center;
-    margin: 0.5rem 0;
-    .textField {
-      height: 2rem;
-      color: ${({ darkmode }) => (darkmode ? "white" : "gray")};
-      padding: 0.5rem;
-      border: 1px solid gray;
-    }
+    padding: 5px;
   }
   span {
     color: ${({ darkmode }) => (darkmode ? "#818384" : "black")};
@@ -46,6 +39,7 @@ export const Community = styled.div<CommunityProps>`
   align-items: center;
   padding: 0.4rem 1rem;
   text-decoration: none;
+  font-size: 3;
   color: ${({ darkmode }) => (darkmode ? "#D7DADC" : "black")};
   &:hover {
     cursor: pointer;
@@ -59,5 +53,6 @@ export const Community = styled.div<CommunityProps>`
     height: 4vh;
     width: 4vh;
     border-radius: 2vh;
+    object-fit: cover;
   }
 `;

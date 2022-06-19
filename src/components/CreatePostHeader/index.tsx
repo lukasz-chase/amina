@@ -25,12 +25,12 @@ const CreatePostHeader = () => {
     <CreatePostComponent darkmode={darkMode}>
       <img
         src={
-          loggedUser.logo
-            ? loggedUser.logo
+          loggedUser.avatar
+            ? loggedUser.avatar
             : "https://assets.faceit-cdn.net/organizer_avatar/7a6cd9b4-aec0-4191-8c00-5ae5144aa58c_1574641946899.jpg"
         }
         alt={loggedUser.username}
-        onClick={() => history.push(`/user/${loggedUser.id}`)}
+        onClick={() => history.push(`/user/${loggedUser._id}`)}
       />
       <Link to="/create/post" className="link">
         <Input

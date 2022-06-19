@@ -64,5 +64,8 @@ export const LoginComponent = styled.div<LoginProps>`
         text-decoration: none;
       }
     }
+    .error {
+      color: tomato;
+    }
   }
 `;

@@ -1,69 +1,95 @@
 import create from "zustand";
-//url
-import { subaminsUrl, feed, usersSubamins, allSubaminsUrl } from "../api";
 //interfaces
 import { PostProperties, Subamin } from "../interfaces";
+//api
+import * as api from "../api";
 
 type Store = {
   subamins: Subamin[];
   allSubamins: Subamin[];
-  fetchAllSubamins: () => void;
-  fetchSubamins: () => void;
-  fetchNewSubaminByIds: (ids: number[], limit: number) => void;
-  fetchTopSubaminByIds: (ids: number[], limit: number) => void;
   usersFeed: PostProperties[];
   usersSubaminas: Subamin[];
-  fetchUsersSubamins: (ids: number[], name: string, limit: number) => void;
   limit: number;
+  subamin: Subamin;
+  isLoading: boolean;
+  getTopSubamins: () => void;
+  joinSubamin: (userId: String, subaminId: String) => void;
+  fetchUsersSubaminsBySearch: (id: String, searchQuery: string) => void;
   changeLimit: (by: number) => void;
-  createCommunity: Subamin;
-  setCommunity: (subamin?: Subamin) => void;
+  setCommunity: (subamin2?: Subamin) => void;
+  createSubamin: (subaminData: any, history: any) => void;
+  editSubamin: (id: String, subaminData: any, history: any) => void;
 };
 
 export const subaminsState = create<Store>((set) => ({
   subamins: [],
+  isLoading: true,
   allSubamins: [],
   usersFeed: [],
-  createCommunity: {
-    id: 0,
+  subamin: {
+    _id: "0",
     name: "loading",
     members: 1,
     logo: "loading",
     desc: "loading",
-    birthday: "loading",
-    authorId: 1,
+    createdAt: "loading",
+    authorId: "1",
   },
-  setCommunity: (subamin) => set(() => ({ createCommunity: subamin! })),
+  createSubamin: async (subaminData, history) => {
+    try {
+      const { data } = await api.createSubamin(subaminData);
+      set((state) => ({ subamins: [...state.subamins, data] }));
+      history.push(`/s/${data._id}`);
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  editSubamin: async (id, subaminData, history) => {
+    try {
+      const { data } = await api.editSubamin(id, subaminData);
+      set((state) => ({
+        subamins: state.subamins.map((subamin) =>
+          subamin._id === data._id ? data : subamin
+        ),
+      }));
+      history.push(`/s/${data._id}`);
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  joinSubamin: async (userId, subaminId) => {
+    try {
+      const { data } = await api.joinSubamin(userId, subaminId);
+      set((state) => ({
+        usersSubaminas: [...state.usersSubaminas, data.user],
+      }));
+      set((state) => ({
+        subamins: state.subamins.map((subamin) =>
+          subamin._id === subaminId ? data.subamin : subamin
+        ),
+      }));
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  setCommunity: (subamin2) => set(() => ({ subamin: subamin2! })),
   limit: 20,
   changeLimit: (by: number) => set((state) => ({ limit: state.limit + by })),
-  fetchSubamins: async () => {
-    const response = await fetch(subaminsUrl);
-    set({ subamins: await response.json() });
+  getTopSubamins: async () => {
+    try {
+      const { data } = await api.getTopSubamins();
+      set({ subamins: data });
+    } catch (error) {
+      console.log(error);
+    }
   },
-  fetchAllSubamins: async () => {
-    const response = await fetch(allSubaminsUrl("id", "desc"));
-    set({ allSubamins: await response.json() });
-  },
-  fetchNewSubaminByIds: async (ids: number[], limit) => {
-    const url = `${feed("id", "desc", limit)}${ids
-      .map((id) => `&subaminId=${id}`)
-      .join("")}`;
-    const response = await fetch(url);
-    set({ usersFeed: await response.json() });
-  },
-  fetchTopSubaminByIds: async (ids: number[], limit) => {
-    const url = `${feed("upvotes", "desc", limit)}${ids
-      .map((id) => `&subaminId=${id}`)
-      .join("")}`;
-    const response = await fetch(url);
-    set({ usersFeed: await response.json() });
-  },
-  fetchUsersSubamins: async (ids: number[], name: string, limit) => {
-    const url = `${usersSubamins(name, limit)}${ids
-      .map((id) => `&id=${id}`)
-      .join("")}`;
-    const response = await fetch(url);
-    set({ usersSubaminas: await response.json() });
+  fetchUsersSubaminsBySearch: async (id, searchQuery) => {
+    try {
+      const { data } = await api.getUserSubaminsBySearch(id, searchQuery);
+      set({ usersSubaminas: data });
+    } catch (error) {
+      console.log(error);
+    }
   },
   usersSubaminas: [],
 }));

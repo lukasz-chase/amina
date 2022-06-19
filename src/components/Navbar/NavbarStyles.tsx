@@ -32,6 +32,7 @@ export const Nav = styled.nav<NavProps>`
       border: ${({ $darkmode }) =>
         $darkmode ? "1px solid black" : "1px solid white"};
       padding: 0.5rem 1rem;
+      overflow: hidden;
       &:hover {
         border: 1px solid #edeff1;
       }
@@ -40,12 +41,16 @@ export const Nav = styled.nav<NavProps>`
         height: 4vh;
         width: 2vw;
         border-radius: 2vh;
+        object-fit: cover;
       }
       .info {
-        width: 50%;
+        width: 100%;
         display: flex;
         align-items: center;
-        justify-content: space-between;
+        justify-content: start;
+        .name {
+          padding-left: 5px;
+        }
       }
     }
     @media screen and (max-width: 1000px) {
@@ -76,6 +81,7 @@ export const Logo = styled(Link)<NavProps>`
 `;
 export const TextInput = styled.div<NavProps>`
   .textField {
+    padding: 1px;
     color: ${({ $darkmode }) => ($darkmode ? "white" : "gray")};
     border: 1px solid gray;
     width: 40vw;

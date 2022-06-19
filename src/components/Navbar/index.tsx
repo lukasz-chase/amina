@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 //styling
 import { Nav, Logo, TextInput, Buttons, Account } from "./NavbarStyles";
 //image
@@ -25,8 +25,6 @@ import viewState from "../../state/viewState";
 import userState from "../../state/userState";
 import subaminState from "../../state/subaminDetailsState";
 import YourSubamins from "../YourSubamins";
-//interfaces
-import { User } from "../../interfaces";
 
 const Navbar: React.FC = () => {
   //state
@@ -34,13 +32,15 @@ const Navbar: React.FC = () => {
   const [openCommunity, setOpenCommunity] = useState<boolean>(false);
   const [question, setQuestion] = useState<string>("");
   const history = useHistory<Location>();
-  const loggedUser = userState<User>((state) => state.loggedUser);
-  const isLogged = userState<boolean>((state) => state.isLogged);
+  const { fetchLoggedUser, loggedUser, isLogged } = userState((state) => state);
   const darkmodeState = viewState<boolean>((state) => state.darkMode);
   const darkMode: boolean = isLogged ? loggedUser.darkMode : darkmodeState;
   const location = useLocation<Location>();
   const site = location.pathname.split("/")[1];
   const subamin = subaminState((state) => state.subamin);
+  useEffect(() => {
+    fetchLoggedUser();
+  }, []);
   //handlers
   const searchHandler = (text: string) => {
     if (question !== "") {
@@ -57,7 +57,7 @@ const Navbar: React.FC = () => {
           am<span>i</span>na
         </h1>
       </Logo>
-      {!site && isLogged && (
+      {isLogged && (
         <div className="wrapper">
           <div
             className="community"
@@ -65,28 +65,17 @@ const Navbar: React.FC = () => {
           >
             {" "}
             <div className="info">
-              <AiFillHome className="community-icon" /> Home
-            </div>
-            <div className="arrow">
-              <MdArrowDropDown className="arrow-icon" />
-            </div>
-          </div>
-          <YourSubamins
-            open={openCommunity}
-            setOpen={setOpenCommunity}
-            width="15vw"
-            nav
-          />
-        </div>
-      )}
-      {site === "s" && isLogged && (
-        <div className="wrapper">
-          <div
-            className="community"
-            onClick={() => setOpenCommunity(!openCommunity)}
-          >
-            <div className="info">
-              <img src={subamin.logo} alt={subamin.name} /> {subamin.name}
+              {site === "s" ? (
+                <>
+                  <img src={subamin.logo} alt={subamin.name} />
+                  <div className="name">{subamin.name}</div>
+                </>
+              ) : (
+                <>
+                  <AiFillHome className="community-icon" />
+                  <div className="name">Home</div>
+                </>
+              )}
             </div>
             <div className="arrow">
               <MdArrowDropDown className="arrow-icon" />
@@ -152,15 +141,15 @@ const Navbar: React.FC = () => {
             {isLogged && (
               <img
                 src={
-                  loggedUser.logo
-                    ? loggedUser.logo
+                  loggedUser.avatar
+                    ? loggedUser.avatar
                     : "https://assets.faceit-cdn.net/organizer_avatar/7a6cd9b4-aec0-4191-8c00-5ae5144aa58c_1574641946899.jpg"
                 }
-                alt={loggedUser.logo}
+                alt={loggedUser.avatar}
                 className="logo"
               />
             )}
-            {isLogged && <span className="name">{loggedUser.username}</span>}
+            {isLogged && <span className="name">{loggedUser?.username}</span>}
           </div>
           {!isLogged && <MdAccountCircle className="account-icon" />}
           <RiArrowDownSFill className="account-icon" />

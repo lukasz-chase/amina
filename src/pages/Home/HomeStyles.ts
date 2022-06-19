@@ -21,7 +21,7 @@ export const Posts = styled.div<homeProps>`
   display: flex;
   flex-direction: column;
   .post-wrapper {
-    width: ${({ classicview }) => (classicview ? "130vh" : "90vh")};
+    /* width: ${({ classicview }) => (classicview ? "130vh" : "90vh")}; */
     justify-self: flex-end;
     align-self: flex-end;
     @media screen and (max-width: 1100px) {
@@ -36,6 +36,9 @@ export const Info = styled.div<homeProps>`
   margin-left: 2rem;
   height: fit-content;
   border-radius: 5px;
+  @media screen and (max-width: 1300px) {
+    width: fit-content;
+  }
   .trending {
     border: 1px solid #474748;
     background: ${({ darkmode }) => (darkmode ? "#1A1A1B" : "white")};

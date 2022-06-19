@@ -14,84 +14,76 @@ import CreatePostHeader from "../../components/CreatePostHeader";
 import Community from "../../components/Community";
 //router
 import { Link } from "react-router-dom";
-//interface
-import { User, Subamin, PostProperties } from "../../interfaces";
 //scroll bottom
 import { BottomScrollListener } from "react-bottom-scroll-listener";
 import HelpComponent from "../../components/HelpComponent";
 
 const Home: React.FC = () => {
   //state
-  const loggedUser = userState<User>((state) => state.loggedUser);
-  const isLogged = userState<boolean>((state) => state.isLogged);
-  const darkmodeState = viewState<boolean>((state) => state.darkMode);
-  const darkmode: boolean = isLogged ? loggedUser.darkMode : darkmodeState;
-  const fetchSubamins = subaminsState((state) => state.fetchSubamins);
-  const fetchTopPosts = postState((state) => state.fetchTopPosts);
-  const fetchNewPosts = postState((state) => state.fetchNewPosts);
-  const posts = postState((state) => state.posts);
-  const classicview = viewState<boolean>((state) => state.classicView);
-  const subamins = subaminsState<Subamin[]>((state) => state.subamins);
-  const usersFeed = subaminsState<PostProperties[]>((state) => state.usersFeed);
-  const fetchNewSubaminByIds = subaminsState(
-    (state) => state.fetchNewSubaminByIds
-  );
-  const fetchUser = userState((state) => state.fetchLoggedUser);
-  const limit = postState((s) => s.limit);
-  const changeLimit = postState((s) => s.changeLimit);
+  const { loggedUser, isLogged, fetchLoggedUser } = userState((state) => state);
+  const { classicView, darkMode: darkModeState } = viewState((state) => state);
+  const darkmode: boolean = isLogged ? loggedUser.darkMode : darkModeState;
+  const { getTopSubamins, subamins } = subaminsState((state) => state);
+  const {
+    fetchPosts,
+    posts,
+    limit,
+    changeLimit,
+    usersFeed,
+    getUserFeed,
+    fetchTopPosts,
+    topPosts,
+  } = postState((state) => state);
   //useEffect
   useEffect(() => {
-    fetchUser(Number(localStorage.getItem("userId")));
-    fetchSubamins();
-    fetchTopPosts(limit);
-  }, [fetchSubamins, fetchTopPosts, fetchUser, limit]);
-  useEffect(() => {
-    if (isLogged) {
-      fetchNewSubaminByIds(loggedUser.followedSubaminas, limit);
-    }
-  }, [loggedUser.followedSubaminas, fetchNewSubaminByIds, isLogged, limit]);
+    fetchLoggedUser();
+    getTopSubamins();
+    fetchPosts(limit, "upvotes");
+    fetchTopPosts(5);
+    getUserFeed(loggedUser._id, limit, "upvotes");
+  }, [
+    getTopSubamins,
+    fetchLoggedUser,
+    limit,
+    fetchPosts,
+    getUserFeed,
+    loggedUser._id,
+    fetchTopPosts,
+  ]);
   //handlers
   const handleLimit = () => {
     changeLimit(20);
   };
-
   return (
-    <HomeComponent darkmode={darkmode} classicview={classicview}>
+    <HomeComponent darkmode={darkmode} classicview={classicView}>
       <BottomScrollListener onBottom={handleLimit} />
       <BackToTopButton />
-      <Posts darkmode={darkmode} classicview={classicview}>
+      <Posts darkmode={darkmode} classicview={classicView}>
         <div className="post-wrapper">
           {isLogged && <CreatePostHeader />}
           {isLogged && usersFeed ? (
             <>
               <Header feed limit={limit} />
-              {usersFeed.map((post) => (
-                <Post post={post} key={post.id} />
+              {usersFeed.map((post, i) => (
+                <Post post={post} key={i} />
               ))}
             </>
           ) : (
             <>
-              <Header
-                topFunction={fetchTopPosts}
-                newFunction={fetchNewPosts}
-                limit={limit}
-              />
-              {posts.map((post) => (
-                <Post post={post} key={post.id} />
+              <Header postsFunction={fetchPosts} limit={limit} />
+              {posts.map((post, i) => (
+                <Post post={post} key={i} />
               ))}
             </>
           )}
         </div>
       </Posts>
-      <Info darkmode={darkmode} classicview={classicview}>
+      <Info darkmode={darkmode} classicview={classicView}>
         <div className="trending">
           <h2>Most popular subaminas</h2>
-          {subamins
-            .sort((a, b) => b.members - a.members)
-            .slice(0, 5)
-            .map((subamin, index) => (
-              <Community subamin={subamin} key={index} />
-            ))}
+          {subamins.map((subamin, index) => (
+            <Community subamin={subamin} key={index} />
+          ))}
         </div>
         {isLogged && (
           <div className="create">
@@ -111,25 +103,22 @@ const Home: React.FC = () => {
         )}
         <div className="popular">
           <h2>Popular posts</h2>
-          {posts
-            .sort((a, b) => b.comments!.length - a.comments!.length)
-            .slice(0, 5)
-            .sort((a, b) => b.upvotes - a.upvotes)
-            .map((post) => (
-              <Link
-                to={`/post/${post.id}`}
-                className="post"
-                onClick={() => window.scrollTo(0, 0)}
-              >
-                {post.image && (
-                  <img src={post.image} alt={post.title} className="image" />
-                )}
-                <div className="info">
-                  <span className="title">{post.title}</span>
-                  <span className="upvotes">{post.upvotes} upvotes</span>
-                </div>
-              </Link>
-            ))}
+          {topPosts?.map((post) => (
+            <Link
+              to={`/post/${post._id}`}
+              className="post"
+              onClick={() => window.scrollTo(0, 0)}
+              key={post.title}
+            >
+              {post.images && post.images.length > 0 && (
+                <img src={post.images[0]} alt={post.title} className="image" />
+              )}
+              <div className="info">
+                <span className="title">{post.title}</span>
+                <span className="upvotes">{post.upvotes} upvotes</span>
+              </div>
+            </Link>
+          ))}
         </div>
         <HelpComponent />
       </Info>

@@ -6,6 +6,8 @@ import viewState from "../../state/viewState";
 import userState from "../../state/userState";
 //interfaces
 import { User } from "../../interfaces";
+//data
+import { helpLinks } from "../../descriptions/links";
 
 const HelpComponent: React.FC = () => {
   //state
@@ -16,38 +18,14 @@ const HelpComponent: React.FC = () => {
   return (
     <HelpWrapper darkmode={darkMode}>
       <table>
-        <tr>
-          <td>Help</td>
-          <td>About</td>
-        </tr>
-        <tr>
-          <td>Amina App</td>
-          <td>Carrer</td>
-        </tr>
-        <tr>
-          <td>Amina Coins</td>
-          <td>Press</td>
-        </tr>
-        <tr>
-          <td>Amina Premium</td>
-          <td>Advertise</td>
-        </tr>
-        <tr>
-          <td>Amina Gifts</td>
-          <td>Blog</td>
-        </tr>
-        <tr>
-          <td>Communities</td>
-          <td>Terms</td>
-        </tr>
-        <tr>
-          <td>Amamina</td>
-          <td>Content Policy</td>
-        </tr>
-        <tr>
-          <td>Topics</td>
-          <td>Mod Policy</td>
-        </tr>
+        <tbody>
+          {helpLinks.map((link) => (
+            <tr key={link.row1}>
+              <td>{link.row1}</td>
+              <td>{link.row2}</td>
+            </tr>
+          ))}
+        </tbody>
       </table>
       <span>Amina Inc 2021.All rights reserved</span>
     </HelpWrapper>

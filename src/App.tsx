@@ -12,11 +12,18 @@ import LoginPage from "./pages/LoginPage";
 import CreatePost from "./pages/CreatePost";
 import CreateCommunity from "./pages/CreateCommunity";
 import UserDetails from "./pages/UserDetails";
+//store
+import viewState from "./state/viewState";
+import userState from "./state/userState";
 
 function App() {
+  const loggedUser = userState((state) => state.loggedUser);
+  const isLogged = userState<boolean>((state) => state.isLogged);
+  const darkmodeState = viewState<boolean>((state) => state.darkMode);
+  const darkmode: boolean = isLogged ? loggedUser.darkMode : darkmodeState;
   return (
     <div className="App">
-      <GlobalStyles />
+      <GlobalStyles darkmode={darkmode} />
       <Navbar />
       <Route path="/" exact>
         <Home />
@@ -36,7 +43,7 @@ function App() {
       <Route path="/create/post" exact>
         <CreatePost />
       </Route>
-      <Route path="/create/subamin" exact>
+      <Route path={["/edit/subamin/:id", "/create/subamin"]} exact>
         <CreateCommunity />
       </Route>
       <Route path={["/login", "/login/upvote", "/register"]} exact>

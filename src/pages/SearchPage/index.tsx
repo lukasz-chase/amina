@@ -12,8 +12,6 @@ import userState from "../../state/userState";
 import Post from "../../components/Post";
 import Header from "../../components/Header";
 import BackToTopButton from "../../components/BackToTopButton";
-//interface
-import { User, PostProperties, Subamin } from "../../interfaces";
 //scroll bottom
 import { BottomScrollListener } from "react-bottom-scroll-listener";
 import Community from "../../components/Community";
@@ -23,31 +21,29 @@ const SearchPage: React.FC = () => {
   const location = useLocation<Location>();
   const question = location.pathname.split("/")[3];
   const path = location.pathname.split("/")[2];
-  const subamins = searchState<Subamin[]>((state) => state.subaminasSearch);
-  const posts = searchState<PostProperties[]>((state) => state.postSearch);
-  const fetchTopPosts = searchState((state) => state.fetchTopPostsSearch);
-  const fetchNewPosts = searchState((state) => state.fetchNewPostsSearch);
-  const limit = searchState((state) => state.limit);
-  const changeLimit = searchState((state) => state.changeLimit);
-  const loggedUser = userState<User>((state) => state.loggedUser);
-  const isLogged = userState<boolean>((state) => state.isLogged);
+  const {
+    subaminasSearch: subamins,
+    postSearch: posts,
+    fetchPostsSearch: fetchPosts,
+    fetchSubaminasSearch: fetchSubamins,
+    limit,
+    changeLimit,
+  } = searchState((state) => state);
+  const {
+    loggedUser,
+    isLogged,
+    fetchLoggedUser: fetchUser,
+  } = userState((state) => state);
   const darkmodeState = viewState<boolean>((state) => state.darkMode);
   const darkMode: boolean = isLogged ? loggedUser.darkMode : darkmodeState;
-  const fetchUser = userState((state) => state.fetchLoggedUser);
-  const fetchTopSubamins = searchState(
-    (state) => state.fetchTopSubaminasSearch
-  );
-  const fetchNewSubamins = searchState(
-    (state) => state.fetchNewSubaminasSearch
-  );
   //useEffects
   useEffect(() => {
-    fetchNewPosts(limit, question);
-    fetchNewSubamins(limit, question);
-  }, [fetchNewPosts, fetchNewSubamins, question, limit]);
+    fetchPosts(limit, "createdAt", question);
+    fetchSubamins(limit, "createdAt", question);
+  }, [fetchPosts, fetchSubamins, question, limit]);
 
   useEffect(() => {
-    fetchUser(Number(localStorage.getItem("userId")));
+    fetchUser();
   }, [fetchUser]);
   //handlers
   const handleLimit = () => {
@@ -83,26 +79,25 @@ const SearchPage: React.FC = () => {
           <div className="subamins">
             <BackToTopButton />
             <Header
-              topFunction={fetchTopSubamins}
-              newFunction={fetchNewSubamins}
+              subaminFunction={fetchSubamins}
+              subamin
               question={question}
               limit={limit}
             />
-            {subamins.map((subamin) => (
-              <Community subamin={subamin} key={subamin.id} search />
+            {subamins.map((subamin, i) => (
+              <Community subamin={subamin} key={i} search />
             ))}
           </div>
         ) : (
           <div className="posts">
             <BackToTopButton />
             <Header
-              topFunction={fetchTopPosts}
-              newFunction={fetchNewPosts}
+              postsFunction={fetchPosts}
               question={question}
               limit={limit}
             />
-            {posts.map((post) => (
-              <Post post={post} key={post.id} />
+            {posts.map((post, i) => (
+              <Post post={post} key={i} />
             ))}
           </div>
         )}

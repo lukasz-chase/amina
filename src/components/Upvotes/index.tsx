@@ -2,43 +2,43 @@ import { UpvoteComponent } from "./upvoteStyles";
 //store
 import viewState from "../../state/viewState";
 import userState from "../../state/userState";
+import postState from "../../state/postState";
 //icons
 import { BiUpvote, BiDownvote } from "react-icons/bi";
-//interfaces
-import { User } from "../../interfaces";
 //location
 import { useHistory } from "react-router-dom";
 import { Location } from "history";
+import commentsState from "../../state/commentState";
 
 interface Props {
   upvotes: number;
   flexDirection: string;
   darkModeBg: string;
   whiteModebg: string;
-  upvotePost?: (what: string) => void;
-  upvoteComment?: (id: number, what: string, text: string) => void;
+  postId?: String;
   upvoted: boolean;
   downvoted: boolean;
-  commentId?: number;
-  commentText?: string;
+  commentId?: String;
 }
+
 const Upvotes: React.FC<Props> = ({
   upvotes,
   flexDirection,
   darkModeBg,
   whiteModebg,
-  upvotePost,
-  upvoteComment,
+  postId,
+  commentId,
   upvoted,
   downvoted,
-  commentId,
-  commentText,
 }) => {
-  const classicview = viewState<boolean>((state) => state.classicView);
-  const compactview = viewState<boolean>((state) => state.compactView);
-  const loggedUser = userState<User>((state) => state.loggedUser);
-  const isLogged = userState<boolean>((state) => state.isLogged);
-  const darkmodeState = viewState<boolean>((state) => state.darkMode);
+  const {
+    classicView,
+    compactView,
+    darkMode: darkmodeState,
+  } = viewState((state) => state);
+  const { likePost } = postState((state) => state);
+  const { likeComment } = commentsState((state) => state);
+  const { loggedUser, isLogged } = userState((state) => state);
   const darkMode: boolean = isLogged ? loggedUser.darkMode : darkmodeState;
   const history = useHistory<Location>();
   //handlers
@@ -48,10 +48,10 @@ const Upvotes: React.FC<Props> = ({
   ) => {
     e.preventDefault();
     if (isLogged) {
-      if (upvotePost) {
-        upvotePost(what);
+      if (postId) {
+        likePost(postId, loggedUser._id, what);
       } else {
-        upvoteComment!(commentId!, what, commentText!);
+        likeComment(commentId!, loggedUser._id, what);
       }
     } else {
       history.push(`/login/upvote`);
@@ -60,13 +60,13 @@ const Upvotes: React.FC<Props> = ({
   return (
     <UpvoteComponent
       darkmode={darkMode}
-      classicview={classicview}
+      classicview={classicView}
       flexdirection={flexDirection}
       darkmodebg={darkModeBg}
       whitemodebg={whiteModebg}
       upvoted={upvoted}
       downvoted={downvoted}
-      compactview={compactview}
+      compactview={compactView}
     >
       <BiUpvote
         className="upvote-button"

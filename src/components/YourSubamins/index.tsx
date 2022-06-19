@@ -6,15 +6,14 @@ import viewState from "../../state/viewState";
 import userState from "../../state/userState";
 import subaminsState from "../../state/subaminsState";
 //material ui
-import Input from "@material-ui/core/Input";
 //icons
 import { AiFillHome } from "react-icons/ai";
 //location
 import { useHistory } from "react-router-dom";
 //interface
 import { Subamin, User } from "../../interfaces";
-//scroll bottom
-import { BottomScrollListener } from "react-bottom-scroll-listener";
+//components
+import Input from "../Input";
 
 interface Props {
   open: boolean;
@@ -29,20 +28,16 @@ const YourSubamins: React.FC<Props> = ({ open, setOpen, width, nav }) => {
   const isLogged = userState<boolean>((state) => state.isLogged);
   const darkmodeState = viewState<boolean>((state) => state.darkMode);
   const darkMode: boolean = isLogged ? loggedUser.darkMode : darkmodeState;
-  const fetchSubamins = subaminsState((state) => state.fetchUsersSubamins);
-  const usersSubamins = subaminsState((s) => s.usersSubaminas);
-  const setSubamin = subaminsState((s) => s.setCommunity);
-  const limit = subaminsState((s) => s.limit);
-  const changeLimit = subaminsState((s) => s.changeLimit);
-  const [community, setCommunity] = useState<string>("");
+  const { fetchUsersSubaminsBySearch, usersSubaminas, setCommunity } =
+    subaminsState((state) => state);
+  const [search, setSearch] = useState<string>("");
   const history = useHistory();
-
   //useEffect
   useEffect(() => {
     if (isLogged) {
-      fetchSubamins(loggedUser.followedSubaminas, community, limit);
+      fetchUsersSubaminsBySearch(loggedUser._id, search);
     }
-  }, [fetchSubamins, loggedUser.followedSubaminas, community, isLogged, limit]);
+  }, [fetchUsersSubaminsBySearch, loggedUser._id, isLogged, search]);
   //handlers
   const clickHandler = (path?: string, subamin?: Subamin) => {
     if (nav) {
@@ -51,22 +46,16 @@ const YourSubamins: React.FC<Props> = ({ open, setOpen, width, nav }) => {
       history.push(path!);
     } else {
       setOpen(!open);
-      setSubamin(subamin);
+      setCommunity(subamin);
     }
-  };
-  const handleLimit = () => {
-    changeLimit(20);
   };
   return (
     <SubaminsDropdown darkmode={darkMode} open={open} width={width}>
-      <BottomScrollListener onBottom={handleLimit} offset={500} />
       <div className="text-input">
         <Input
-          className="textField"
-          placeholder="Search"
-          value={community}
-          onChange={(e) => setCommunity(e.target.value)}
-          disableUnderline
+          name="search"
+          value={search}
+          handleChange={(e) => setSearch(e.target.value)}
         />
       </div>
       {nav && <span> Amina feeds </span>}
@@ -77,11 +66,11 @@ const YourSubamins: React.FC<Props> = ({ open, setOpen, width, nav }) => {
       )}
 
       <span>my communities</span>
-      {usersSubamins.map((subamin) => (
+      {usersSubaminas.map((subamin, i) => (
         <Community
           darkmode={darkMode}
-          onClick={() => clickHandler(`/s/${subamin.id}`, subamin)}
-          key={subamin.id}
+          onClick={() => clickHandler(`/s/${subamin._id}`, subamin)}
+          key={i}
         >
           <img src={subamin.logo} alt={subamin.name} /> {subamin.name}
         </Community>

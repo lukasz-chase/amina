@@ -4,7 +4,7 @@ import { HeaderComponent, Button, ViewOption } from "./HeaderStyles";
 //store
 import viewState from "../../state/viewState";
 import userState from "../../state/userState";
-import subaminsState from "../../state/subaminsState";
+import postState from "../../state/postState";
 //icons
 import { AiOutlineLineChart } from "react-icons/ai";
 import { MdNewReleases } from "react-icons/md";
@@ -13,22 +13,18 @@ import { RiArrowDownSFill } from "react-icons/ri";
 import { User } from "../../interfaces";
 
 type HeaderProps = {
-  topFunction?: (limit: number, question?: string) => void;
-  newFunction?: (limit: number, question?: string) => void;
+  postsFunction?: (limit: number, order: string, id?: any) => void;
   question?: string;
-  id?: number;
+  id?: String;
   subamin?: boolean;
   feed?: boolean;
   limit: number;
-  topSubaminFunction?: (limit: number, id?: number) => void;
-  newSubaminFunction?: (limit: number, id?: number) => void;
+  subaminFunction?: (limit: number, order: string, question?: any) => void;
 };
 
 const Header: React.FC<HeaderProps> = ({
-  topFunction,
-  newFunction,
-  topSubaminFunction,
-  newSubaminFunction,
+  postsFunction,
+  subaminFunction,
   question,
   id,
   subamin,
@@ -36,38 +32,39 @@ const Header: React.FC<HeaderProps> = ({
   limit,
 }) => {
   //state
-  const setClassicView = viewState((state) => state.setClassicView);
-  const setCompactView = viewState((state) => state.setCompactView);
-  const compactView = viewState((state) => state.compactView);
-  const classicView = viewState((state) => state.classicView);
+  const {
+    setClassicView,
+    setCompactView,
+    compactView,
+    classicView,
+    darkMode: darkMNodeState,
+  } = viewState((state) => state);
   const loggedUser = userState<User>((state) => state.loggedUser);
   const isLogged = userState<boolean>((state) => state.isLogged);
-  const darkmodeState = viewState<boolean>((state) => state.darkMode);
-  const darkMode: boolean = isLogged ? loggedUser.darkMode : darkmodeState;
-  const fetchTopFeed = subaminsState((state) => state.fetchTopSubaminByIds);
-  const fetchNewFeed = subaminsState((state) => state.fetchNewSubaminByIds);
+  const { getUserFeed } = postState((state) => state);
+  const darkMode: boolean = isLogged ? loggedUser.darkMode : darkMNodeState;
   const [showOptions, setShowOptions] = useState<boolean>(false);
-  const [active, setActive] = useState<boolean>(false);
+  const [active, setActive] = useState<boolean>(true);
   //handlers
   const topFunctionHandler = () => {
     setActive(true);
     if (subamin) {
-      topSubaminFunction!(limit, id);
+      subaminFunction!(limit, "members", id || question);
     } else if (feed) {
-      fetchTopFeed(loggedUser.followedSubaminas, limit);
+      getUserFeed(loggedUser._id, limit, "upvotes");
     } else {
-      topFunction!(limit, question);
+      postsFunction!(limit, "upvotes", id || question);
     }
   };
 
   const newFunctionHandler = () => {
     setActive(false);
     if (subamin) {
-      newSubaminFunction!(limit, id);
+      subaminFunction!(limit, "createdAt", id || question);
     } else if (feed) {
-      fetchNewFeed(loggedUser.followedSubaminas, limit);
+      getUserFeed(loggedUser._id, limit, "createdAt");
     } else {
-      newFunction!(limit, question);
+      postsFunction!(limit, "createdAt", id || question);
     }
   };
 

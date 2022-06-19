@@ -5,13 +5,8 @@ import { Dropdown, Option } from "./DropdownStyles";
 import Switch from "@material-ui/core/Switch";
 //icons
 import { BsMoon } from "react-icons/bs";
-import { AiOutlineUsergroupAdd } from "react-icons/ai";
-import { BiCoinStack, BiDoorOpen } from "react-icons/bi";
-import { GiCheckedShield } from "react-icons/gi";
-import { HiOutlineQuestionMarkCircle } from "react-icons/hi";
+import { BiDoorOpen } from "react-icons/bi";
 import { RiLogoutBoxRFill } from "react-icons/ri";
-import { CgProfile } from "react-icons/cg";
-import { MdSettings, MdCreate } from "react-icons/md";
 //state
 import viewState from "../../../state/viewState";
 import userState from "../../../state/userState";
@@ -19,10 +14,10 @@ import userState from "../../../state/userState";
 import { Link } from "react-router-dom";
 //location
 import { useHistory } from "react-router-dom";
-//axios
-import axios from "axios";
 //interfaces
 import { User } from "../../../interfaces";
+//data
+import { loggedUserLinks, stuffLinks } from "../../../descriptions/links";
 interface Props {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -32,39 +27,21 @@ const OptionsDropdown: React.FC<Props> = ({ open, setOpen }) => {
   //state
   const loggedUser = userState<User>((state) => state.loggedUser);
   const isLogged = userState<boolean>((state) => state.isLogged);
-  const fetchUser = userState((state) => state.fetchLoggedUser);
-  const darkmodeState = viewState<boolean>((state) => state.darkMode);
-  const darkMode: boolean = isLogged ? loggedUser.darkMode : darkmodeState;
+  const darkModeState = viewState((state) => state.darkMode);
+  const darkMode: boolean = isLogged ? loggedUser.darkMode : darkModeState;
   const changeDarkModeState = viewState((state) => state.changeDarkMode);
+  const changeDarkMode = userState((state) => state.changeDarkMode);
   const logOut = userState((state) => state.logOut);
   const history = useHistory();
 
   //handlers
   const LogOutHandler = () => {
-    localStorage.removeItem("userId");
     history.push("/login");
     setOpen(!open);
     logOut();
   };
-  const darkModeHandler = () => {
-    axios
-      .put(`https://amina-server.herokuapp.com/users/${loggedUser.id}`, {
-        id: loggedUser.id,
-        username: loggedUser.username,
-        email: loggedUser.email,
-        password: loggedUser.password,
-        followedSubaminas: loggedUser.followedSubaminas,
-        savedPosts: loggedUser.savedPosts,
-        darkMode: !loggedUser.darkMode,
-        logo: loggedUser.logo,
-        birthday: loggedUser.birthday,
-      })
-      .then(() => {
-        fetchUser(loggedUser.id);
-      });
-  };
   const handleChange = () => {
-    isLogged ? darkModeHandler() : changeDarkModeState();
+    isLogged ? changeDarkMode(loggedUser._id) : changeDarkModeState();
     setOpen(!open);
   };
   const linkHandler = () => {
@@ -77,46 +54,19 @@ const OptionsDropdown: React.FC<Props> = ({ open, setOpen }) => {
       {isLogged && (
         <div className="my-stuff">
           <div className="header">MY STUFF</div>
-          <Link
-            to={`/user/${loggedUser.id}`}
-            className="link"
-            onClick={() => linkHandler()}
-          >
-            <Option darkMode={darkMode}>
-              <CgProfile className="option-icon" />
-              Profile
-            </Option>
-          </Link>
-          <Link
-            to={`/user/${loggedUser.id}/settings`}
-            className="link"
-            onClick={() => linkHandler()}
-          >
-            <Option darkMode={darkMode}>
-              <MdSettings className="option-icon" />
-              User Setting
-            </Option>
-          </Link>
-          <Link
-            to={`/create/post`}
-            className="link sm"
-            onClick={() => linkHandler()}
-          >
-            <Option darkMode={darkMode}>
-              <MdCreate className="option-icon" />
-              Create Post
-            </Option>
-          </Link>
-          <Link
-            to={`/create/subamin`}
-            className="link sm"
-            onClick={() => linkHandler()}
-          >
-            <Option darkMode={darkMode}>
-              <AiOutlineUsergroupAdd className="option-icon" />
-              Create Subamin
-            </Option>
-          </Link>
+          {loggedUserLinks.map((link) => (
+            <Link
+              to={link.path(loggedUser._id)}
+              className={link.className}
+              key={link.label}
+              onClick={() => linkHandler()}
+            >
+              <Option darkMode={darkMode}>
+                {link.icon}
+                {link.label}
+              </Option>
+            </Link>
+          ))}
         </div>
       )}
       <div className="options">
@@ -129,18 +79,16 @@ const OptionsDropdown: React.FC<Props> = ({ open, setOpen }) => {
       </div>
       <div className="stuff">
         <span className="header">MORE STUFF</span>
-        <Option onClick={() => setOpen(!open)} darkMode={darkMode}>
-          <BiCoinStack className="option-icon" />
-          Amina Coins
-        </Option>
-        <Option onClick={() => setOpen(!open)} darkMode={darkMode}>
-          <GiCheckedShield className="option-icon" />
-          Amina Premium
-        </Option>
-        <Option onClick={() => setOpen(!open)} darkMode={darkMode}>
-          <HiOutlineQuestionMarkCircle className="option-icon" />
-          Help Center
-        </Option>
+        {stuffLinks.map((link) => (
+          <Option
+            onClick={() => setOpen(!open)}
+            darkMode={darkMode}
+            key={link.label}
+          >
+            {link.icon}
+            {link.label}
+          </Option>
+        ))}
       </div>
       {isLogged ? (
         <Option onClick={() => LogOutHandler()} darkMode={darkMode}>

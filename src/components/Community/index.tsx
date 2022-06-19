@@ -26,7 +26,7 @@ const Community: React.FC<Props> = ({ subamin, search }) => {
     <CommunityComponent darkmode={darkmode}>
       <img src={subamin.logo} alt={subamin.name} />
       <div className="info">
-        <Link to={`/s/${subamin.id}`} className="name">
+        <Link to={`/s/${subamin._id}`} className="name">
           a/{subamin.name}
         </Link>
         <span className="members">
@@ -35,7 +35,7 @@ const Community: React.FC<Props> = ({ subamin, search }) => {
       </div>
       {search && <div className="desc">{subamin.desc}</div>}
 
-      <JoinButton id={subamin.id} />
+      <JoinButton id={subamin._id} />
     </CommunityComponent>
   );
 };

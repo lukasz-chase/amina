@@ -6,7 +6,7 @@ type Props = {
 };
 
 export const CreatePostComponent = styled.div<Props>`
-  min-height: 93vh;
+  min-height: calc(100vh - 50px);
   background-color: ${({ darkmode }) => (darkmode ? "#030303" : "#DAE0E6")};
   color: ${({ darkmode }) => (darkmode ? "#D2D5D7" : "black")};
   display: flex;
@@ -68,45 +68,15 @@ export const CreatePostComponent = styled.div<Props>`
       @media screen and (max-width: 1000px) {
         width: 100%;
       }
-      .MuiInputBase-input {
-        padding: 0.5rem;
-        background-color: ${({ darkmode }) => (darkmode ? "#1A1A1B" : "white")};
-        color: ${({ darkmode }) => (darkmode ? "#CDD0D2" : "black")};
-      }
-      .post-title,
-      .post-image {
-        border: ${({ darkmode }) =>
-          darkmode ? "1px solid #343536" : "1px solid black"};
-        padding: 0.5rem;
-        margin-bottom: 0.5rem;
-        @media screen and (max-width: 1000px) {
-          width: 100%;
+      .images-display {
+        .imageWrapper {
+          display: flex;
+          gap: 10px;
+          .image-remove {
+            color: tomato;
+            cursor: pointer;
+          }
         }
-        .text {
-          color: ${({ darkmode }) => (darkmode ? "#CDD0D2" : "black")};
-        }
-      }
-      .text-field {
-        padding: 0.5rem;
-        border: ${({ darkmode }) =>
-          darkmode ? "1px solid #343536" : "1px solid black"};
-        width: 51vw;
-        font-family: "Noto Sans", sans-serif;
-        @media screen and (max-width: 1000px) {
-          width: 100%;
-        }
-      }
-      .submit {
-        padding: 0.5rem;
-        cursor: ${({ ready }) => (ready ? "pointer" : "no-drop")};
-        width: 20%;
-        background: ${({ darkmode }) => (darkmode ? "#C8CBCD" : "#1484D6")};
-        color: ${({ darkmode }) => (darkmode ? "black" : "white")};
-        outline: none;
-        border: none;
-        border-radius: 5rem;
-        margin: 0.5rem 0;
-        align-self: flex-end;
       }
     }
   }

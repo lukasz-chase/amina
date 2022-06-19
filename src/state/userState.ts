@@ -1,35 +1,48 @@
 import create from "zustand";
 //api
-import {
-  userDetails,
-  userPosts,
-  userSavedPosts,
-  userCreatedSubamins,
-} from "../api";
+import * as api from "../api";
 //interfaces
 import { User, PostProperties, Subamin } from "../interfaces";
 
 type Store = {
   loggedUser: User;
   user: User;
+  isLoading: boolean;
   isLogged: boolean;
-  fetchUser: (id: number) => void;
-  fetchLoggedUser: (id: number) => void;
-  fetchNewUserPosts: (limit: number, id?: number) => void;
-  fetchTopUserPosts: (limit: number, id?: number) => void;
-  fetchUserSavedPosts: (ids: number[], limit: number) => void;
-  logOut: () => void;
   userPosts: PostProperties[];
   userSavedPosts: PostProperties[];
   limit: number;
-  changeLimit: (by: number) => void;
   userCreatedSubamins: Subamin[];
-  fetchUserCreatedSubamins: (id: number) => void;
+  fetchLoggedUser: () => void;
+  fetchUserPosts: (limit: number, order: string, id?: String) => void;
+  fetchUserSavedPosts: (id: String, limit: number) => void;
+  savePost: (userId: String, postId: String) => void;
+  logOut: () => void;
+  changeLimit: (by: number) => void;
+  fetchUserCreatedSubamins: (id: String) => void;
+  changeDarkMode: (id: String) => void;
+  updateInfo: (
+    id: String,
+    data: any,
+    snackbarHandler: (text: any, snackVariant: any) => void
+  ) => void;
+  updateEmail: (
+    id: String,
+    email: string,
+    password: string,
+    snackbarHandler: (text: any, snackVariant: any) => void
+  ) => void;
+  updatePassword: (
+    id: String,
+    password: string,
+    newPassword: string,
+    snackbarHandler: (text: any, snackVariant: any) => void
+  ) => void;
 };
 
-const userState = create<Store>((set) => ({
+const userState = create<Store>((set, get) => ({
   loggedUser: {
-    id: 0,
+    _id: "0",
     username: "loading",
     email: "loading",
     password: "loading",
@@ -38,7 +51,7 @@ const userState = create<Store>((set) => ({
     darkMode: false,
   },
   user: {
-    id: 0,
+    _id: "0",
     username: "loading",
     email: "loading",
     password: "loading",
@@ -48,37 +61,106 @@ const userState = create<Store>((set) => ({
   },
   userCreatedSubamins: [],
   limit: 20,
-  changeLimit: (by: number) => set((state) => ({ limit: state.limit + by })),
+  isLoading: true,
   isLogged: false,
   userPosts: [],
   userSavedPosts: [],
-  fetchLoggedUser: async (id) => {
-    const response = await fetch(userDetails(id));
-    set({ loggedUser: await response.json(), isLogged: response.ok });
+  changeLimit: (by: number) => set((state) => ({ limit: state.limit + by })),
+  changeDarkMode: async (userId) => {
+    const { data } = await api.changeDarkMode(userId);
+    set({ loggedUser: data });
+  },
+  savePost: async (userId, postId) => {
+    try {
+      const { data } = await api.savePost(userId, postId);
+      set({ loggedUser: data });
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  fetchLoggedUser: async () => {
+    try {
+      set({ isLoading: true });
+      const user = JSON.parse(localStorage.getItem("profile") || "{}");
+      if (user) {
+        const { data } = await api.getUserById(user.result._id);
+        set({ loggedUser: data });
+        set({ isLogged: true });
+        set({ isLoading: false });
+      }
+    } catch (error) {
+      console.log(error);
+    }
   },
   fetchUserCreatedSubamins: async (id) => {
-    const response = await fetch(userCreatedSubamins(id));
-    set({ userCreatedSubamins: await response.json() });
+    try {
+      const { data } = await api.getUserCreatedSubamins(id);
+      set({ userCreatedSubamins: data });
+    } catch (error) {
+      console.log(error);
+    }
   },
-  logOut: () => set({ isLogged: false }),
-  fetchNewUserPosts: async (limit, id) => {
-    const response = await fetch(userPosts(id!, "id", "desc", limit));
-    set({ userPosts: await response.json() });
+  logOut: () => {
+    set({ isLogged: false });
+    localStorage.removeItem("profile");
+    set({
+      loggedUser: {
+        _id: "0",
+        username: "loading",
+        email: "loading",
+        password: "loading",
+        followedSubaminas: [],
+        savedPosts: [],
+        darkMode: false,
+      },
+    });
   },
-  fetchTopUserPosts: async (limit, id) => {
-    const response = await fetch(userPosts(id!, "upvotes", "desc", limit));
-    set({ userPosts: await response.json() });
+  fetchUserPosts: async (limit, order, id) => {
+    try {
+      const { data } = await api.getUserPosts(id!, limit, order);
+      set({ userPosts: data });
+    } catch (error) {
+      console.log(error);
+    }
   },
-  fetchUser: async (id) => {
-    const response = await fetch(userDetails(id));
-    set({ user: await response.json() });
+  fetchUserSavedPosts: async (id, limit) => {
+    try {
+      const { data } = await api.getUserSavedPosts(id, limit);
+      set({ userSavedPosts: data });
+    } catch (error) {
+      console.log(error);
+    }
   },
-  fetchUserSavedPosts: async (ids: number[], limit) => {
-    const url = `${userSavedPosts(limit)}${ids
-      .map((id) => `&id=${id}`)
-      .join("")}`;
-    const response = await fetch(url);
-    set({ userSavedPosts: await response.json() });
+  updateInfo: async (id, info, snackbarHandler) => {
+    try {
+      const { data } = await api.updateInfo(id, info);
+      set({ loggedUser: data });
+      snackbarHandler("Info updated successfully", "success");
+    } catch (error: any) {
+      snackbarHandler(error.response.data, "error");
+      console.log(error);
+    }
+  },
+  updateEmail: async (id, email, password, snackbarHandler) => {
+    try {
+      const { data } = await api.updateEmail(id, email, password);
+      set({ loggedUser: data });
+      snackbarHandler("Email changed successfully", "success");
+    } catch (error: any) {
+      snackbarHandler(error.response.data, "error");
+      console.log(error);
+    }
+  },
+  updatePassword: async (id, password, newPassword, snackbarHandler) => {
+    try {
+      const { data } = await api.updatePassword(id, password, newPassword);
+      set({ loggedUser: data });
+      snackbarHandler("Password changed successfully", "success");
+      get().logOut();
+    } catch (error: any) {
+      snackbarHandler(error.response.data, "error");
+      console.log(error);
+    }
   },
 }));
 

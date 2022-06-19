@@ -1,48 +1,48 @@
-interface CommentProperties {
-  id: number;
+export interface CommentProperties {
+  _id: String;
   author: string;
-  authorId: number;
+  authorId: String;
   upvotes: number;
-  date: string;
+  createdAt: string;
   text: string;
-  upvotedBy: number[];
-  downvotedBy: number[];
+  upvotedBy: String[];
+  downvotedBy: String[];
 }
 export interface PostProperties {
-  id: number;
-  subaminId: number;
+  _id: String;
+  subaminId: String;
   subaminName: string;
   subaminLogo: string;
   title: string;
   description: string;
   author: string;
-  authorId: number;
+  authorId: String;
   upvotes: number;
-  upvotedBy: number[];
-  downvotedBy: number[];
-  date: string;
+  upvotedBy: String[];
+  downvotedBy: String[];
+  createdAt: string;
   comments?: CommentProperties[];
-  image?: string;
+  images?: [string];
 }
 export interface Subamin {
-  id: number;
+  _id: String;
   name: string;
   members: number;
   logo: string;
   desc: string;
-  background?: string;
-  birthday: string;
-  authorId: number;
+  backgroundImg?: string;
+  createdAt: string;
+  authorId: String;
 }
 
 export interface User {
-  id: number;
+  _id: String;
   username: string;
   email: string;
   password: string;
-  followedSubaminas: number[];
+  followedSubaminas: String[];
   birthday?: string;
   darkMode: boolean;
-  logo?: string;
-  savedPosts: number[];
+  avatar?: string;
+  savedPosts: String[];
 }

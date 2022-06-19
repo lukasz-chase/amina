@@ -13,175 +13,57 @@ import userState from "../../state/userState";
 //components
 import Upvotes from "../Upvotes";
 //interfaces
-import { PostProperties, User } from "../../interfaces";
+import { PostProperties } from "../../interfaces";
 import JoinButton from "../JoinButton";
 //axios
-import axios from "axios";
 import { Link } from "react-router-dom";
 //location
 import { useHistory } from "react-router-dom";
 import { Location } from "history";
+
 interface PostProps {
   post: PostProperties;
 }
 
 const Post: React.FC<PostProps> = ({ post }) => {
   //state
-  const loggedUser = userState<User>((state) => state.loggedUser);
-  const isLogged = userState<boolean>((state) => state.isLogged);
-  const fetchUser = userState((state) => state.fetchLoggedUser);
-  const darkmodeState = viewState<boolean>((state) => state.darkMode);
+  const { loggedUser, isLogged, savePost } = userState((state) => state);
+  const {
+    darkMode: darkmodeState,
+    classicView,
+    compactView,
+  } = viewState((state) => state);
   const darkMode: boolean = isLogged ? loggedUser.darkMode : darkmodeState;
-  const classicView: boolean = viewState((state) => state.classicView);
-  const compactView: boolean = viewState((state) => state.compactView);
   const [upvoted, setUpvoted] = useState<boolean>(false);
   const [downvoted, setDownvoted] = useState<boolean>(false);
   const [isSaved, setIsSaved] = useState<boolean>(false);
   const history = useHistory<Location>();
   //useEffect
   useEffect(() => {
-    if (
-      isLogged &&
-      post.upvotedBy &&
-      post.upvotedBy.find((a) => a === loggedUser.id)
-    ) {
-      setUpvoted(true);
-    } else if (
-      post.downvotedBy &&
-      post.downvotedBy.find((a) => a === loggedUser.id)
-    ) {
-      setDownvoted(true);
+    if (isLogged) {
+      if (post.upvotedBy.find((id) => id === loggedUser._id)) {
+        setUpvoted(true);
+      } else {
+        setUpvoted(false);
+      }
+      if (post.downvotedBy.find((id) => id === loggedUser._id)) {
+        setDownvoted(true);
+      } else {
+        setDownvoted(false);
+      }
     }
-  }, [isLogged, loggedUser.id, post.downvotedBy, post.upvotedBy]);
+  }, [isLogged, loggedUser._id, post.downvotedBy, post.upvotedBy]);
   useEffect(() => {
     if (isLogged) {
       setIsSaved(
-        loggedUser.savedPosts.find((a) => a === post.id) ? true : false
+        loggedUser.savedPosts.find((a) => a === post._id) ? true : false
       );
     }
-  }, [setIsSaved, loggedUser.savedPosts, post.id, isLogged]);
+  }, [setIsSaved, loggedUser.savedPosts, post._id, isLogged]);
   //handlers
-  const upvoteHandler = (what: string) => {
-    if (post.upvotedBy && post.upvotedBy.find((a) => a === loggedUser.id)) {
-      axios
-        .put(`https://amina-server.herokuapp.com/posts/${post.id}`, {
-          id: post.id,
-          subaminId: post.subaminId,
-          subaminName: post.subaminName,
-          subaminLogo: post.subaminLogo,
-          date: post.date,
-          title: post.title,
-          description: post.description,
-          author: post.author,
-          authorId: post.authorId,
-          upvotes: post.upvotes - 1,
-          upvotedBy: post.upvotedBy.filter((a) => a !== loggedUser.id),
-          downvotedBy: post.downvotedBy,
-          image: post.image,
-          comments: post.comments,
-        })
-        .then(() => {
-          setDownvoted(false);
-          setUpvoted(false);
-          fetchUser(Number(localStorage.getItem("userId")));
-        });
-    } else if (
-      post.downvotedBy &&
-      post.downvotedBy.find((a) => a === loggedUser.id)
-    ) {
-      axios
-        .put(`https://amina-server.herokuapp.com/posts/${post.id}`, {
-          id: post.id,
-          subaminId: post.subaminId,
-          subaminName: post.subaminName,
-          subaminLogo: post.subaminLogo,
-          date: post.date,
-          title: post.title,
-          description: post.description,
-          author: post.author,
-          authorId: post.authorId,
-          upvotes: post.upvotes + 1,
-          upvotedBy: post.upvotedBy,
-          downvotedBy: post.downvotedBy.filter((a) => a !== loggedUser.id),
-          image: post.image,
-          comments: post.comments,
-        })
-        .then(() => {
-          setUpvoted(false);
-          setDownvoted(false);
-          fetchUser(Number(localStorage.getItem("userId")));
-        });
-    } else {
-      axios
-        .put(`https://amina-server.herokuapp.com/posts/${post.id}`, {
-          id: post.id,
-          subaminId: post.subaminId,
-          subaminName: post.subaminName,
-          subaminLogo: post.subaminLogo,
-          date: post.date,
-          title: post.title,
-          description: post.description,
-          author: post.author,
-          authorId: post.authorId,
-          upvotes: what === "upvote" ? post.upvotes + 1 : post.upvotes - 1,
-          upvotedBy:
-            what === "upvote"
-              ? [...post.upvotedBy, loggedUser.id]
-              : post.upvotedBy,
-          downvotedBy:
-            what === "downvote"
-              ? [...post.downvotedBy, loggedUser.id]
-              : post.downvotedBy,
-          image: post.image,
-          comments: post.comments,
-        })
-        .then(() => {
-          if (what === "upvote") {
-            setUpvoted(true);
-          } else {
-            setDownvoted(true);
-          }
-          fetchUser(Number(localStorage.getItem("userId")));
-        });
-    }
-  };
   const addToSavedHandler = () => {
     if (isLogged) {
-      if (isSaved) {
-        axios
-          .put(`https://amina-server.herokuapp.com/users/${loggedUser.id}`, {
-            username: loggedUser.username,
-            email: loggedUser.email,
-            password: loggedUser.password,
-            followedSubaminas: loggedUser.followedSubaminas,
-            savedPosts: loggedUser.savedPosts.filter((a) => a !== post.id),
-            logo: loggedUser.logo,
-            birthday: loggedUser.birthday,
-            id: loggedUser.id,
-            darkMode: loggedUser.darkMode,
-          })
-          .then(() => {
-            setIsSaved(false);
-            fetchUser(Number(localStorage.getItem("userId")));
-          });
-      } else {
-        axios
-          .put(`https://amina-server.herokuapp.com/users/${loggedUser.id}`, {
-            username: loggedUser.username,
-            email: loggedUser.email,
-            password: loggedUser.password,
-            followedSubaminas: loggedUser.followedSubaminas,
-            savedPosts: [...loggedUser.savedPosts, post.id],
-            logo: loggedUser.logo,
-            birthday: loggedUser.birthday,
-            id: loggedUser.id,
-            darkMode: loggedUser.darkMode,
-          })
-          .then(() => {
-            setIsSaved(true);
-            fetchUser(Number(localStorage.getItem("userId")));
-          });
-      }
+      savePost(loggedUser._id, post._id);
     } else {
       history.push("/login/upvote");
     }
@@ -189,7 +71,7 @@ const Post: React.FC<PostProps> = ({ post }) => {
   const shareData = {
     title: "Amina",
     text: post.title,
-    url: `/post/${post.id}`,
+    url: `/post/${post._id}`,
   };
   return (
     <PostComponent
@@ -203,14 +85,14 @@ const Post: React.FC<PostProps> = ({ post }) => {
           flexDirection="column"
           darkModeBg="#1A1A1B"
           whiteModebg="#F3F3F3"
-          upvotePost={upvoteHandler}
+          postId={post._id}
           upvoted={upvoted}
           downvoted={downvoted}
         />
       </div>
       <JoinButton id={post.subaminId} />
       <Link
-        to={`/post/${post.id}`}
+        to={`/post/${post._id}`}
         className="link"
         onClick={() => window.scrollTo(0, 0)}
       >
@@ -224,16 +106,15 @@ const Post: React.FC<PostProps> = ({ post }) => {
                 a/{post.subaminName}
                 <span className="author">Posted by u/{post.author}</span>
                 <span className="date">
-                  <TimeAgo date={post.date} />
+                  <TimeAgo date={post.createdAt} />
                 </span>
               </span>
             </div>
             <div className="post-title">{post.title}</div>
           </div>
-
-          {post.image && (
+          {post.images && post.images.length > 0 && (
             <div className="post-image">
-              <img src={post.image} alt={post.title} />
+              <img src={post.images[0]} alt={post.title} />
             </div>
           )}
         </div>
@@ -245,19 +126,18 @@ const Post: React.FC<PostProps> = ({ post }) => {
             flexDirection="row"
             darkModeBg="#1A1A1B"
             whiteModebg="#F3F3F3"
-            upvotePost={upvoteHandler}
+            postId={post._id}
             upvoted={upvoted}
             downvoted={downvoted}
           />
         </div>
         <Link
-          to={`/post/${post.id}`}
+          to={`/post/${post._id}`}
           onClick={() => window.scrollTo(0, 0)}
           className="comment-link"
         >
           <button className="comment">
-            <FaRegCommentAlt className="icon" />{" "}
-            {post.comments!.length >= 100 ? "" : post.comments!.length} Comments
+            <FaRegCommentAlt className="icon" /> Comments
           </button>
         </Link>
         <button className="share" onClick={() => navigator.share(shareData)}>

@@ -5,10 +5,6 @@ interface DetailsProps {
   darkmode: boolean;
   classicview: boolean;
 }
-interface FormProps {
-  darkmode: boolean;
-  ready: boolean;
-}
 
 export const DetailsComponent = styled.div<DetailsProps>`
   .header {
@@ -113,9 +109,6 @@ export const DetailsComponent = styled.div<DetailsProps>`
             cursor: pointer;
           }
         }
-        .edit-desc {
-          margin: 0 0.5rem;
-        }
         @media screen and (max-width: 1000px) {
           width: 100%;
         }
@@ -150,53 +143,5 @@ export const DetailsComponent = styled.div<DetailsProps>`
         }
       }
     }
-  }
-`;
-export const Form = styled.form<FormProps>`
-  display: flex;
-  flex-direction: column;
-  background-color: ${({ darkmode }) => (darkmode ? "#1A1A1B" : "white")};
-  padding: 0.5rem;
-  @media screen and (max-width: 1000px) {
-    width: 100%;
-  }
-  .MuiInputBase-input {
-    padding: 0.5rem;
-    background-color: ${({ darkmode }) => (darkmode ? "#1A1A1B" : "white")};
-    color: ${({ darkmode }) => (darkmode ? "#CDD0D2" : "black")};
-  }
-  .community-logo {
-    border: ${({ darkmode }) =>
-      darkmode ? "1px solid #343536" : "1px solid black"};
-    padding: 0.5rem;
-    margin-bottom: 0.5rem;
-    @media screen and (max-width: 1000px) {
-      width: 100%;
-    }
-  }
-  .community-desc {
-    padding: 0.5rem;
-    border: ${({ darkmode }) =>
-      darkmode ? "1px solid #343536" : "1px solid black"};
-    font-family: "Noto Sans", sans-serif;
-    @media screen and (max-width: 1000px) {
-      width: 100%;
-    }
-  }
-  .submit,
-  .cancel {
-    padding: 0.5rem;
-    width: 50%;
-    cursor: ${({ ready }) => (ready ? "pointer" : "no-drop")};
-    background: ${({ darkmode }) => (darkmode ? "#C8CBCD" : "#1484D6")};
-    color: ${({ darkmode }) => (darkmode ? "black" : "white")};
-    outline: none;
-    border: none;
-    border-radius: 5rem;
-    margin: 0.5rem 0;
-    align-self: flex-end;
-  }
-  .cancel {
-    cursor: pointer;
   }
 `;

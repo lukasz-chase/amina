@@ -1,6 +1,6 @@
 import create from "zustand";
 //api
-import { postSearch, subaminsSearch } from "../api";
+import * as api from "../api";
 //interfaces
 import { PostProperties } from "../interfaces";
 import { Subamin } from "../interfaces";
@@ -8,11 +8,13 @@ import { Subamin } from "../interfaces";
 type Props = {
   subaminasSearch: Subamin[];
   postSearch: PostProperties[];
-  fetchTopSubaminasSearch: (limit: number, question?: string) => void;
-  fetchNewSubaminasSearch: (limit: number, question?: string) => void;
-  fetchTopPostsSearch: (limit: number, question?: string) => void;
-  fetchNewPostsSearch: (limit: number, question?: string) => void;
   limit: number;
+  fetchSubaminasSearch: (
+    limit: number,
+    order: string,
+    question?: string
+  ) => void;
+  fetchPostsSearch: (limit: number, order: string, question?: string) => void;
   changeLimit: (by: number) => void;
 };
 
@@ -21,21 +23,21 @@ const searchState = create<Props>((set) => ({
   postSearch: [],
   limit: 20,
   changeLimit: (by: number) => set((state) => ({ limit: state.limit + by })),
-  fetchTopSubaminasSearch: async (limit, q) => {
-    const response = await fetch(subaminsSearch(q!, "members", "desc", limit));
-    set({ subaminasSearch: await response.json() });
+  fetchSubaminasSearch: async (limit, order, q) => {
+    try {
+      const { data } = await api.getSubaminsBySearch(limit, order, q!);
+      set({ subaminasSearch: data });
+    } catch (error) {
+      console.log(error);
+    }
   },
-  fetchNewSubaminasSearch: async (limit, q) => {
-    const response = await fetch(subaminsSearch(q!, "id", "desc", limit));
-    set({ subaminasSearch: await response.json() });
-  },
-  fetchTopPostsSearch: async (limit, q) => {
-    const response = await fetch(postSearch(q!, "upvotes", "desc", limit));
-    set({ postSearch: await response.json() });
-  },
-  fetchNewPostsSearch: async (limit, q) => {
-    const response = await fetch(postSearch(q!, "id", "desc", limit));
-    set({ postSearch: await response.json() });
+  fetchPostsSearch: async (limit, order, q) => {
+    try {
+      const { data } = await api.getSearchPost(limit, order, q!);
+      set({ postSearch: data });
+    } catch (error) {
+      console.log(error);
+    }
   },
 }));
 

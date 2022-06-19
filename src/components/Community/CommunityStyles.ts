@@ -17,6 +17,7 @@ export const CommunityComponent = styled.div<Props>`
     height: 2rem;
     width: 2rem;
     border-radius: 2rem;
+    object-fit: cover;
   }
   .info {
     display: flex;

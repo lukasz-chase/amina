@@ -8,20 +8,24 @@ import postState from "../../state/postState";
 import subaminsState from "../../state/subaminsState";
 //icons
 import { MdArrowDropDown } from "react-icons/md";
-//material ui
-import TextField from "@material-ui/core/TextField";
-import Input from "@material-ui/core/Input";
-import InputAdornment from "@material-ui/core/InputAdornment";
-//axios
-import axios from "axios";
 //components
 import YourSubamins from "../../components/YourSubamins";
+import Button from "../../components/Button";
+import Input from "../../components/Input";
+import HelpComponent from "../../components/HelpComponent";
 //interface
 import { User } from "../../interfaces";
 //location
 import { useHistory } from "react-router-dom";
 import { Location } from "history";
-import HelpComponent from "../../components/HelpComponent";
+//data
+import { createPostInputs } from "../../descriptions/inputs";
+
+export type PostData = {
+  title: string;
+  desc: string;
+  images: any;
+};
 
 const CreatePost: React.FC = () => {
   //state
@@ -29,121 +33,126 @@ const CreatePost: React.FC = () => {
   const isLogged = userState<boolean>((state) => state.isLogged);
   const darkmodeState = viewState<boolean>((state) => state.darkMode);
   const darkmode: boolean = isLogged ? loggedUser.darkMode : darkmodeState;
-  const [postTitle, setPostTitle] = useState<string>("");
-  const [postText, setPostText] = useState<string>("");
-  const [postImg, setPostImg] = useState<string>("");
+  const [postData, setPostData] = useState<PostData>({
+    title: "",
+    desc: "",
+    images: [],
+  });
   const [open, setOpen] = useState<boolean>(false);
   const fetchUser = userState((state) => state.fetchLoggedUser);
-  const posts = postState((state) => state.allPosts);
-  const fetchPosts = postState((state) => state.fetchAllPosts);
-  const subamin = subaminsState((s) => s.createCommunity);
+  const { createPost } = postState((state) => state);
+  const subamin = subaminsState((s) => s.subamin);
   const history = useHistory<Location>();
   //useEffect
   useEffect(() => {
-    fetchUser(Number(localStorage.getItem("userId")));
+    fetchUser();
   }, [fetchUser]);
-  useEffect(() => {
-    fetchPosts();
-  }, [fetchPosts]);
   //handlers
-  const addPost = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    e.preventDefault();
-    const today = new Date();
-    const dd = String(today.getDate()).padStart(2, "0");
-    const mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
-    const yyyy = today.getFullYear();
-    const hour = today.getHours();
-    const minutes = today.getMinutes();
-    const seconds = today.getSeconds();
-    if (subamin.birthday !== "loading" && postTitle) {
-      axios
-        .post(`https://amina-server.herokuapp.com/posts`, {
-          subaminId: subamin!.id,
-          subaminName: subamin!.name,
-          subaminLogo: subamin!.logo,
-          date: `${mm}/${dd}/${yyyy}, ${hour}:${minutes}:${seconds}`,
-          title: postTitle,
-          description: postText ? postText : "",
-          author: loggedUser.username,
-          authorId: loggedUser.id,
-          upvotes: 1,
-          upvotedBy: [loggedUser.id],
-          downvotedBy: [],
-          image: postImg ? postImg : "",
-          comments: [],
-        })
-        .then(() => {
-          setPostImg("");
-          setPostText("");
-          setPostTitle("");
-          history.push(`/post/${posts[0].id + 1}`);
-        });
+  const clear = () =>
+    setPostData({
+      title: "",
+      desc: "",
+      images: [],
+    });
+  const imagesHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const target = e.target as HTMLInputElement;
+    if (target && target.files) {
+      setPostData({
+        ...postData,
+        images: [...postData.images, ...target.files],
+      });
     }
+  };
+  const addPost = () => {
+    if (postData.title !== "") {
+      const formData = new FormData();
+      formData.append("desc", postData.desc);
+      formData.append("title", postData.title);
+      formData.append("subaminId", JSON.stringify(subamin._id));
+      formData.append("subaminName", subamin.name);
+      formData.append("subaminLogo", subamin.logo);
+      formData.append("author", loggedUser.username);
+      formData.append("authorId", JSON.stringify(loggedUser._id));
+      for (const image of postData.images) {
+        formData.append("images", image);
+      }
+      createPost(formData, history);
+      clear();
+    } else {
+      alert("Title cant be empty");
+    }
+  };
+  const handleForm = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const target = e.target as HTMLInputElement;
+    setPostData({ ...postData, [target.name]: target.value });
   };
   return (
     <>
       {isLogged && (
         <CreatePostComponent
           darkmode={darkmode}
-          ready={subamin && postTitle ? true : false}
+          ready={subamin && postData.title ? true : false}
         >
           <div className="left">
             <h1>Create a Post</h1>
             <div className="choose-community">
               <div className="wrapper" onClick={() => setOpen(!open)}>
-                {subamin.birthday !== "loading" && (
+                {subamin.createdAt !== "loading" && (
                   <span>
                     {" "}
                     <img src={subamin.logo} alt="" />
                     {subamin.name}
                   </span>
                 )}
-                {subamin.birthday === "loading" && (
+                {subamin.createdAt === "loading" && (
                   <span>Choose a community</span>
                 )}
                 <MdArrowDropDown className="arrow-icon" />
               </div>
               <YourSubamins open={open} setOpen={setOpen} width={"20vw"} />
             </div>
-            <form className="form">
-              <Input
-                className="post-title"
-                placeholder="Title"
-                value={postTitle}
-                multiline
-                onChange={(e) => setPostTitle(e.target.value)}
-                disableUnderline
-                endAdornment={
-                  <InputAdornment position="end" className="text">
-                    {postTitle.length}/300
-                  </InputAdornment>
-                }
-                inputProps={{ maxLength: 300 }}
-              />
-              <Input
-                className="post-image"
-                placeholder="Image src (optional)"
-                value={postImg}
-                multiline
-                onChange={(e) => setPostImg(e.target.value)}
-                disableUnderline
-              />
-              <TextField
-                className="text-field"
-                multiline
-                placeholder="Text (optional)"
-                rows={6}
-                value={postText}
-                onChange={(e) => setPostText(e.target.value)}
-              />
-              <button
-                type="submit"
-                className="submit"
-                onClick={(e) => addPost(e)}
-              >
-                Post
-              </button>
-            </form>
+            <div className="form">
+              {createPostInputs.map((input) => (
+                <>
+                  <h2>{input.label}</h2>
+                  <Input
+                    name={input.name}
+                    value={postData[input.name as keyof typeof postData]}
+                    inputType={input.inputType}
+                    type={input.inputType}
+                    handleChange={(e) => handleForm(e)}
+                    required={input.required}
+                    rows={input.rows}
+                    maxLength={input.maxLength}
+                    imagesHandler={(e) => imagesHandler(e)}
+                    multipleFiles={input.multipleFiles}
+                  />
+                </>
+              ))}
+
+              <div className="images-display">
+                {postData.images.map((image: any) => (
+                  <div className="imageWrapper" key={image.id}>
+                    <span>{image.name}</span>
+                    <span
+                      className="image-remove"
+                      onClick={() =>
+                        setPostData({
+                          ...postData,
+                          images: postData.images.filter(
+                            (deleteImage: { name: String }) =>
+                              deleteImage.name !== image.name
+                          ),
+                        })
+                      }
+                    >
+                      remove
+                    </span>
+                  </div>
+                ))}
+              </div>
+              <Button type="submit" label="Post" onClick={() => addPost()} />
+            </div>
           </div>
           <div className="right">
             <div className="rules">
