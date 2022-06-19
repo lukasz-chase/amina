@@ -23,6 +23,7 @@ import OptionsDropdown from "./OptionsDropdown.js";
 //store
 import viewState from "../../state/viewState";
 import userState from "../../state/userState";
+import authState from "../../state/authState";
 import subaminState from "../../state/subaminDetailsState";
 import YourSubamins from "../YourSubamins";
 
@@ -32,15 +33,16 @@ const Navbar: React.FC = () => {
   const [openCommunity, setOpenCommunity] = useState<boolean>(false);
   const [question, setQuestion] = useState<string>("");
   const history = useHistory<Location>();
-  const { fetchLoggedUser, loggedUser, isLogged } = userState((state) => state);
+  const { fetchLoggedUser, loggedUser } = userState((state) => state);
+  const { isLogged } = authState((state) => state);
   const darkmodeState = viewState<boolean>((state) => state.darkMode);
   const darkMode: boolean = isLogged ? loggedUser.darkMode : darkmodeState;
   const location = useLocation<Location>();
   const site = location.pathname.split("/")[1];
   const subamin = subaminState((state) => state.subamin);
   useEffect(() => {
-    fetchLoggedUser();
-  }, []);
+    if (isLogged) fetchLoggedUser();
+  }, [isLogged]);
   //handlers
   const searchHandler = (text: string) => {
     if (question !== "") {

@@ -6,6 +6,7 @@ import viewState from "../../state/viewState";
 import userState from "../../state/userState";
 import subaminsState from "../../state/subaminsState";
 import subaminDetailsState from "../../state/subaminDetailsState";
+import authState from "../../state/authState";
 //data
 import { createCommunity } from "../../descriptions/inputs";
 //interfaces
@@ -28,7 +29,7 @@ export type SubaminData = {
 const CreateCommunity: React.FC = () => {
   //state
   const loggedUser = userState<User>((state) => state.loggedUser);
-  const isLogged = userState<boolean>((state) => state.isLogged);
+  const isLogged = authState<boolean>((state) => state.isLogged);
   const darkmodeState = viewState<boolean>((state) => state.darkMode);
   const darkmode: boolean = isLogged ? loggedUser.darkMode : darkmodeState;
   const location = useLocation<Location>();
@@ -45,8 +46,8 @@ const CreateCommunity: React.FC = () => {
   const history = useHistory<Location>();
   //useEffect
   useEffect(() => {
-    fetchUser();
-  }, [fetchUser]);
+    if (isLogged) fetchUser();
+  }, [fetchUser, isLogged]);
   useEffect(() => {
     if (subaminId) {
       setCommunityData({

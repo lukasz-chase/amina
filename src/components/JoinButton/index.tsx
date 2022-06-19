@@ -5,6 +5,7 @@ import { Button } from "./ButtonStyles";
 import viewState from "../../state/viewState";
 import userState from "../../state/userState";
 import subaminsState from "../../state/subaminsState";
+import authState from "../../state/authState";
 //notistack
 import { useSnackbar } from "notistack";
 
@@ -14,7 +15,8 @@ type joinProps = {
 
 const JoinButton: React.FC<joinProps> = ({ id }) => {
   //state
-  const { loggedUser, isLogged } = userState((state) => state);
+  const { loggedUser } = userState((state) => state);
+  const { isLogged } = authState((state) => state);
   const { joinSubamin } = subaminsState((state) => state);
   const [isJoined, setIsJoined] = useState<boolean>(
     isLogged && loggedUser?.followedSubaminas.find((a) => a === id)

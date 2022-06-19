@@ -6,6 +6,7 @@ import viewState from "../../state/viewState";
 import postState from "../../state/postState";
 import subaminsState from "../../state/subaminsState";
 import userState from "../../state/userState";
+import authState from "../../state/authState";
 //components
 import Header from "../../components/Header";
 import Post from "../../components/Post";
@@ -20,7 +21,8 @@ import HelpComponent from "../../components/HelpComponent";
 
 const Home: React.FC = () => {
   //state
-  const { loggedUser, isLogged, fetchLoggedUser } = userState((state) => state);
+  const { loggedUser, fetchLoggedUser } = userState((state) => state);
+  const { isLogged } = authState((state) => state);
   const { classicView, darkMode: darkModeState } = viewState((state) => state);
   const darkmode: boolean = isLogged ? loggedUser.darkMode : darkModeState;
   const { getTopSubamins, subamins } = subaminsState((state) => state);
@@ -36,12 +38,15 @@ const Home: React.FC = () => {
   } = postState((state) => state);
   //useEffect
   useEffect(() => {
-    fetchLoggedUser();
+    if (isLogged) fetchLoggedUser();
     getTopSubamins();
     fetchPosts(limit, "upvotes");
     fetchTopPosts(5);
-    getUserFeed(loggedUser._id, limit, "upvotes");
+    if (loggedUser._id !== "0") {
+      getUserFeed(loggedUser._id, limit, "upvotes");
+    }
   }, [
+    isLogged,
     getTopSubamins,
     fetchLoggedUser,
     limit,

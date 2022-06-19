@@ -3,6 +3,7 @@ import { UpvoteComponent } from "./upvoteStyles";
 import viewState from "../../state/viewState";
 import userState from "../../state/userState";
 import postState from "../../state/postState";
+import authState from "../../state/authState";
 //icons
 import { BiUpvote, BiDownvote } from "react-icons/bi";
 //location
@@ -38,7 +39,8 @@ const Upvotes: React.FC<Props> = ({
   } = viewState((state) => state);
   const { likePost } = postState((state) => state);
   const { likeComment } = commentsState((state) => state);
-  const { loggedUser, isLogged } = userState((state) => state);
+  const { loggedUser } = userState((state) => state);
+  const { isLogged } = authState((state) => state);
   const darkMode: boolean = isLogged ? loggedUser.darkMode : darkmodeState;
   const history = useHistory<Location>();
   //handlers

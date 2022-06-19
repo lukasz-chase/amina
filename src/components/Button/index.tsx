@@ -4,6 +4,7 @@ import { ButtonWrapper } from "./ButtonStyles";
 //state
 import viewState from "../../state/viewState";
 import userState from "../../state/userState";
+import authState from "../../state/authState";
 //interfaces
 import { User } from "../../interfaces";
 
@@ -26,7 +27,7 @@ const Button: React.FC<ButtonTypes> = ({
 }) => {
   //state
   const loggedUser = userState<User>((state) => state.loggedUser);
-  const isLogged = userState<boolean>((state) => state.isLogged);
+  const isLogged = authState<boolean>((state) => state.isLogged);
   const darkmodeState = viewState<boolean>((state) => state.darkMode);
   const darkMode: boolean = isLogged ? loggedUser.darkMode : darkmodeState;
   return (

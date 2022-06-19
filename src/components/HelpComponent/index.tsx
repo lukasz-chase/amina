@@ -4,6 +4,7 @@ import { HelpWrapper } from "./HelpStyles";
 //state
 import viewState from "../../state/viewState";
 import userState from "../../state/userState";
+import authState from "../../state/authState";
 //interfaces
 import { User } from "../../interfaces";
 //data
@@ -12,7 +13,7 @@ import { helpLinks } from "../../descriptions/links";
 const HelpComponent: React.FC = () => {
   //state
   const loggedUser = userState<User>((state) => state.loggedUser);
-  const isLogged = userState<boolean>((state) => state.isLogged);
+  const isLogged = authState<boolean>((state) => state.isLogged);
   const darkmodeState = viewState<boolean>((state) => state.darkMode);
   const darkMode: boolean = isLogged ? loggedUser.darkMode : darkmodeState;
   return (

@@ -7,6 +7,7 @@ import { Location } from "history";
 //store
 import viewState from "../../state/viewState";
 import userState from "../../state/userState";
+import authState from "../../state/authState";
 //interface
 import Header from "../../components/Header";
 import Post from "../../components/Post";
@@ -33,7 +34,6 @@ const UserDetails = () => {
     fetchUserCreatedSubamins,
     limit,
     changeLimit,
-    isLogged,
     fetchLoggedUser,
     fetchUserSavedPosts,
     userPosts,
@@ -41,11 +41,12 @@ const UserDetails = () => {
     fetchUserPosts,
   } = userState((state) => state);
   const { darkMode: darkmodeState, classicView } = viewState((state) => state);
+  const { isLogged } = authState((state) => state);
   const darkMode: boolean = isLogged ? loggedUser.darkMode : darkmodeState;
   //useEffect
   useEffect(() => {
-    fetchLoggedUser();
-  }, [fetchLoggedUser, userId]);
+    if (isLogged) fetchLoggedUser();
+  }, [fetchLoggedUser, isLogged, userId]);
   useEffect(() => {
     if (isLogged) {
       fetchUserCreatedSubamins(loggedUser._id);

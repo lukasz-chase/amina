@@ -9,6 +9,7 @@ import subaminState from "../../state/subaminDetailsState";
 import subaminsState from "../../state/subaminsState";
 import viewState from "../../state/viewState";
 import userState from "../../state/userState";
+import authState from "../../state/authState";
 //components
 import CreatePostHeader from "../../components/CreatePostHeader";
 import Header from "../../components/Header";
@@ -37,7 +38,8 @@ const SubaminDetails: React.FC = () => {
     subaminPosts,
   } = subaminState((state) => state);
   const { setCommunity } = subaminsState((state) => state);
-  const { loggedUser, isLogged, fetchLoggedUser } = userState((state) => state);
+  const { loggedUser, fetchLoggedUser } = userState((state) => state);
+  const { isLogged } = authState((state) => state);
   const { darkMode: darkmodeState, classicView } = viewState((state) => state);
   const darkMode: boolean = isLogged ? loggedUser.darkMode : darkmodeState;
   const [deleteSubamin, setDeleteSubamin] = useState<boolean>(false);
@@ -48,8 +50,8 @@ const SubaminDetails: React.FC = () => {
     fetchSubaminPosts(limit, "createdAt", subaminId);
   }, [fetchSubamin, fetchSubaminPosts, subaminId, limit]);
   useEffect(() => {
-    fetchLoggedUser();
-  }, [fetchLoggedUser]);
+    if (isLogged) fetchLoggedUser();
+  }, [fetchLoggedUser, isLogged]);
   //handlers
   const handleLimit = () => {
     changeLimit(20);

@@ -10,12 +10,11 @@ import { RiLogoutBoxRFill } from "react-icons/ri";
 //state
 import viewState from "../../../state/viewState";
 import userState from "../../../state/userState";
+import authState from "../../../state/authState";
 //router
 import { Link } from "react-router-dom";
 //location
 import { useHistory } from "react-router-dom";
-//interfaces
-import { User } from "../../../interfaces";
 //data
 import { loggedUserLinks, stuffLinks } from "../../../descriptions/links";
 interface Props {
@@ -25,13 +24,12 @@ interface Props {
 
 const OptionsDropdown: React.FC<Props> = ({ open, setOpen }) => {
   //state
-  const loggedUser = userState<User>((state) => state.loggedUser);
-  const isLogged = userState<boolean>((state) => state.isLogged);
+  const { loggedUser, clearUser } = userState((state) => state);
+  const { isLogged, logOut } = authState((state) => state);
   const darkModeState = viewState((state) => state.darkMode);
   const darkMode: boolean = isLogged ? loggedUser.darkMode : darkModeState;
   const changeDarkModeState = viewState((state) => state.changeDarkMode);
   const changeDarkMode = userState((state) => state.changeDarkMode);
-  const logOut = userState((state) => state.logOut);
   const history = useHistory();
 
   //handlers
@@ -39,6 +37,7 @@ const OptionsDropdown: React.FC<Props> = ({ open, setOpen }) => {
     history.push("/login");
     setOpen(!open);
     logOut();
+    clearUser();
   };
   const handleChange = () => {
     isLogged ? changeDarkMode(loggedUser._id) : changeDarkModeState();

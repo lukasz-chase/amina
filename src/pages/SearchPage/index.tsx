@@ -8,6 +8,7 @@ import { Location } from "history";
 import searchState from "../../state/searchState";
 import viewState from "../../state/viewState";
 import userState from "../../state/userState";
+import authState from "../../state/authState";
 //components
 import Post from "../../components/Post";
 import Header from "../../components/Header";
@@ -29,11 +30,10 @@ const SearchPage: React.FC = () => {
     limit,
     changeLimit,
   } = searchState((state) => state);
-  const {
-    loggedUser,
-    isLogged,
-    fetchLoggedUser: fetchUser,
-  } = userState((state) => state);
+  const { loggedUser, fetchLoggedUser: fetchUser } = userState(
+    (state) => state
+  );
+  const { isLogged } = authState((state) => state);
   const darkmodeState = viewState<boolean>((state) => state.darkMode);
   const darkMode: boolean = isLogged ? loggedUser.darkMode : darkmodeState;
   //useEffects
@@ -43,8 +43,8 @@ const SearchPage: React.FC = () => {
   }, [fetchPosts, fetchSubamins, question, limit]);
 
   useEffect(() => {
-    fetchUser();
-  }, [fetchUser]);
+    if (isLogged) fetchUser();
+  }, [fetchUser, isLogged]);
   //handlers
   const handleLimit = () => {
     changeLimit(20);

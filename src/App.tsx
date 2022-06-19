@@ -15,10 +15,11 @@ import UserDetails from "./pages/UserDetails";
 //store
 import viewState from "./state/viewState";
 import userState from "./state/userState";
+import authState from "./state/authState";
 
 function App() {
   const loggedUser = userState((state) => state.loggedUser);
-  const isLogged = userState<boolean>((state) => state.isLogged);
+  const isLogged = authState<boolean>((state) => state.isLogged);
   const darkmodeState = viewState<boolean>((state) => state.darkMode);
   const darkmode: boolean = isLogged ? loggedUser.darkMode : darkmodeState;
   return (

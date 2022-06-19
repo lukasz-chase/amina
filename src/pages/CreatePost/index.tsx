@@ -6,6 +6,7 @@ import viewState from "../../state/viewState";
 import userState from "../../state/userState";
 import postState from "../../state/postState";
 import subaminsState from "../../state/subaminsState";
+import authState from "../../state/authState";
 //icons
 import { MdArrowDropDown } from "react-icons/md";
 //components
@@ -30,7 +31,7 @@ export type PostData = {
 const CreatePost: React.FC = () => {
   //state
   const loggedUser = userState<User>((state) => state.loggedUser);
-  const isLogged = userState<boolean>((state) => state.isLogged);
+  const isLogged = authState<boolean>((state) => state.isLogged);
   const darkmodeState = viewState<boolean>((state) => state.darkMode);
   const darkmode: boolean = isLogged ? loggedUser.darkMode : darkmodeState;
   const [postData, setPostData] = useState<PostData>({
@@ -45,8 +46,8 @@ const CreatePost: React.FC = () => {
   const history = useHistory<Location>();
   //useEffect
   useEffect(() => {
-    fetchUser();
-  }, [fetchUser]);
+    if (isLogged) fetchUser();
+  }, [fetchUser, isLogged]);
   //handlers
   const clear = () =>
     setPostData({

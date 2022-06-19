@@ -8,7 +8,6 @@ type Store = {
   loggedUser: User;
   user: User;
   isLoading: boolean;
-  isLogged: boolean;
   userPosts: PostProperties[];
   userSavedPosts: PostProperties[];
   limit: number;
@@ -17,7 +16,7 @@ type Store = {
   fetchUserPosts: (limit: number, order: string, id?: String) => void;
   fetchUserSavedPosts: (id: String, limit: number) => void;
   savePost: (userId: String, postId: String) => void;
-  logOut: () => void;
+  clearUser: () => void;
   changeLimit: (by: number) => void;
   fetchUserCreatedSubamins: (id: String) => void;
   changeDarkMode: (id: String) => void;
@@ -62,7 +61,6 @@ const userState = create<Store>((set, get) => ({
   userCreatedSubamins: [],
   limit: 20,
   isLoading: true,
-  isLogged: false,
   userPosts: [],
   userSavedPosts: [],
   changeLimit: (by: number) => set((state) => ({ limit: state.limit + by })),
@@ -83,9 +81,8 @@ const userState = create<Store>((set, get) => ({
       set({ isLoading: true });
       const user = JSON.parse(localStorage.getItem("profile") || "{}");
       if (user) {
-        const { data } = await api.getUserById(user.result._id);
+        const { data } = await api.getUserById(user?.result?._id);
         set({ loggedUser: data });
-        set({ isLogged: true });
         set({ isLoading: false });
       }
     } catch (error) {
@@ -100,9 +97,7 @@ const userState = create<Store>((set, get) => ({
       console.log(error);
     }
   },
-  logOut: () => {
-    set({ isLogged: false });
-    localStorage.removeItem("profile");
+  clearUser: () => {
     set({
       loggedUser: {
         _id: "0",
@@ -156,7 +151,6 @@ const userState = create<Store>((set, get) => ({
       const { data } = await api.updatePassword(id, password, newPassword);
       set({ loggedUser: data });
       snackbarHandler("Password changed successfully", "success");
-      get().logOut();
     } catch (error: any) {
       snackbarHandler(error.response.data, "error");
       console.log(error);

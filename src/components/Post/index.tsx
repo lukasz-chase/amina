@@ -10,6 +10,7 @@ import TimeAgo from "react-timeago";
 //store
 import viewState from "../../state/viewState";
 import userState from "../../state/userState";
+import authState from "../../state/authState";
 //components
 import Upvotes from "../Upvotes";
 //interfaces
@@ -27,7 +28,8 @@ interface PostProps {
 
 const Post: React.FC<PostProps> = ({ post }) => {
   //state
-  const { loggedUser, isLogged, savePost } = userState((state) => state);
+  const { loggedUser, savePost } = userState((state) => state);
+  const { isLogged } = authState((state) => state);
   const {
     darkMode: darkmodeState,
     classicView,

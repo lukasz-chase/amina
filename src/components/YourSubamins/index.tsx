@@ -5,6 +5,7 @@ import { SubaminsDropdown, Community } from "./YourSubaminsStyles";
 import viewState from "../../state/viewState";
 import userState from "../../state/userState";
 import subaminsState from "../../state/subaminsState";
+import authState from "../../state/authState";
 //material ui
 //icons
 import { AiFillHome } from "react-icons/ai";
@@ -25,7 +26,7 @@ interface Props {
 const YourSubamins: React.FC<Props> = ({ open, setOpen, width, nav }) => {
   //state
   const loggedUser = userState<User>((state) => state.loggedUser);
-  const isLogged = userState<boolean>((state) => state.isLogged);
+  const isLogged = authState<boolean>((state) => state.isLogged);
   const darkmodeState = viewState<boolean>((state) => state.darkMode);
   const darkMode: boolean = isLogged ? loggedUser.darkMode : darkmodeState;
   const { fetchUsersSubaminsBySearch, usersSubaminas, setCommunity } =

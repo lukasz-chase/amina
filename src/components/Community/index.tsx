@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 //store
 import viewState from "../../state/viewState";
 import userState from "../../state/userState";
+import authState from "../../state/authState";
 import JoinButton from "../JoinButton";
 
 type Props = {
@@ -18,7 +19,7 @@ type Props = {
 const Community: React.FC<Props> = ({ subamin, search }) => {
   //state
   const loggedUser = userState<User>((state) => state.loggedUser);
-  const isLogged = userState<boolean>((state) => state.isLogged);
+  const isLogged = authState<boolean>((state) => state.isLogged);
   const darkmodeState = viewState<boolean>((state) => state.darkMode);
   const darkmode: boolean = isLogged ? loggedUser.darkMode : darkmodeState;
 

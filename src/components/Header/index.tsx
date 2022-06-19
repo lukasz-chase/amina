@@ -5,6 +5,7 @@ import { HeaderComponent, Button, ViewOption } from "./HeaderStyles";
 import viewState from "../../state/viewState";
 import userState from "../../state/userState";
 import postState from "../../state/postState";
+import authState from "../../state/authState";
 //icons
 import { AiOutlineLineChart } from "react-icons/ai";
 import { MdNewReleases } from "react-icons/md";
@@ -40,7 +41,7 @@ const Header: React.FC<HeaderProps> = ({
     darkMode: darkMNodeState,
   } = viewState((state) => state);
   const loggedUser = userState<User>((state) => state.loggedUser);
-  const isLogged = userState<boolean>((state) => state.isLogged);
+  const isLogged = authState<boolean>((state) => state.isLogged);
   const { getUserFeed } = postState((state) => state);
   const darkMode: boolean = isLogged ? loggedUser.darkMode : darkMNodeState;
   const [showOptions, setShowOptions] = useState<boolean>(false);

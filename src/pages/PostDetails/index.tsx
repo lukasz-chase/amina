@@ -5,6 +5,7 @@ import { DetailsComponent, Header, Wrapper } from "./PostDetailsStyles";
 import postState from "../../state/postState";
 import viewState from "../../state/viewState";
 import userState from "../../state/userState";
+import authState from "../../state/authState";
 //location
 import { useLocation, useHistory, Link } from "react-router-dom";
 import { Location } from "history";
@@ -24,7 +25,8 @@ import { useSnackbar } from "notistack";
 const PostDetails: React.FC = () => {
   //state
   const { fetchPostDetails, postDetails } = postState((state) => state);
-  const { isLogged, loggedUser, savePost } = userState((state) => state);
+  const { loggedUser, savePost } = userState((state) => state);
+  const { isLogged } = authState((state) => state);
   const darkmodeState = viewState((state) => state.darkMode);
   const darkMode: boolean = isLogged ? loggedUser.darkMode : darkmodeState;
   const location = useLocation<Location>();
@@ -40,8 +42,8 @@ const PostDetails: React.FC = () => {
     fetchPostDetails(postId);
   }, [postId, fetchPostDetails]);
   useEffect(() => {
-    fetchUser();
-  }, [fetchUser]);
+    if (isLogged) fetchUser();
+  }, [fetchUser, isLogged]);
   useEffect(() => {
     if (isLogged) {
       if (postDetails.upvotedBy.find((id) => id === loggedUser._id)) {

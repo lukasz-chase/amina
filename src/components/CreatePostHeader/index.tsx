@@ -4,6 +4,7 @@ import { CreatePostComponent } from "./CreatePostStyles";
 //store
 import viewState from "../../state/viewState";
 import userState from "../../state/userState";
+import authState from "../../state/authState";
 //interfaces
 import { User } from "../../interfaces";
 //material ui
@@ -16,7 +17,7 @@ import { Location } from "history";
 const CreatePostHeader = () => {
   //state
   const loggedUser = userState<User>((state) => state.loggedUser);
-  const isLogged = userState<boolean>((state) => state.isLogged);
+  const isLogged = authState<boolean>((state) => state.isLogged);
   const darkmodeState = viewState<boolean>((state) => state.darkMode);
   const darkMode: boolean = isLogged ? loggedUser.darkMode : darkmodeState;
   const history = useHistory<Location>();
