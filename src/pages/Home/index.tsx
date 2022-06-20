@@ -66,7 +66,7 @@ const Home: React.FC = () => {
       <Posts darkmode={darkmode} classicview={classicView}>
         <div className="post-wrapper">
           {isLogged && <CreatePostHeader />}
-          {isLogged && usersFeed ? (
+          {isLogged && usersFeed.length > 0 ? (
             <>
               <Header feed limit={limit} />
               {usersFeed.map((post, i) => (
