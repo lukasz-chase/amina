@@ -75,7 +75,7 @@ const UserDetails = () => {
         )}
         {!pathname && (
           <>
-            {userPosts !== [] ? (
+            {userPosts.length > 0 ? (
               <div className="posts">
                 {userPosts.map((post, index) => (
                   <Post post={post} key={index} />
