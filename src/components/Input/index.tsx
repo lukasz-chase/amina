@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 //material ui
-import Input from "@material-ui/core/Input";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import TextField from "@material-ui/core/TextField";
+import Input from "@mui/material/Input";
+import InputAdornment from "@mui/material/InputAdornment";
+import TextField from "@mui/material/TextField";
 //icons
 import { MdVisibility, MdVisibilityOff } from "react-icons/md";
 

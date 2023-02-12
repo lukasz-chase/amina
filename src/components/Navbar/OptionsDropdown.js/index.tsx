@@ -2,7 +2,7 @@ import React from "react";
 //components
 import { Dropdown, Option } from "./DropdownStyles";
 //material ui
-import Switch from "@material-ui/core/Switch";
+import Switch from "@mui/material/Switch";
 //icons
 import { BsMoon } from "react-icons/bs";
 import { BiDoorOpen } from "react-icons/bi";

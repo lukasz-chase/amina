@@ -2,7 +2,7 @@ import React, { useState } from "react";
 //styling
 import { LoginComponent } from "./LoginStyles";
 //material ui
-import InputLabel from "@material-ui/core/InputLabel";
+import InputLabel from "@mui/material/InputLabel";
 //state
 import viewState from "../../state/viewState";
 import authState from "../../state/authState";
@@ -62,8 +62,7 @@ const LoginPage: React.FC = () => {
   };
   const loginHandler = () => {
     if (form.username !== "" && form.password !== "") {
-      signIn(form, history, fromUpvote);
-      snackbarHandler("signed in", "success");
+      signIn(form, history, fromUpvote, snackbarHandler);
     } else {
       setSignInError("Inputs can't be empty");
     }
@@ -75,9 +74,8 @@ const LoginPage: React.FC = () => {
       if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(form.email)) {
         // eslint-disable-next-line no-useless-escape
         if (/^(?=.*\d)(?=.*[a-z])[0-9a-zA-Z]{6,}$/.test(form.password)) {
-          signUp(form, history);
+          signUp(form, history, snackbarHandler);
           clearForm();
-          snackbarHandler("account created successfully", "success");
         } else {
           setSignUpError(
             "password has to contain at least 6 characters with 1 digit and 1 lower case"

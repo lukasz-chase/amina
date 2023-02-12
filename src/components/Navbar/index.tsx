@@ -8,10 +8,10 @@ import { useHistory } from "react-router-dom";
 import { Link, useLocation } from "react-router-dom";
 import { Location } from "history";
 //material ui
-import Input from "@material-ui/core/Input";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import Tooltip from "@material-ui/core/Tooltip";
-import IconButton from "@material-ui/core/IconButton";
+import Input from "@mui/material/Input";
+import InputAdornment from "@mui/material/InputAdornment";
+import Tooltip from "@mui/material/Tooltip";
+import IconButton from "@mui/material/IconButton";
 //icons
 import { BiSearchAlt } from "react-icons/bi";
 import { MdAccountCircle } from "react-icons/md";
@@ -41,7 +41,7 @@ const Navbar: React.FC = () => {
   const site = location.pathname.split("/")[1];
   const subamin = subaminState((state) => state.subamin);
   useEffect(() => {
-    if (isLogged) fetchLoggedUser();
+    fetchLoggedUser();
   }, [isLogged, fetchLoggedUser]);
   //handlers
   const searchHandler = (text: string) => {

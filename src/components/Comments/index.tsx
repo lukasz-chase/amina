@@ -13,8 +13,8 @@ import { User } from "../../interfaces";
 //format time
 import TimeAgo from "react-timeago";
 //material-ui
-import TextField from "@material-ui/core/TextField";
-import Input from "@material-ui/core/Input";
+import TextField from "@mui/material/TextField";
+import Input from "@mui/material/Input";
 
 export type CommentTypes = {
   postId: String;

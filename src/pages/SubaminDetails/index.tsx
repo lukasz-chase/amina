@@ -20,7 +20,7 @@ import { BottomScrollListener } from "react-bottom-scroll-listener";
 //icons
 import { GiCakeSlice } from "react-icons/gi";
 //axios
-import axios from "axios";
+import { deleteSubamin } from "../../api";
 import HelpComponent from "../../components/HelpComponent";
 //moment
 import moment from "moment";
@@ -42,7 +42,8 @@ const SubaminDetails: React.FC = () => {
   const { isLogged } = authState((state) => state);
   const { darkMode: darkmodeState, classicView } = viewState((state) => state);
   const darkMode: boolean = isLogged ? loggedUser.darkMode : darkmodeState;
-  const [deleteSubamin, setDeleteSubamin] = useState<boolean>(false);
+  const [deleteSubaminQuestion, setDeleteSubaminQuestion] =
+    useState<boolean>(false);
   const history = useHistory<Location>();
   //useEffect
   useEffect(() => {
@@ -61,10 +62,9 @@ const SubaminDetails: React.FC = () => {
     window.scrollTo(0, 0);
   };
   const isAuthor = () => subamin.authorId === loggedUser._id;
-  const deleteSubaminHandler = () => {
-    axios
-      .delete(`https://amina-server.herokuapp.com/subamins/${subamin._id}`)
-      .then(() => history.push(`/`));
+  const deleteSubaminHandler = async () => {
+    await deleteSubamin(subamin._id);
+    history.push(`/`);
   };
   return (
     <DetailsComponent
@@ -145,18 +145,18 @@ const SubaminDetails: React.FC = () => {
             )}
             {subamin.authorId === loggedUser._id && (
               <p
-                onClick={() => setDeleteSubamin(true)}
+                onClick={() => setDeleteSubaminQuestion(true)}
                 className="delete-subamin"
               >
                 Delete Subamin
               </p>
             )}
 
-            {deleteSubamin && (
+            {deleteSubaminQuestion && (
               <div className="delete">
                 <span>Are you sure?</span>
                 <p onClick={() => deleteSubaminHandler()}>Yes</p>
-                <p onClick={() => setDeleteSubamin(false)}>No</p>
+                <p onClick={() => setDeleteSubaminQuestion(false)}>No</p>
               </div>
             )}
           </div>

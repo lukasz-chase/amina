@@ -21,6 +21,8 @@ import ImageCarousel from "../../components/ImageCarousel";
 import Comments from "../../components/Comments";
 //notistack
 import { useSnackbar } from "notistack";
+//api
+import { deletePost } from "../../api";
 
 const PostDetails: React.FC = () => {
   //state
@@ -76,7 +78,10 @@ const PostDetails: React.FC = () => {
     closeSnackbar(0);
   };
 
-  const deletePostHandler = () => {};
+  const deletePostHandler = async () => {
+    await deletePost(postDetails._id);
+    history.push("/");
+  };
   const addToSavedHandler = () => {
     if (isLogged) {
       savePost(loggedUser._id, postDetails._id);
@@ -137,7 +142,7 @@ const PostDetails: React.FC = () => {
               </div>
             </div>
             <div className="post-details">
-              <span className="post-title">{postDetails.title}</span>
+              <b className="post-title">{postDetails.title}</b>
               <ImageCarousel images={postDetails.images} />
               <span>{postDetails.description}</span>
               {postDetails.authorId === loggedUser._id && (

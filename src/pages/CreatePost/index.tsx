@@ -67,7 +67,7 @@ const CreatePost: React.FC = () => {
   const addPost = () => {
     if (postData.title !== "") {
       const formData = new FormData();
-      formData.append("desc", postData.desc);
+      formData.append("description", postData.desc);
       formData.append("title", postData.title);
       formData.append("subaminId", JSON.stringify(subamin._id));
       formData.append("subaminName", subamin.name);

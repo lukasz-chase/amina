@@ -8,7 +8,7 @@ import authState from "../../state/authState";
 //interfaces
 import { User } from "../../interfaces";
 //material ui
-import Input from "@material-ui/core/Input";
+import Input from "@mui/material/Input";
 //location
 import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";

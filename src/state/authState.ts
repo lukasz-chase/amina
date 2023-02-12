@@ -11,8 +11,13 @@ type Store = {
   setSignUpError: (msg: string) => void;
   setSignInError: (msg: string) => void;
   authData: string;
-  signIn: (formData: formData, history: any, fromUpvote: string) => void;
-  signUp: (formData: formData, history: any) => void;
+  signIn: (
+    formData: formData,
+    history: any,
+    fromUpvote: string,
+    snackbarHandler: any
+  ) => void;
+  signUp: (formData: formData, history: any, snackbarHandler: any) => void;
   logOut: () => void;
 };
 
@@ -21,9 +26,9 @@ const authState = create<Store>((set) => ({
   signInError: false,
   setSignInError: (msg) => set({ signInError: msg }),
   signUpError: false,
-  isLogged: false,
+  isLogged: localStorage.getItem("profile") ? true : false,
   authData: "",
-  signIn: async (formData, history, fromUpvote) => {
+  signIn: async (formData, history, fromUpvote, snackbarHandler) => {
     try {
       const { data } = await api.signIn(formData);
       set({ signInError: false });
@@ -35,14 +40,20 @@ const authState = create<Store>((set) => ({
       } else {
         history.push("/");
       }
+      if (data) {
+        snackbarHandler("signed in", "success");
+      }
     } catch (error: any) {
       set({ signInError: error.response.data.message });
       console.log(error);
     }
   },
-  signUp: async (formData, history) => {
+  signUp: async (formData, history, snackbarHandler) => {
     try {
       const { data } = await api.signUp(formData);
+      if (data) {
+        snackbarHandler("account created successfully", "success");
+      }
       set({ signUpError: false });
       localStorage.setItem("profile", JSON.stringify({ ...data }));
       set({ authData: data });

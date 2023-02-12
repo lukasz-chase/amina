@@ -3,7 +3,9 @@ import { formData } from "./pages/LoginPage";
 import { PostData } from "./pages/CreatePost";
 import { SubaminData } from "./pages/CreateCommunity";
 
-const API = axios.create({ baseURL: "https://amina-server.herokuapp.com//" });
+const API = axios.create({
+  baseURL: "https://sleepy-hare-turtleneck.cyclic.app/",
+});
 
 API.interceptors.request.use((req) => {
   if (localStorage.getItem("profile")) {
@@ -82,6 +84,8 @@ export const getSubaminsBySearch = (
     `subamins/search/?searchQuery=${searchQuery}&limit=${limit}&orderBy=${order}`
   );
 export const getTopSubamins = () => API.get(`subamins/top`);
+export const deleteSubamin = (id: String) =>
+  API.delete(`subamins/delete/${id}`);
 
 //COMMENTS
 export const getComments = (id: String, order: string) =>
