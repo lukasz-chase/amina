@@ -59,8 +59,5 @@
   "devDependencies": {
     "@types/crypto-js": "^4.0.1",
     "@types/styled-components": "^5.1.9"
-  },
-  {
-    "exports": "./lib/tokenize"
   }
 }
